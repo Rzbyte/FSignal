@@ -1,24 +1,24 @@
 {
-  "captured_at": "2026-09-03T21:45:30.655627+00:00",
+  "captured_at": "2026-09-03T21:59:08.612151+00:00",
   "captured_from": "https://fsignal-production.up.railway.app/ledger",
   "note": "Every candidate the bot evaluated and what it decided, including each suppression's reason code. This is the precision claim.",
   "body": {
     "summary": {
       "verdicts": {
         "alerted": 3,
-        "already_official": 19,
+        "already_official": 20,
         "possible": 19,
-        "suppressed": 34
+        "suppressed": 38
       },
       "reasons": {
-        "no_company_identity": 30,
+        "no_company_identity": 34,
+        "already_official": 20,
         "below_confidence_threshold": 19,
-        "already_official": 19,
         "context_demo_day:demo day": 2,
         "context_hiring:hiring for": 1,
         "context_hiring:hiring a": 1
       },
-      "evaluated": 75
+      "evaluated": 80
     },
     "candidates": [
       {
@@ -31,7 +31,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 1
       },
       {
@@ -44,7 +44,7 @@
         "verdict": "suppressed",
         "reason": "context_hiring:hiring for",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -57,7 +57,7 @@
         "verdict": "suppressed",
         "reason": "context_hiring:hiring a",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -70,7 +70,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -83,7 +83,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 2
       },
       {
@@ -96,7 +96,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 3
       },
       {
@@ -109,7 +109,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -122,7 +122,7 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 4
       },
       {
@@ -135,7 +135,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 6
       },
       {
@@ -148,7 +148,7 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 32
       },
       {
@@ -161,21 +161,8 @@
         "verdict": "suppressed",
         "reason": "context_demo_day:demo day",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
-      },
-      {
-        "source": "linkedin",
-        "external_id": "f1a21193acc57c2beb1e224c",
-        "url": "https://www.linkedin.com/posts/merlinkafka_rex-yc-s26-is-featured-in-forbes-as-one-activity-7501320283367198720-5V2r",
-        "company_name": "Rex",
-        "batch": "S26",
-        "program": "yc",
-        "verdict": "already_official",
-        "reason": "already_official",
-        "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
-        "signal_id": 33
       },
       {
         "source": "linkedin",
@@ -187,7 +174,7 @@
         "verdict": "suppressed",
         "reason": "context_demo_day:demo day",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -200,7 +187,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 34
       },
       {
@@ -213,21 +200,21 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 35
       },
       {
         "source": "linkedin",
-        "external_id": "fa20cf5a8aa2a8d0deb37b4d",
-        "url": "https://www.linkedin.com/posts/yahia-bakour_back-to-regularly-scheduled-programming-activity-7501176831946149888-SKhY",
-        "company_name": "New case study unlocked OpenTag",
+        "external_id": "f1a21193acc57c2beb1e224c",
+        "url": "https://www.linkedin.com/posts/merlinkafka_rex-yc-s26-is-featured-in-forbes-as-one-activity-7501320283367198720-5V2r",
+        "company_name": "Rex",
         "batch": "S26",
         "program": "yc",
-        "verdict": "possible",
-        "reason": "below_confidence_threshold",
+        "verdict": "already_official",
+        "reason": "already_official",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
-        "signal_id": 36
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
+        "signal_id": 33
       },
       {
         "source": "linkedin",
@@ -239,7 +226,7 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 37
       },
       {
@@ -252,8 +239,21 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 38
+      },
+      {
+        "source": "linkedin",
+        "external_id": "fa20cf5a8aa2a8d0deb37b4d",
+        "url": "https://www.linkedin.com/posts/yahia-bakour_back-to-regularly-scheduled-programming-activity-7501176831946149888-SKhY",
+        "company_name": "New case study unlocked OpenTag",
+        "batch": "S26",
+        "program": "yc",
+        "verdict": "possible",
+        "reason": "below_confidence_threshold",
+        "confidence": 50,
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
+        "signal_id": 36
       },
       {
         "source": "linkedin",
@@ -265,21 +265,21 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 39
       },
       {
         "source": "linkedin",
-        "external_id": "9d988161d6a2d394025fe2eb",
-        "url": "https://www.linkedin.com/posts/marcus-lima-144974101_meet-the-yc-startups-betting-on-what-comes-activity-7501326910031994880-ZOVM",
-        "company_name": "have Torus",
+        "external_id": "414f1c9bbed92819e465b0de",
+        "url": "https://www.linkedin.com/posts/harper-dammann-smith_glad-to-have-you-onboard-yotam-activity-7501118071378665472-YGf8",
+        "company_name": null,
         "batch": "S26",
         "program": "yc",
-        "verdict": "possible",
-        "reason": "below_confidence_threshold",
-        "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
-        "signal_id": 40
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
+        "signal_id": null
       },
       {
         "source": "linkedin",
@@ -291,7 +291,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 62,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 41
       },
       {
@@ -304,7 +304,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 62,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 7
       },
       {
@@ -317,7 +317,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -330,20 +330,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "linkedin",
-        "external_id": "f05d5d62b06af1fbdddbf15a",
-        "url": "https://www.linkedin.com/posts/mehereshyeditha_im-excited-to-share-that-waruna-and-i-are-activity-7501360052382044160-pfj_",
-        "company_name": null,
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -356,7 +343,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -369,7 +356,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -382,7 +369,7 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 50,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": 8
       },
       {
@@ -395,7 +382,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -408,7 +395,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.945597+00:00",
+        "evaluated_at": "2026-09-03T21:57:51.756144+00:00",
         "signal_id": null
       },
       {
@@ -421,7 +408,7 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 10
       },
       {
@@ -434,7 +421,7 @@
         "verdict": "alerted",
         "reason": null,
         "confidence": 75,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 9
       },
       {
@@ -447,7 +434,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": null
       },
       {
@@ -460,7 +447,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": null
       },
       {
@@ -473,7 +460,7 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 11
       },
       {
@@ -486,7 +473,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": null
       },
       {
@@ -499,7 +486,7 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 12
       },
       {
@@ -512,7 +499,7 @@
         "verdict": "alerted",
         "reason": null,
         "confidence": 75,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 14
       },
       {
@@ -525,7 +512,7 @@
         "verdict": "possible",
         "reason": "below_confidence_threshold",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 13
       },
       {
@@ -538,7 +525,7 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": null
       },
       {
@@ -551,7 +538,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 16
       },
       {
@@ -564,7 +551,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 17
       },
       {
@@ -577,7 +564,7 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 18
       },
       {
@@ -590,8 +577,21 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2090897001802236090",
+        "url": "https://x.com/ycombinator/status/2090897001802236090",
+        "company_name": "@tryStudioai",
+        "batch": "S26",
+        "program": "yc",
+        "verdict": "already_official",
+        "reason": "already_official",
+        "confidence": 55,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": 19
       },
       {
         "source": "x",
@@ -603,21 +603,8 @@
         "verdict": "suppressed",
         "reason": "no_company_identity",
         "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2090897001802236090",
-        "url": "https://x.com/ycombinator/status/2090897001802236090",
-        "company_name": "@tryStudioai",
-        "batch": "S26",
-        "program": "yc",
-        "verdict": "possible",
-        "reason": "below_confidence_threshold",
-        "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": 19
       },
       {
         "source": "x",
@@ -629,8 +616,21 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 30
+      },
+      {
+        "source": "x",
+        "external_id": "2084660787495227787",
+        "url": "https://x.com/christophersaum/status/2084660787495227787",
+        "company_name": null,
+        "batch": "S26",
+        "program": "yc",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
       },
       {
         "source": "x",
@@ -639,24 +639,11 @@
         "company_name": "@florin_hq",
         "batch": "S26",
         "program": "yc",
-        "verdict": "possible",
-        "reason": "below_confidence_threshold",
+        "verdict": "already_official",
+        "reason": "already_official",
         "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 20
-      },
-      {
-        "source": "x",
-        "external_id": "2085139536955220365",
-        "url": "https://x.com/alexdanilowicz/status/2085139536955220365",
-        "company_name": null,
-        "batch": null,
-        "program": "yc",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
       },
       {
         "source": "x",
@@ -668,8 +655,333 @@
         "verdict": "already_official",
         "reason": "already_official",
         "confidence": 80,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
         "signal_id": 22
+      },
+      {
+        "source": "x",
+        "external_id": "2085139536955220365",
+        "url": "https://x.com/alexdanilowicz/status/2085139536955220365",
+        "company_name": null,
+        "batch": null,
+        "program": "yc",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2085435749025923312",
+        "url": "https://x.com/herdrdev/status/2085435749025923312",
+        "company_name": null,
+        "batch": "F26",
+        "program": "yc",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2087018691338908144",
+        "url": "https://x.com/StackDhruv/status/2087018691338908144",
+        "company_name": null,
+        "batch": "S26",
+        "program": "yc",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2087980421736812792",
+        "url": "https://x.com/hanghuang_/status/2087980421736812792",
+        "company_name": null,
+        "batch": "P26",
+        "program": "yc",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2085818736066314240",
+        "url": "https://x.com/ConnectedPak/status/2085818736066314240",
+        "company_name": null,
+        "batch": null,
+        "program": "yc",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2085177090274677192",
+        "url": "https://x.com/paulg/status/2085177090274677192",
+        "company_name": null,
+        "batch": null,
+        "program": "yc",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2085491356932157803",
+        "url": "https://x.com/betterhn50/status/2085491356932157803",
+        "company_name": "Herdr",
+        "batch": null,
+        "program": "yc",
+        "verdict": "already_official",
+        "reason": "already_official",
+        "confidence": 55,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": 25
+      },
+      {
+        "source": "x",
+        "external_id": "2086900835712368971",
+        "url": "https://x.com/stedmanhalliday/status/2086900835712368971",
+        "company_name": null,
+        "batch": "F26",
+        "program": "yc",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2087572409155289368",
+        "url": "https://x.com/_CallMeMacy/status/2087572409155289368",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2088398259202949281",
+        "url": "https://x.com/rayandabbagh/status/2088398259202949281",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2094917743573348468",
+        "url": "https://x.com/speedrun/status/2094917743573348468",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2085018034788556957",
+        "url": "https://x.com/dimakhanarin/status/2085018034788556957",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2090083105533219025",
+        "url": "https://x.com/thetalentcarver/status/2090083105533219025",
+        "company_name": "MUNARI LABS",
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "possible",
+        "reason": "below_confidence_threshold",
+        "confidence": 55,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": 26
+      },
+      {
+        "source": "x",
+        "external_id": "2085877887375458675",
+        "url": "https://x.com/abouelatta_ali/status/2085877887375458675",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2085774924455743696",
+        "url": "https://x.com/byjasonz/status/2085774924455743696",
+        "company_name": null,
+        "batch": null,
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2087572411780882540",
+        "url": "https://x.com/_CallMeMacy/status/2087572411780882540",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2085065436823966020",
+        "url": "https://x.com/KSimback/status/2085065436823966020",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:57:49.776319+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "linkedin",
+        "external_id": "0ef878db444fbd06540c408a",
+        "url": "https://www.linkedin.com/posts/subhashish30_time100-ai-2026-utkarsh-saxena-activity-7501172239375949824-qrGY",
+        "company_name": "Adalat AI",
+        "batch": "F26",
+        "program": "yc",
+        "verdict": "possible",
+        "reason": "below_confidence_threshold",
+        "confidence": 50,
+        "evaluated_at": "2026-09-03T21:46:30.493569+00:00",
+        "signal_id": 43
+      },
+      {
+        "source": "linkedin",
+        "external_id": "9d988161d6a2d394025fe2eb",
+        "url": "https://www.linkedin.com/posts/marcus-lima-144974101_meet-the-yc-startups-betting-on-what-comes-activity-7501326910031994880-ZOVM",
+        "company_name": "have Torus",
+        "batch": "S26",
+        "program": "yc",
+        "verdict": "possible",
+        "reason": "below_confidence_threshold",
+        "confidence": 50,
+        "evaluated_at": "2026-09-03T21:46:30.493569+00:00",
+        "signal_id": 40
+      },
+      {
+        "source": "linkedin",
+        "external_id": "f05d5d62b06af1fbdddbf15a",
+        "url": "https://www.linkedin.com/posts/mehereshyeditha_im-excited-to-share-that-waruna-and-i-are-activity-7501360052382044160-pfj_",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:46:30.493569+00:00",
+        "signal_id": null
+      },
+      {
+        "source": "x",
+        "external_id": "2092531627482321339",
+        "url": "https://x.com/10xdhruv/status/2092531627482321339",
+        "company_name": "Sirsha",
+        "batch": "F26",
+        "program": "yc",
+        "verdict": "possible",
+        "reason": "below_confidence_threshold",
+        "confidence": 55,
+        "evaluated_at": "2026-09-03T21:46:28.717510+00:00",
+        "signal_id": 42
+      },
+      {
+        "source": "x",
+        "external_id": "2092160053566435737",
+        "url": "https://x.com/OfficialINDIAai/status/2092160053566435737",
+        "company_name": "@Adalat_AI",
+        "batch": "F26",
+        "program": "yc",
+        "verdict": "alerted",
+        "reason": null,
+        "confidence": 75,
+        "evaluated_at": "2026-09-03T21:46:28.717510+00:00",
+        "signal_id": 27
+      },
+      {
+        "source": "x",
+        "external_id": "2092290884805275736",
+        "url": "https://x.com/sirsho29/status/2092290884805275736",
+        "company_name": "Sirsha",
+        "batch": "F26",
+        "program": "yc",
+        "verdict": "possible",
+        "reason": "below_confidence_threshold",
+        "confidence": 55,
+        "evaluated_at": "2026-09-03T21:46:28.717510+00:00",
+        "signal_id": 15
+      },
+      {
+        "source": "x",
+        "external_id": "2085511941209162149",
+        "url": "https://x.com/hackernewstop5/status/2085511941209162149",
+        "company_name": "Herdr",
+        "batch": null,
+        "program": "yc",
+        "verdict": "already_official",
+        "reason": "already_official",
+        "confidence": 55,
+        "evaluated_at": "2026-09-03T21:46:28.717510+00:00",
+        "signal_id": 31
+      },
+      {
+        "source": "x",
+        "external_id": "2087943599891923050",
+        "url": "https://x.com/s_julio_cezar/status/2087943599891923050",
+        "company_name": null,
+        "batch": "SR007",
+        "program": "speedrun",
+        "verdict": "suppressed",
+        "reason": "no_company_identity",
+        "confidence": 0,
+        "evaluated_at": "2026-09-03T21:46:28.717510+00:00",
+        "signal_id": null
       },
       {
         "source": "x",
@@ -683,214 +995,6 @@
         "confidence": 55,
         "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
         "signal_id": 23
-      },
-      {
-        "source": "x",
-        "external_id": "2087018691338908144",
-        "url": "https://x.com/StackDhruv/status/2087018691338908144",
-        "company_name": null,
-        "batch": "S26",
-        "program": "yc",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2087980421736812792",
-        "url": "https://x.com/hanghuang_/status/2087980421736812792",
-        "company_name": null,
-        "batch": "P26",
-        "program": "yc",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2085435749025923312",
-        "url": "https://x.com/herdrdev/status/2085435749025923312",
-        "company_name": "Herdr",
-        "batch": null,
-        "program": "yc",
-        "verdict": "already_official",
-        "reason": "already_official",
-        "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": 24
-      },
-      {
-        "source": "x",
-        "external_id": "2085511941209162149",
-        "url": "https://x.com/hackernewstop5/status/2085511941209162149",
-        "company_name": "Herdr",
-        "batch": null,
-        "program": "yc",
-        "verdict": "already_official",
-        "reason": "already_official",
-        "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": 31
-      },
-      {
-        "source": "x",
-        "external_id": "2085818736066314240",
-        "url": "https://x.com/ConnectedPak/status/2085818736066314240",
-        "company_name": null,
-        "batch": null,
-        "program": "yc",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2085491356932157803",
-        "url": "https://x.com/betterhn50/status/2085491356932157803",
-        "company_name": "Herdr",
-        "batch": null,
-        "program": "yc",
-        "verdict": "already_official",
-        "reason": "already_official",
-        "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": 25
-      },
-      {
-        "source": "x",
-        "external_id": "2087572409155289368",
-        "url": "https://x.com/_CallMeMacy/status/2087572409155289368",
-        "company_name": null,
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2088398259202949281",
-        "url": "https://x.com/rayandabbagh/status/2088398259202949281",
-        "company_name": null,
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2094917743573348468",
-        "url": "https://x.com/speedrun/status/2094917743573348468",
-        "company_name": null,
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2085018034788556957",
-        "url": "https://x.com/dimakhanarin/status/2085018034788556957",
-        "company_name": null,
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2090083105533219025",
-        "url": "https://x.com/thetalentcarver/status/2090083105533219025",
-        "company_name": "MUNARI LABS",
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "possible",
-        "reason": "below_confidence_threshold",
-        "confidence": 55,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": 26
-      },
-      {
-        "source": "x",
-        "external_id": "2085877887375458675",
-        "url": "https://x.com/abouelatta_ali/status/2085877887375458675",
-        "company_name": null,
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2085774924455743696",
-        "url": "https://x.com/byjasonz/status/2085774924455743696",
-        "company_name": null,
-        "batch": null,
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2087572411780882540",
-        "url": "https://x.com/_CallMeMacy/status/2087572411780882540",
-        "company_name": null,
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2085065436823966020",
-        "url": "https://x.com/KSimback/status/2085065436823966020",
-        "company_name": null,
-        "batch": "SR007",
-        "program": "speedrun",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:45:02.685163+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2092160053566435737",
-        "url": "https://x.com/OfficialINDIAai/status/2092160053566435737",
-        "company_name": "@Adalat_AI",
-        "batch": "F26",
-        "program": "yc",
-        "verdict": "alerted",
-        "reason": null,
-        "confidence": 75,
-        "evaluated_at": "2026-09-03T21:41:11.220384+00:00",
-        "signal_id": 27
       },
       {
         "source": "x",
@@ -917,45 +1021,6 @@
         "confidence": 55,
         "evaluated_at": "2026-09-03T21:41:11.220384+00:00",
         "signal_id": 29
-      },
-      {
-        "source": "x",
-        "external_id": "2084660787495227787",
-        "url": "https://x.com/christophersaum/status/2084660787495227787",
-        "company_name": null,
-        "batch": "S26",
-        "program": "yc",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:41:11.220384+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2085177090274677192",
-        "url": "https://x.com/paulg/status/2085177090274677192",
-        "company_name": null,
-        "batch": null,
-        "program": "yc",
-        "verdict": "suppressed",
-        "reason": "no_company_identity",
-        "confidence": 0,
-        "evaluated_at": "2026-09-03T21:41:11.220384+00:00",
-        "signal_id": null
-      },
-      {
-        "source": "x",
-        "external_id": "2092290884805275736",
-        "url": "https://x.com/sirsho29/status/2092290884805275736",
-        "company_name": "Sirsha",
-        "batch": "F26",
-        "program": "yc",
-        "verdict": "possible",
-        "reason": "below_confidence_threshold",
-        "confidence": 55,
-        "evaluated_at": "2026-09-03T21:39:07.663495+00:00",
-        "signal_id": 15
       },
       {
         "source": "x",
