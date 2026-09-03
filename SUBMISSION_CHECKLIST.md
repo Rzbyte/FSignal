@@ -39,10 +39,8 @@ to it. Unticked boxes state what is actually blocking them.
 ## Deployment and evidence
 
 - [x] Docker Compose with persistent volume and healthcheck
-- [ ] Deployed at a public HTTPS URL — not yet deployed
-- [ ] Pond agent published and healthy — needs the deployment above; `POND_ACCESS_KEY` and
-      `PUBLIC_BASE_URL` are still unset. The protocol implementation itself is complete and
-      tested (`pytest -k pond`).
+- [x] Deployed at a public HTTPS URL — https://fsignal-production.up.railway.app
+- [x] Pond agent published and healthy — POND_ACCESS_KEY and PUBLIC_BASE_URL set, and the agent is registered.
 - [ ] Real Slack screenshots in `evidence/` — pending a live run against the deployment
 - [ ] 2-minute demo recording — pending the above
 
