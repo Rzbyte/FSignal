@@ -631,12 +631,34 @@ def test_source_state_backoff_no_failures():
     assert state.backoff_seconds() == 600
 
 
-def test_source_state_backoff_one_failure():
-    from app.scheduler import SourceState
-    state = SourceState('x', interval_seconds=600)
+def test_a_single_transient_failure_retries_soon():
+    """A 502 from a search provider must not cost a full cadence.
+
+    A real one arrived from Serper at a four-hour LinkedIn interval: the source
+    went degraded, production_ready went false, and nothing was going to recheck
+    for four hours. "No penalty for a single transient error" is only true when
+    the interval is short.
+    """
+    from app.scheduler import FIRST_FAILURE_RETRY_SECONDS, SourceState
+    state = SourceState('linkedin', interval_seconds=4 * 60 * 60)
     state.consecutive_failures = 1
-    # 1 failure: still normal interval (single transient errors not penalised)
-    assert state.backoff_seconds() == 600
+    assert state.backoff_seconds() == FIRST_FAILURE_RETRY_SECONDS
+
+
+def test_the_fast_retry_never_outpaces_a_short_interval():
+    """On a tight cadence the interval is already the sooner of the two."""
+    from app.scheduler import SourceState
+    state = SourceState('x', interval_seconds=60)
+    state.consecutive_failures = 1
+    assert state.backoff_seconds() == 60
+
+
+def test_a_second_failure_means_it_was_not_a_blip():
+    """One extra request to find out, then back off -- not a retry loop."""
+    from app.scheduler import SourceState
+    state = SourceState('linkedin', interval_seconds=600)
+    state.consecutive_failures = 2
+    assert state.backoff_seconds() == 1200
 
 
 def test_source_state_backoff_two_failures():

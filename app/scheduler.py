@@ -47,6 +47,15 @@ MAX_BACKOFF_SECONDS: float = 3600.0  # 1 hour
 #: resolves in about eight seconds.
 WAITING_RETRY_SECONDS: float = 60.0
 
+#: How soon to retry after the *first* failure. Upstream search providers return
+#: the occasional 502, and at a four-hour cadence "no penalty for a single
+#: transient error" was a four-hour penalty: one blip left the source degraded,
+#: production_ready false, and nothing rechecking until the next scheduled run.
+#: Only the first failure gets this; a second means it is not a blip and the
+#: exponential backoff takes over, so a persistent fault still costs one extra
+#: request rather than a tight retry loop against a metered API.
+FIRST_FAILURE_RETRY_SECONDS: float = 300.0
+
 
 @dataclass
 class SourceState:
@@ -71,12 +80,16 @@ class SourceState:
     def backoff_seconds(self) -> float:
         """Return the seconds to wait before the next attempt.
 
-        - 0 or 1 consecutive failures → normal interval (no penalty for a
-          single transient error).
-        - 2+ failures → doubles each time, capped at MAX_BACKOFF_SECONDS.
+        - no failures → the normal interval.
+        - 1 failure → a short retry, because a transient upstream error should
+          not cost a full cadence. Never longer than the interval itself.
+        - 2+ failures → doubles each time from the interval, capped at
+          MAX_BACKOFF_SECONDS.
         """
-        if self.consecutive_failures <= 1:
+        if self.consecutive_failures == 0:
             return self.interval_seconds
+        if self.consecutive_failures == 1:
+            return min(FIRST_FAILURE_RETRY_SECONDS, self.interval_seconds)
         factor = min(2 ** (self.consecutive_failures - 1), 64)
         return min(self.interval_seconds * factor, MAX_BACKOFF_SECONDS)
 
