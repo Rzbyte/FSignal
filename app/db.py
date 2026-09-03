@@ -542,11 +542,23 @@ class Database:
                 rows,
             )
 
-    def timeline(self, signal_id: int) -> list[dict]:
+    def timeline(
+        self, signal_id: int | None = None, *, official_company_id: int | None = None
+    ) -> list[dict]:
+        """Events for one signal, or for one official company.
+
+        Directory additions -- and the NEW OFFICIAL alerts they raise -- carry no
+        signal, so keying the timeline on `signal_id` alone left those events
+        written but unreadable.
+        """
+        if (signal_id is None) == (official_company_id is None):
+            raise ValueError("pass exactly one of signal_id or official_company_id")
+        column = "signal_id" if signal_id is not None else "official_company_id"
         with self.connect() as connection:
             rows = connection.execute(
-                "SELECT * FROM timeline_events WHERE signal_id=? ORDER BY event_at ASC, id ASC",
-                (signal_id,),
+                f"SELECT * FROM timeline_events WHERE {column}=? "
+                "ORDER BY event_at ASC, id ASC",
+                (signal_id if signal_id is not None else official_company_id,),
             )
             result = []
             for row in rows:

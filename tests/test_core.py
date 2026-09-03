@@ -193,6 +193,52 @@ def test_official_incremental_alert_skips_baseline(tmp_path):
     assert notifier.events == ["official"]
 
 
+def test_a_delivered_official_alert_leaves_a_timeline_trace(tmp_path):
+    """The other three alert kinds record delivery; this one used not to.
+
+    The timeline gate was `if signal:`, and an official alert has no signal
+    behind it -- so a NEW OFFICIAL alert was sent with no record of having been
+    sent, and `/signals/{id}/timeline` could never account for it.
+    """
+    database = Database(str(tmp_path / "timeline.db"))
+    engine = RadarEngine(database, FakeNotifier())
+    company = Company("B", "yc_directory", "b", "https://yc.example/b")
+
+    asyncio.run(engine.ingest_official([], alert_new=False))
+    asyncio.run(engine.ingest_official([company], alert_new=True))
+    asyncio.run(engine.flush_alerts())
+
+    events = database.timeline(official_company_id=1)
+    assert "slack_alert_sent" in {event["event_type"] for event in events}
+
+
+def test_a_dangling_outbox_row_does_not_mute_the_queue(tmp_path):
+    """One unresolvable alert must not hold up every alert behind it.
+
+    A missing target used to raise AttributeError from inside the notifier.
+    That is not a per-alert failure, so the flush paused instead of retiring the
+    row -- and stayed paused for five attempts, with real alerts waiting.
+    """
+    database = Database(str(tmp_path / "dangling.db"))
+    notifier = FakeNotifier()
+    engine = RadarEngine(database, notifier)
+
+    # Points at an official company that was never written.
+    database.enqueue_alert("official:yc_directory:ghostrow", "official",
+                           official_company_id=9999)
+    asyncio.run(engine.ingest_official([], alert_new=False))
+    asyncio.run(
+        engine.ingest_official(
+            [Company("B", "yc_directory", "b", "https://yc.example/b")],
+            alert_new=True,
+        )
+    )
+    result = asyncio.run(engine.flush_alerts())
+
+    assert result["dead"] == 1          # the dangling row is retired, not retried
+    assert notifier.events == ["official"]  # the real alert still went out
+
+
 def test_pond_manifest_and_terminal_are_v1_compatible():
     data = manifest()
     assert data["protocol"] == "marketplace-agent"

@@ -88,6 +88,31 @@ CONFIRMED_COMPANY = {
     "url": "https://www.ycombinator.com/companies/lark",
 }
 
+# The real directory addition FSignal alerted on during a live scan, as
+# persisted -- it entered the Fall 2026 batch while this code was being written.
+ONEPATCH = {
+    "id": 6461,
+    "name": "OnePatch",
+    "source": "yc_directory",
+    "external_id": "onepatch",
+    "batch": "Fall 2026",
+    "url": "https://www.ycombinator.com/companies/onepatch",
+    "description": "Automate on-call at agent-scale.",
+    "first_seen_at": "2026-09-03T21:18:44.401303+00:00",
+}
+
+# A second post about a company already alerted on, which replies in-thread
+# rather than raising a new alert.
+CORROBORATING_SIGNAL = dict(
+    LARK,
+    id=11,
+    source="x",
+    url="https://x.com/janef/status/2090071721856712924",
+    author_name="Jane Founder",
+    author_handle="janef",
+    collection_mode="indexed_fallback",
+)
+
 #: Vocabulary that belongs to the implementation, never to the user.
 INTERNAL_TERMS = (
     "program_tag", "claim_anchor", "possessive", "deterministic", "regex",
@@ -113,6 +138,14 @@ def render(coro_factory):
 
 EARLY = render(lambda n: n.send_ghost(LARK))
 CONFIRMED = render(lambda n: n.send_confirmed(CONFIRMED_SIGNAL, CONFIRMED_COMPANY))
+
+# The other two variants a reader can actually receive. They used to ship
+# unvalidated: the Block Kit and symbol-hygiene checks below covered only the
+# two above, so a malformed NEW OFFICIAL payload would have reached Slack.
+NEW_OFFICIAL = render(lambda n: n.send_official(ONEPATCH))
+CORROBORATION = render(lambda n: n.send_corroboration(CORROBORATING_SIGNAL, "1.1"))
+
+ALL_VARIANTS = [EARLY, CONFIRMED, NEW_OFFICIAL, CORROBORATION]
 
 
 def all_text(payload) -> str:
@@ -361,7 +394,7 @@ def test_confirmed_shows_the_measured_transition():
 # --------------------------------------------------------------------------- #
 
 
-@pytest.mark.parametrize("payload", [EARLY, CONFIRMED])
+@pytest.mark.parametrize("payload", ALL_VARIANTS)
 def test_block_kit_limits_are_respected(payload):
     assert len(payload["blocks"]) <= 50
     assert len(payload["text"]) <= 3000
@@ -398,8 +431,10 @@ def test_no_single_giant_markdown_dump():
 
 
 def test_only_functional_symbols_are_used():
-    body = all_text(EARLY) + all_text(CONFIRMED)
-    allowed = {"🔥", "✅", "🔎", "⚡", "→", "·", "•"}
+    body = "".join(all_text(payload) for payload in ALL_VARIANTS)
+    # Each of these does a job: severity, verdict, receipt, state, navigation,
+    # separation, enumeration, and "one more of the same" on a threaded reply.
+    allowed = {"🔥", "✅", "🔎", "⚡", "➕", "→", "·", "•"}
     exotic = {
         ch for ch in body
         if ord(ch) > 0x2100 and ch not in allowed

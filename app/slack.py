@@ -223,6 +223,8 @@ class SlackNotifier:
         """A directory addition FSignal did not see announced beforehand."""
         is_yc = company.get("source") == "yc_directory"
         label = "YC" if is_yc else "SPEEDRUN"
+        # The header shouts; the status line is read as a sentence.
+        program = "YC" if is_yc else "Speedrun"
         company_name = company.get("name") or "Unknown"
         title = f"{CONFIRMED} NEW {label} COMPANY · {company_name}"
 
@@ -233,7 +235,11 @@ class SlackNotifier:
                     ("Company", company_name),
                     ("Batch", company.get("batch") or "Unknown"),
                     ("Program", label),
-                    ("Status", f"{CONFIRMED} Listed by the official directory"),
+                    ("Status", f"{CONFIRMED} Confirmed by {program}"),
+                    # When the row first entered our snapshot -- which is when we
+                    # could first have told anybody, not when the directory
+                    # published it.
+                    ("Detected", _pacific(company.get("first_seen_at"))),
                 ]
             ),
             self._context(f"`SOURCE · {label} DIRECTORY`"),

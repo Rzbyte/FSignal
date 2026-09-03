@@ -27,12 +27,25 @@ PER_ALERT_FAILURES = (
     "message_not_found",
     "thread_not_found",
     "unknown outbox alert kind",
+    "missing outbox target",
 )
 
 
 def _is_per_alert_failure(error: Exception) -> bool:
     text = str(error).lower()
     return any(marker in text for marker in PER_ALERT_FAILURES)
+
+
+def _require(row, description: str):
+    """The row an outbox entry points at, or a failure that only kills that entry.
+
+    A dangling reference used to surface as an ``AttributeError`` from inside the
+    notifier, which is not in ``PER_ALERT_FAILURES`` -- so one unresolvable row
+    retried five times and held every alert behind it in the queue.
+    """
+    if row is None:
+        raise RuntimeError(f"missing outbox target: {description}")
+    return row
 
 
 class RadarEngine:
@@ -342,7 +355,10 @@ class RadarEngine:
                 try:
                     signal = None
                     if alert["kind"] == "ghost":
-                        signal = self.db.get_signal(alert["signal_id"])
+                        signal = _require(
+                            self.db.get_signal(alert["signal_id"]),
+                            f"signal {alert['signal_id']}",
+                        )
                         response = await self.notifier.send_ghost(signal)
                         self.db.mark_alerted(alert["signal_id"], "ghost")
                         # Remember the Slack message so later corroboration for
@@ -354,36 +370,50 @@ class RadarEngine:
                             (response or {}).get("ts"),
                         )
                     elif alert["kind"] == "corroboration":
-                        signal = self.db.get_signal(alert["signal_id"])
+                        signal = _require(
+                            self.db.get_signal(alert["signal_id"]),
+                            f"signal {alert['signal_id']}",
+                        )
                         parent = self.db.company_alert(signal.get("company_key"), "ghost")
                         await self.notifier.send_corroboration(
                             signal, (parent or {}).get("slack_ts")
                         )
                         self.db.mark_alerted(alert["signal_id"], "ghost")
                     elif alert["kind"] == "confirmed":
-                        signal = self.db.get_signal(alert["signal_id"])
-                        company = self.db.get_official(alert["official_company_id"])
+                        signal = _require(
+                            self.db.get_signal(alert["signal_id"]),
+                            f"signal {alert['signal_id']}",
+                        )
+                        company = _require(
+                            self.db.get_official(alert["official_company_id"]),
+                            f"official company {alert['official_company_id']}",
+                        )
                         await self.notifier.send_confirmed(signal, company)
                         self.db.mark_alerted(alert["signal_id"], "confirmed")
                         self.db.record_company_alert(
                             signal.get("company_key"), "confirmed", signal["id"], None
                         )
                     elif alert["kind"] == "official":
-                        company = self.db.get_official(alert["official_company_id"])
+                        company = _require(
+                            self.db.get_official(alert["official_company_id"]),
+                            f"official company {alert['official_company_id']}",
+                        )
                         await self.notifier.send_official(company)
                     else:
                         raise RuntimeError(f"Unknown outbox alert kind: {alert['kind']}")
 
                     self.db.mark_alert_sent(alert["id"])
-                    if signal:
-                        self.db.record_timeline(
-                            f"alert:{alert['dedupe_key']}:sent",
-                            "slack_alert_sent",
-                            signal_id=signal["id"],
-                            official_company_id=alert.get("official_company_id"),
-                            source="slack",
-                            metadata={"kind": alert["kind"]},
-                        )
+                    # Every delivered alert lands on the timeline, including a
+                    # NEW OFFICIAL one -- which has no signal behind it, and used
+                    # to leave no trace of having been sent at all.
+                    self.db.record_timeline(
+                        f"alert:{alert['dedupe_key']}:sent",
+                        "slack_alert_sent",
+                        signal_id=signal["id"] if signal else None,
+                        official_company_id=alert.get("official_company_id"),
+                        source="slack",
+                        metadata={"kind": alert["kind"]},
+                    )
                     sent += 1
                 except Exception as exc:
                     last_error = str(exc)[:1000]
