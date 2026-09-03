@@ -1,0 +1,20 @@
+# Secrets must never enter a build context. docker-compose injects .env at
+# runtime via env_file, so the image never needs a copy of it.
+.env
+.env.*
+!.env.example
+
+# A host virtualenv is both huge and wrong for the container's platform.
+.venv/
+venv/
+
+# Local state and captured evidence belong on the mounted volume, not the image.
+data/
+evidence/
+
+.git/
+.github/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.log

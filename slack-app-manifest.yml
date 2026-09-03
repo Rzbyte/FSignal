@@ -1,0 +1,16 @@
+display_information:
+  name: FSignal
+  description: Early founder intelligence for GTM teams.
+  background_color: "#101114"
+features:
+  bot_user:
+    display_name: FSignal
+    always_online: true
+oauth_config:
+  scopes:
+    bot:
+      - chat:write
+settings:
+  org_deploy_enabled: false
+  socket_mode_enabled: false
+  token_rotation_enabled: false

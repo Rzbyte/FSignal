@@ -1,0 +1,1269 @@
+{
+ "captured_at": "2026-09-03",
+ "note": "Real Serper results for public LinkedIn posts, captured live. Labels were hand-checked: every expected_company below was verified to be a real company, and every expected_reason a correct suppression family.",
+ "candidates": [
+  {
+   "title": "Jonathan Li's Post - LinkedIn",
+   "snippet": "As Y Combinator's F26 batch gets closer, I've found myself reflecting more on my career journey thus far (as a likely still naive 26 year ...",
+   "link": "https://www.linkedin.com/posts/12lijonathan_as-y-combinators-f26-batch-gets-closer-activity-7500908161315565568-FHZi",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Lakshmi Narayana's Post - LinkedIn",
+   "snippet": "EVO HQ (YC F26) got into Y Combinator!! and I have my last YC interview rejection to thank for it. One thing I really appreciate about YC is ...",
+   "link": "https://www.linkedin.com/posts/lakshmi-narayana-ln_evo-hq-yc-f26-got-into-y-combinator-and-activity-7500206752949276672-4ibC",
+   "expected_company": "EVO HQ",
+   "expected_reason": null
+  },
+  {
+   "title": "YC F26 Application Deadline in 7 Days: Don't Miss Your Chance",
+   "snippet": "The YC F26 application deadline is in 7 days. One thing I noticed this past batch: startups entered the batch at very different stages.",
+   "link": "https://www.linkedin.com/posts/maxkolysh_the-yc-f26-application-deadline-is-in-7-days-activity-7485111947609157632-wtQ-",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "The demo that got us into YC F26 batch. | Sirsho Chakraborty",
+   "snippet": "The demo that got us into YC F26 batch. | 23 comments on LinkedIn.",
+   "link": "https://www.linkedin.com/posts/sirsho29_the-demo-that-got-us-into-yc-f26-batch-activity-7495851424841379840-o1Ow",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Jacob Ososke's Post - LinkedIn",
+   "snippet": "Orca Aerospace (YC F26) is coming out of stealth today and joining Y Combinator for the F26 batch! It has been my dream to build this ...",
+   "link": "https://www.linkedin.com/posts/ososke_orca-aerospace-yc-f26-is-coming-out-of-activity-7500719510925029376-ClTD",
+   "expected_company": "Orca Aerospace",
+   "expected_reason": null
+  },
+  {
+   "title": "Lantern AI (YC F26)'s Post - LinkedIn",
+   "snippet": "Lantern AI (YC F26)'s Post ... We're taking the Y Combinator F26 batch out for dim sum Spots filled up fast, so we opened a few more. Come meet ...",
+   "link": "https://www.linkedin.com/posts/ai-lantern_were-taking-the-y-combinator-f26-batch-out-activity-7500243577361522691-D1a6",
+   "expected_company": "Lantern AI",
+   "expected_reason": null
+  },
+  {
+   "title": "Satyam Singh's Post - LinkedIn",
+   "snippet": "Making something people want at Y Combinator F26. We are building simulations at Simulithic (YC F26) to model user behaviour at scale.",
+   "link": "https://www.linkedin.com/posts/satyamsingh2003_making-something-people-want-at-y-combinator-activity-7500039824335065090-3ecr",
+   "expected_company": "Simulithic",
+   "expected_reason": null
+  },
+  {
+   "title": "Jacqueline Cheong's Post - LinkedIn",
+   "snippet": "Decisions for Y Combinator's F26 batch were released last Friday. I remember when we first got into YC \u2013 there were a few people telling us ...",
+   "link": "https://www.linkedin.com/posts/jacqueline-cheong_decisions-for-y-combinators-f26-batch-were-activity-7500224748908347392-4MRs",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Collar Founders Share Their Journey from HDB to YC F26 - LinkedIn",
+   "snippet": "This is why we founded Collar (YC F26). Most founders will tell you why they cared about a problem, and why they wanted to build something ...",
+   "link": "https://www.linkedin.com/posts/jamiey3u_singapore-start-up-collar-ai-by-poly-grads-activity-7492228435076038656-NuUe",
+   "expected_company": "Collar",
+   "expected_reason": null
+  },
+  {
+   "title": "Thomas Chan's Post - LinkedIn",
+   "snippet": "Lantern AI (YC F26) is officially backed by Y Combinator. Here's the story of how we got here. We started as an AI interviewer.",
+   "link": "https://www.linkedin.com/posts/thomas-chan-7769281a8_lantern-ai-yc-f26-is-officially-backed-activity-7492758110038540288-jw4X",
+   "expected_company": "Lantern AI",
+   "expected_reason": null
+  },
+  {
+   "title": "Philip Meng's Post - LinkedIn",
+   "snippet": "I got into YC S26 as a high school senior, receiving $500k in funding to build my dreams instead of attending Stanford or Harvard.",
+   "link": "https://www.linkedin.com/posts/philip-meng_i-got-into-yc-s26-as-a-high-school-senior-activity-7459360482747965440-ZhhN",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Illume Labs (YC S26) is building one home for your health ... - LinkedIn",
+   "snippet": "Illume Labs (YC S26) is building one home for your health. Today, we have the ability to track more about our bodies than anybody in history ...",
+   "link": "https://www.linkedin.com/posts/y-combinator_illume-labs-yc-s26-is-building-one-home-activity-7485018188485718016-CXnR",
+   "expected_company": "Illume Labs",
+   "expected_reason": null
+  },
+  {
+   "title": "I built screenpipe | Louis Beaumont - LinkedIn",
+   "snippet": "I built screenpipe | YC S26 on a weekend in Thailand. It was never supposed to be a company. Today it's in Y Combinator S26.",
+   "link": "https://www.linkedin.com/posts/louis030195_i-built-screenpipe-yc-s26-on-a-weekend-activity-7462849679895134208-s7E3",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Y Combinator S26: AI for Product Management - LinkedIn",
+   "snippet": "Y Combinator S26: AI for Product Management ... Y Combinator just released their S26 request for startups. The two that stand out to me are \" ...",
+   "link": "https://www.linkedin.com/posts/charithlanka_y-combinator-just-released-their-s26-request-activity-7456054088565424128-29GJ",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Locke (YC S26) is changing the way companies and governments ...",
+   "snippet": "Locke (YC S26) is changing the way companies and governments work together. Their first focus is building their own AI-native government ...",
+   "link": "https://www.linkedin.com/posts/y-combinator_locke-yc-s26-is-changing-the-way-companies-activity-7491176319334903809-3cmA",
+   "expected_company": "Locke",
+   "expected_reason": null
+  },
+  {
+   "title": "Studio (YC S26) allows brands to engineer how their market will ...",
+   "snippet": "Studio (YC S26) allows brands to engineer how their market will respond to a new decision. Every launch is a bet on human behavior.",
+   "link": "https://www.linkedin.com/posts/y-combinator_studio-yc-s26-allows-brands-to-engineer-activity-7496627202218733568-sy3N",
+   "expected_company": "Studio",
+   "expected_reason": null
+  },
+  {
+   "title": "I got into Y Combinator S26! The past 6 months have felt like 2 years:",
+   "snippet": "I got into Y Combinator S26! The past 6 months ... Massive congratulations on YC S26 Wishing you and Codag a legendary journey ahead...",
+   "link": "https://www.linkedin.com/posts/mzxzhou_i-got-into-y-combinator-s26-the-past-6-activity-7464365183025717248-QEeY",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Florin (YC S26) is a full-stack insurance company with 0 ... - LinkedIn",
+   "snippet": "Florin (YC S26) is a full-stack insurance company with 0 underwriters. Today, insurance is a person matching an application PDF to a class ...",
+   "link": "https://www.linkedin.com/posts/y-combinator_florin-yc-s26-is-a-full-stack-insurance-activity-7491278191563612160-KYGW",
+   "expected_company": "Florin",
+   "expected_reason": null
+  },
+  {
+   "title": "Prodigy Research YC S26 Achieves 120% Returns with AI Model",
+   "snippet": "Prodigy Research (YC S26) is an AI lab that has trained the world's best foundation model for quantitative finance.",
+   "link": "https://www.linkedin.com/posts/y-combinator_prodigy-research-yc-s26-is-an-ai-lab-that-activity-7495543794893795329-oFQk",
+   "expected_company": "Prodigy Research",
+   "expected_reason": null
+  },
+  {
+   "title": "Pulkit Gupta's Post - LinkedIn",
+   "snippet": "Tsenta (YC S26) is now backed by Y Combinator This isn't a \u201cwe made it\u201d post. It's more like a checkpoint and a reminder of the loop that's ...",
+   "link": "https://www.linkedin.com/posts/pulkitgupta712_tsenta-yc-s26-is-now-backed-by-y-combinator-activity-7424474186670088192-4a25",
+   "expected_company": "Tsenta",
+   "expected_reason": null
+  },
+  {
+   "title": "we got into YC with just an idea. here's how we did it: five ... - LinkedIn",
+   "snippet": "we were going to build this company whether or not we got into YC so we kept on building the product, a real-time text to animation API for AI ...",
+   "link": "https://www.linkedin.com/posts/jonathan-z-liu_we-got-into-yc-with-just-an-idea-heres-activity-7290813935283318785-Dl7W",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Exactly 2 years ago, we got accepted into Y Combinator ... - LinkedIn",
+   "snippet": "Exactly 2 years ago, we got accepted into Y Combinator. Within 24 hours, I got the call from my future group partner: \u201cAre you in or out?",
+   "link": "https://www.linkedin.com/posts/amysunyan_exactly-2-years-ago-we-got-accepted-into-activity-7347976439335469057-JbtI",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Alberto Gimeno's Post - LinkedIn",
+   "snippet": "Joining Y Combinator isn't the final destination for founders\u2014it's the beginning of an entirely new journey. Becoming a part of YC is more ...",
+   "link": "https://www.linkedin.com/posts/gimenoalberto_joining-y-combinator-isnt-the-final-destination-activity-7285385258198294529-BrLK",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Joe (Beiqiao) Hu's Post - LinkedIn",
+   "snippet": "Excited to share that I got accepted into Y Combinator's AI Startup School 2026. I'll be back in San Francisco next month.",
+   "link": "https://www.linkedin.com/posts/hubeiqiao_excited-to-share-that-i-got-accepted-into-activity-7470194874907156483-g_ll",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Is joining Y Combinator worth giving up 7% of your company?",
+   "snippet": "Is joining Y Combinator worth giving up 7% of your company?",
+   "link": "https://www.linkedin.com/posts/lukashaffer_is-joining-y-combinator-worth-giving-up-7-activity-7440423444879519745-v6Jc",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "2015: We applied to Y Combinator and got rejected | Harsh Pokharna",
+   "snippet": "How to get accepted into Y Combinator: A guide ... Love this. What stands out most is the persistence, three rejections would've stopped most ...",
+   "link": "https://www.linkedin.com/posts/harsh-pokharna_2015-we-applied-to-y-combinator-and-got-activity-7373216764035428352-f0fp",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Het Dave's Post - LinkedIn",
+   "snippet": "Johann and I are joining Y Combinator! We are building Andustry (YC P26), the platform for buying and selling industrial goods across the ...",
+   "link": "https://www.linkedin.com/posts/hetdave_johann-and-i-are-joining-y-combinator-we-activity-7443688674510360576-3-_z",
+   "expected_company": "Andustry",
+   "expected_reason": null
+  },
+  {
+   "title": "Ayush Garg's Post - LinkedIn",
+   "snippet": "We've been accepted into Y Combinator's Fall 2025 batch. From the outside YC seemed like an unachievable dream for me.",
+   "link": "https://www.linkedin.com/posts/ayush4921_weve-been-accepted-into-y-combinators-fall-activity-7378573726608461824-kJwo",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Toni Lopez's Post - LinkedIn",
+   "snippet": "I got accepted into Y Combinator One month ago, I quit my job and lost my U.S. visa to build a big company. I was unemployed and without a ...",
+   "link": "https://www.linkedin.com/posts/tonilopezmr_i-got-accepted-into-y-combinator-one-month-activity-7380864556677554176-zdL0",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Ines Boutemadja's Post - LinkedIn",
+   "snippet": "We're joining Y Combinator with Klaimee (YC P26)! I'm incredibly proud to be the first Algerian woman founder to be part of YC .",
+   "link": "https://www.linkedin.com/posts/ines-boutemadja_were-joining-y-combinator-with-klaimee-activity-7446836678964711424-lUnd",
+   "expected_company": "Klaimee",
+   "expected_reason": null
+  },
+  {
+   "title": "A16Z SPEEDRUN 2026 UPDATE: I think most people secretly know ...",
+   "snippet": "A16Z SPEEDRUN 2026 UPDATE: I think most people secretly know if they ... Close menu. babe wake up - the sr006 skin pack bundle just dropped.",
+   "link": "https://www.linkedin.com/posts/andrewchen_a16z-speedrun-2026-update-i-think-most-people-activity-7368688388255723522-7ADN",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "update for a16z speedrun- It's now the FINAL week to ... - LinkedIn",
+   "snippet": "... SR007 are from July 27 through October 11, 2026 in San Francisco ... a16z speedrun is extremely selective. Join an elite community of ...",
+   "link": "https://www.linkedin.com/posts/andrewchen_update-for-a16z-speedrun-its-now-the-final-activity-7460045702304518144-V0xO",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "For everyone about to submit your a16z speedrun application ...",
+   "snippet": "For everyone about to submit your a16z speedrun application literally 30 seconds before the deadline... This is what happens after you ...",
+   "link": "https://www.linkedin.com/posts/ryanrigney_for-everyone-about-to-submit-your-a16z-speedrun-activity-7461779152921206784-nfB2",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC vs a16z: $500k vs $1M Funding - LinkedIn",
+   "snippet": "I hear murmurs around campuses that a16z speedrun is better than Y Combinator. The reasoning: \u201cSR gives you $1M, YC only gives you $500k\u201d.",
+   "link": "https://www.linkedin.com/posts/alexander-dungate_i-hear-murmurs-around-campuses-that-a16z-activity-7404608070976278529-Ea7p",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Brew Johnson posted this - LinkedIn",
+   "snippet": "Today is a16z speedrun 6 Demo Day. As a speedrun founder from the last batch I was lucky enough to get an early preview at the Alumni Demo ...",
+   "link": "https://www.linkedin.com/posts/brewjohnson_today-is-a16z-speedrun-6-demo-day-as-a-speedrun-activity-7449869839990513664-bbEQ",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "a16z speedrun's Post - LinkedIn",
+   "snippet": "Applying to a16z speedrun? Here's what we look for: 1/ We back early stage founders/companies (pre-seed/seed). You need clarity, speed, ...",
+   "link": "https://www.linkedin.com/posts/a16zspeedrun_applying-to-a16z-speedrun-heres-what-activity-7320149284555735040-abWp",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Sam Shank's Post - LinkedIn",
+   "snippet": "SR006 applications are now open! I'll be a Visiting Partner at a16z speedrun once again for this class, and I'm looking forward to working ...",
+   "link": "https://www.linkedin.com/posts/samshank_sr006-applications-are-now-open-ill-be-activity-7368691455625740289-Prth",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "come see us at speedrun demo day in 2 weeks - 14 April! So this is ...",
+   "snippet": "... a16z speedrun sr006!. 4mo Edited. Report this post; Close menu ... a16z speedrun is an absolutely outstanding program - so great to ...",
+   "link": "https://www.linkedin.com/posts/max-van-kleek_tldr-were-in-a16z-speedrun-come-see-activity-7444827652613386240-H4KP",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Here's how to improve your a16z speedrun application. | Robin Guo",
+   "snippet": "Here's how to improve your a16z speedrun application. 4 days till close! - Have a good hook. Traction? Repeat founder? Github stars?",
+   "link": "https://www.linkedin.com/posts/robin-guo_heres-how-to-improve-your-a16z-speedrun-activity-7376728721522741248-Y-r7",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Troy Kirwin's Post - LinkedIn",
+   "snippet": "Today we kick off our new a16z speedrun batch. SR007 This group of founders is truly special. They're embarking on a journey towards ...",
+   "link": "https://www.linkedin.com/posts/troykirwin_today-we-kick-off-our-new-a16z-speedrun-activity-7487927792161161216-4h4u",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Studio (YC S26) - LinkedIn",
+   "snippet": "Studio (YC S26) allows brands to engineer how their market will respond to a new decision. Every launch is a bet on human behavior.",
+   "link": "https://www.linkedin.com/company/trystudioai",
+   "expected_company": "Studio",
+   "expected_reason": null
+  },
+  {
+   "title": "Shepherd (YC S26) - LinkedIn",
+   "snippet": "I got into YC S26 as a high school senior, receiving $500k in funding to build my dreams instead of attending Stanford or Harvard.",
+   "link": "https://www.linkedin.com/company/shepherdai",
+   "expected_company": "Shepherd",
+   "expected_reason": null
+  },
+  {
+   "title": "Definite (YC S26) - LinkedIn",
+   "snippet": "Definite (YC S26). Software Development. San Francisco, California 251 followers. Get value out of your financial back-office without a migration.",
+   "link": "https://www.linkedin.com/company/usedefinite",
+   "expected_company": "Definite",
+   "expected_reason": null
+  },
+  {
+   "title": "Palisade (YC S26) - LinkedIn",
+   "snippet": "Palisade (YC S26). Computer and Network Security. AI that finds and fixes OS-level vulnerabilities across device fleets. Follow.",
+   "link": "https://www.linkedin.com/company/palisade-ai",
+   "expected_company": "Palisade",
+   "expected_reason": null
+  },
+  {
+   "title": "Erinys (YC S26) - LinkedIn",
+   "snippet": "Erinys (YC S26). Business Intelligence Platforms. We help lawyers start and scale AI-native law firms. Follow.",
+   "link": "https://www.linkedin.com/company/erinysai",
+   "expected_company": "Erinys",
+   "expected_reason": null
+  },
+  {
+   "title": "Collar (YC F26) - LinkedIn",
+   "snippet": "Collar (YC F26). Software Development. The platform for AI-native private market investors. Follow.",
+   "link": "https://www.linkedin.com/company/collarai",
+   "expected_company": "Collar",
+   "expected_reason": null
+  },
+  {
+   "title": "Marble (YC S26) - LinkedIn",
+   "snippet": "Marble (YC S26) has been growing 25% week over week for nearly three months. What we've learned is that the most successful operators are moving with extreme ...",
+   "link": "https://www.linkedin.com/company/joinmarble",
+   "expected_company": "Marble",
+   "expected_reason": null
+  },
+  {
+   "title": "Dream (YC S26) - LinkedIn",
+   "snippet": "Dream (YC S26). Software Development. Pocket-sized AI cameras that catch asset damage. Follow.",
+   "link": "https://www.linkedin.com/company/pingdream",
+   "expected_company": "Dream",
+   "expected_reason": null
+  },
+  {
+   "title": "Tsenta (YC S26) - LinkedIn",
+   "snippet": "Tsenta (YC S26). Software Development. San Francisco, Califronia 3,459 followers. We match you to roles, tailor your profile, and apply for ...",
+   "link": "https://www.linkedin.com/company/tsenta",
+   "expected_company": "Tsenta",
+   "expected_reason": null
+  },
+  {
+   "title": "Sidekick (YC S26) - LinkedIn",
+   "snippet": "Sidekick (YC S26). Software Development. San Francisco, California 838 followers. The AI agent that handles frontline operations over text.",
+   "link": "https://www.linkedin.com/company/textsidekick",
+   "expected_company": "Sidekick",
+   "expected_reason": null
+  },
+  {
+   "title": "YC Application Tips: Expert Review for YC X26 - LinkedIn",
+   "snippet": "... alumni feedback. If you are a founder applying for YC X26, get an expert level review here: https://lnkd.in/g7rK-Gyc.",
+   "link": "https://www.linkedin.com/posts/vishnu-acharya-322a78100_y-combinator-season-is-back-hard-truth-for-activity-7421842843536744448-Cb-a",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Saheed Akinbile's Post - LinkedIn",
+   "snippet": "Some news I'm deeply grateful to share: Minicor (YC X26), formerly Laminar, has been accepted into Y Combinator's Spring 2026 batch.",
+   "link": "https://www.linkedin.com/posts/saheed-akinbile_some-news-im-deeply-grateful-to-share-activity-7435814713696862208--6mj",
+   "expected_company": "Minicor",
+   "expected_reason": null
+  },
+  {
+   "title": "YC X26 Report: American Companies, Global Talent - LinkedIn",
+   "snippet": "Who's in YC X26? Extruct recently compiled statistics on the X26 batch and produced a great report on the topic.",
+   "link": "https://www.linkedin.com/posts/start-up-founders-club_yc-vc-startups-activity-7487079619808935936-fkyo",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Faizaan Chishtie's Post - LinkedIn",
+   "snippet": "So so incredibly grateful to share that Minicor (YC X26) (formerly Laminar) has been accepted into Y Combinator's upcoming Spring 2026 batch ...",
+   "link": "https://www.linkedin.com/posts/fchishtie_so-so-incredibly-grateful-to-share-that-minicor-activity-7435755691446788096-k6fw",
+   "expected_company": "Minicor",
+   "expected_reason": null
+  },
+  {
+   "title": "YC X26 Trends: AI Eats Software, Value Shifts to Regulated Layers ...",
+   "snippet": "YC X26 \u2014 ~205 companies \u2014 confirmed something I've been watching closely, especially for payments and programmable finance: \u201cAI is eating software\u201d is settled.",
+   "link": "https://www.linkedin.com/posts/karansachan_every-quarter-i-analyze-the-new-y-combinator-activity-7474496672719511553-4nBk",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Phillip Li's Post - LinkedIn",
+   "snippet": "Happy to share that Arga Labs (YC X26) is now backed by Y Combinator! Big up my guy Akira Tong. We're an applied product and research lab ...",
+   "link": "https://www.linkedin.com/posts/phillip-li-a28a84217_happy-to-share-that-arga-labs-yc-x26-is-activity-7431916382705057792-5rvf",
+   "expected_company": "Arga Labs",
+   "expected_reason": null
+  },
+  {
+   "title": "Yuvan Sundrani's Post - LinkedIn",
+   "snippet": "YC X26 is closing applications in 5 days YC changed my life and im pretty confident it would change yours too Always happy to help out and ...",
+   "link": "https://www.linkedin.com/posts/yuvan-sundrani_yc-x26-is-closing-applications-in-5-days-activity-7424499599756845056-M_5R",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Sanskar Jain's Post - LinkedIn",
+   "snippet": "YC X26 deadline to apply is February 9. Since some people reach out for tips on how to prepare a YC application, sharing my 2 cents here.",
+   "link": "https://www.linkedin.com/posts/sanskarjain_yc-x26-deadline-to-apply-is-february-9-activity-7422828434822840321-cB1d",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Alex Zheng's Post - LinkedIn",
+   "snippet": "Intelligence Factory (YC X26) flew me out to San Francisco for a 2-week trial for a founding engineer role, which meant owning the full end ...",
+   "link": "https://www.linkedin.com/posts/alexz3_intelligence-factory-yc-x26-flew-me-out-activity-7467588026165084160-13kp",
+   "expected_company": "Intelligence Factory",
+   "expected_reason": "context_hiring:founding engineer role"
+  },
+  {
+   "title": "Say hello to TesterArmy (YC X26)! Our mission is to change how AI ...",
+   "snippet": "Say hello to TesterArmy (YC X26)! Our mission is to change how AI-native teams test their apps. \u2192 Tests every Pull Request \u2192 One-click ...",
+   "link": "https://www.linkedin.com/posts/testerarmy_say-hello-to-testerarmy-yc-x26-our-mission-activity-7437195020924952576-t62f",
+   "expected_company": "TesterArmy",
+   "expected_reason": null
+  },
+  {
+   "title": "Konstantina Psoma's Post - LinkedIn",
+   "snippet": "I was rejected from Y Combinator 5 times. When they finally accepted me, I rejected them after figuring out something most founders miss.",
+   "link": "https://www.linkedin.com/posts/konstantina-psoma_i-was-rejected-from-y-combinator-5-times-activity-7416907386830929920-oMgj",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Atakan Yaman's Post - LinkedIn",
+   "snippet": "Two days ago, we got rejected from Y Combinator (YC) F26. It sucked for a bit. Not because YC changes whether we build EVRE.",
+   "link": "https://www.linkedin.com/posts/atakanyaman_two-days-ago-we-got-rejected-from-y-combinator-activity-7500193011843170304-jlyO",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Three years ago, my startup got rejected from Y Combinator. - LinkedIn",
+   "snippet": "Three years ago, my startup got rejected from Y Combinator ... I can relate without ever applying to YC. Your point about finding ...",
+   "link": "https://www.linkedin.com/posts/toby-egbuna_three-years-ago-my-startup-got-rejected-activity-7305935723839275008-PnPW",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Korsen Pace's Post - LinkedIn",
+   "snippet": "we officially got rejected from Y Combinator last night. and honestly? I'm glad. when I applied at 19 with no product, I convinced myself YC ...",
+   "link": "https://www.linkedin.com/posts/korsen-pace_we-officially-got-rejected-from-y-combinator-activity-7499452888528797696-QtcT",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Zeno Rocha's Post - LinkedIn",
+   "snippet": "Most people don't know this, but I got rejected from Y Combinator when I applied for the first time. Here's the full story.",
+   "link": "https://www.linkedin.com/posts/zenorocha_most-people-dont-know-this-but-i-got-rejected-activity-7347987290230611969-_pjW",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Somya Gupta's Post - LinkedIn",
+   "snippet": "Excited to announce that... I got rejected from Y Combinator ... I got rejected from Y Combinator Startup School for two years in a row.",
+   "link": "https://www.linkedin.com/posts/somya-gupta-sg_excited-to-announce-that-i-got-rejected-activity-7478834325896110081-OAu-",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "We got rejected from Y Combinator (was nice to hear that ... - LinkedIn",
+   "snippet": "We got rejected from Y Combinator (was nice to hear that we were in the top 10%), but I was just so proud of our Founder Video that I had to ...",
+   "link": "https://www.linkedin.com/posts/yashthakkar21_we-got-rejected-from-y-combinator-was-nice-activity-7470191754089201664-TLaZ",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC Application Advice: Disrupt, Solve, Prove, Scale - LinkedIn",
+   "snippet": "Thinking about applying to YC with their Request for Startups Fall 2025? Based on my experience\u2014interviewing at YC, advising YC founders, ...",
+   "link": "https://www.linkedin.com/posts/edkang99_startups-founder-ycombinator-activity-7369431146910150656-55my",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "Meghana Jagadeesh's Post - LinkedIn",
+   "snippet": "The night we got rejected from Y Combinator, I thought it was over. At the same time, getting selected for the YC interview had felt like a ...",
+   "link": "https://www.linkedin.com/posts/meghana-jagadeesh_the-night-we-got-rejected-from-y-combinator-activity-7280936104516624384-OA4k",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Soham Jani's Post - LinkedIn",
+   "snippet": "a month ago i was rejected from Y Combinator startup school. it felt pretty bad, almost like getting rejected from dream colleges, ...",
+   "link": "https://www.linkedin.com/posts/meetsoham_a-month-ago-i-was-rejected-from-y-combinator-activity-7488209244316413952-eUiz",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "OpenAI for Startups' Post - LinkedIn",
+   "snippet": "Congrats to the Y Combinator S26 batch! Today, the OpenAI Startups team joined YC Partner Day to spend time with founders building at the ...",
+   "link": "https://www.linkedin.com/posts/openai-for-startups_congrats-to-the-y-combinator-s26-batch-activity-7477510866775494656-qQVi",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "This is how Y Combinator Alumni Demo Day felt like yesterday",
+   "snippet": "This is how Y Combinator Alumni Demo Day felt like yesterday :) Congrats to the X25 YC companies for being one of the best batches in YC history ...",
+   "link": "https://www.linkedin.com/posts/gaurav-maken_this-is-how-y-combinator-alumni-demo-day-activity-7337892337991262211-WyUd",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Nurlybek Mursaliyev, PhD's Post - LinkedIn",
+   "snippet": "Congrats to all new Y Combinator companies! Keep building what people want. Also congratulations to the founders from Kazakhstan Dinmukhamed ...",
+   "link": "https://www.linkedin.com/posts/nurlybek_congrats-to-all-new-y-combinator-companies-activity-7217250128766586880-6H61",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Congratulations to the 2024 YC Top Companies! | John Foreman",
+   "snippet": "Over 90% were founded by 2 or more co-founders. Congrats to the founders who are making something people want! Congratulations to ...",
+   "link": "https://www.linkedin.com/posts/johnwforeman_congratulations-to-the-2024-yc-top-companies-activity-7191121141007056896-xe0y",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "Y Combinator's Post - LinkedIn",
+   "snippet": "Congrats to Common Paper (YC W23) on the launch of the standard ... Y Combinator's Post. View organization page for Y Combinator. Y ...",
+   "link": "https://www.linkedin.com/posts/y-combinator_congrats-to-common-paper-yc-w23-on-the-activity-7242246007365795840-HpjN",
+   "expected_company": "Common Paper",
+   "expected_reason": "context_congratulating_others:congrats to"
+  },
+  {
+   "title": "Rippling's Post - LinkedIn",
+   "snippet": "Congrats again to every founder who pitched this week at Y Combinator Demo Day! Despite the rain, W25 really brought the energy.",
+   "link": "https://www.linkedin.com/posts/rippling_congrats-again-to-every-founder-who-pitched-activity-7306328319447162881-Xha5",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Y Combinator's Post - LinkedIn",
+   "snippet": "Y Combinator's Post ... Congrats to the teams. Especially interesting to see infrastructure-heavy AI companies in the mix; the next wave will ...",
+   "link": "https://www.linkedin.com/posts/y-combinator_congrats-to-yc-alums-salient-sola-raindrop-activity-7473118684790579201-FrMZ",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Aggie Krajewska's Post - LinkedIn",
+   "snippet": "Congrats to everyone who got into Y Combinator. Welcome to the coldest summer of your lives. Airbnb.",
+   "link": "https://www.linkedin.com/posts/agatakrajewska_congrats-to-everyone-who-got-into-y-combinator-activity-7469787839749242880-5qyG",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Y Combinator has been more than an accelerator | Upeka Bee",
+   "snippet": "Y Combinator has been more than an accelerator - it's been a ... Congrats on DianaHR's YC journey! Simplifying HR is game-changing ...",
+   "link": "https://www.linkedin.com/posts/upeka_y-combinator-has-been-more-than-an-accelerator-activity-7374107608040800256-ZLWL",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Another Bulgarian joining Y Combinator, congrats, Andrey! - LinkedIn",
+   "snippet": "Another Bulgarian joining Y Combinator, congrats, Andrey!",
+   "link": "https://www.linkedin.com/posts/ntanev_another-bulgarian-joining-y-combinator-congrats-activity-7489302304215437312--j_4",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Prateek Jannu's Post - LinkedIn",
+   "snippet": "CoArena (YC S26) is growing, and we would love for you to be part of it. Backed by Y Combinator. We are hiring Campus Ambassadors to bring ...",
+   "link": "https://www.linkedin.com/posts/prateekjannu_coarena-yc-s26-is-growing-and-we-would-activity-7499117032903344128-9A25",
+   "expected_company": "CoArena",
+   "expected_reason": "context_hiring:we are hiring"
+  },
+  {
+   "title": "Alok Kumar's Post - LinkedIn",
+   "snippet": "Co-founder of Cozmo AI - Backed by Y Combinator | Forbes 30 under 30. 3w. Report this post; Close menu. We are hiring for 4 new roles Everyone ...",
+   "link": "https://www.linkedin.com/posts/alokhk_we-are-hiring-for-4-new-roles-everyone-activity-7492263600577941504-OKig",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Alagu Muthuraman's Post - LinkedIn",
+   "snippet": "... we are hiring! More details here: https://lnkd.in/gnh5UEkz. ... backed by Y Combinator and have become extremely successful. Our startup ...",
+   "link": "https://www.linkedin.com/posts/alagu2_super-excited-to-be-part-of-the-recent-yc-activity-6986243163040485376-Z9bJ?trk=public_profile_like_view",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Calling all engineering folks out there | Alberto Lo Bue - LinkedIn",
+   "snippet": "Calling all engineering folks out there - we are hiring at Fleek ! ... backed by Y Combinator,Andreessen Horowitz, and other elite ...",
+   "link": "https://www.linkedin.com/posts/albertolobue_calling-all-engineering-folks-out-there-activity-7457681818570387456-cd-E",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "We are hiring across GTM, Product, and Engineering in New York ...",
+   "snippet": "We are hiring across GTM, Product, and Engineering in New York City and London ... backed by Y Combinator, Google's AI fund, and ... We are hiring ...",
+   "link": "https://www.linkedin.com/posts/rhim-shah_we-are-hiring-across-gtm-product-and-engineering-activity-7431710616219709440-R7wd",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Jobs at CozmoX AI | Y Combinator | Alok Kumar | 13 comments",
+   "snippet": "As we are preparing for a major milestone in the next few weeks ;) , these are the rockstars we are hiring ... Backed by Y Combinator | Forbes 30 ...",
+   "link": "https://www.linkedin.com/posts/alokhk_jobs-at-cozmox-ai-y-combinator-activity-7350424293182205952-cfPJ",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "We're hiring a Founding Frontend Engineer to join our team Roame ...",
+   "snippet": "... backed by Y Combinator, Goodwater, and Accel starters. Roame is a ... We are hiring a Founding Frontend Engineer team member who has an ...",
+   "link": "https://www.linkedin.com/posts/timqin_were-hiring-a-founding-frontend-engineer-activity-7303487934098194433-Z7zF",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Stan Girard - DR: Quivr is an open-source RAG\u2026 - LinkedIn",
+   "snippet": "... backed by Y Combinator. Here is a sneak peek of what we are looking ... We are hiring in Paris, France \u2757 English speakers welcomed ...",
+   "link": "https://www.linkedin.com/posts/stan-girard_quivr-yc-w24-is-recruiting-not-1-not-2-activity-7180797792238350336-GWVS",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Abhinav Chugh's Post - LinkedIn",
+   "snippet": "... backed by Y Combinator and have become extremely successful. Our ... We are hiring for multiple roles. https://lnkd.in/gaDXkk3R ...",
+   "link": "https://www.linkedin.com/posts/abhinavchugh_today-ive-some-exciting-news-to-share-activity-6985815948234559488-Cpta",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC Adds AI for Aging Population to Startup Requests for Fall 2026 ...",
+   "snippet": "founder & chairman THE EMBASSIES \u2013 we are hiring! 3w. Report this ... The round was backed by Y Combinator, Peak XV Partners, Powerset ...",
+   "link": "https://www.linkedin.com/posts/dkerns1_y-combinator-has-included-ai-for-the-aging-activity-7487583595738361856-92pn",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC W26 Demo Day: Record-Breaking Startups with AI, Hardware ...",
+   "snippet": "Nearly 190 companies participated in Y Combinator's Winter '26 cohort and presented their startups in a Demo Day on Tuesday. These companies are ...",
+   "link": "https://www.linkedin.com/posts/yrebryk_190-startups-presented-at-y-combinators-activity-7443730330093780993-QixP",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC S22 Virtual Demo Day | Y Combinator | 11 comments - LinkedIn",
+   "snippet": "Y Combinator's Post ... On the morning of September 7th and September 8th, YC will host our 35th Demo Day live on Zoom. This two day event will ...",
+   "link": "https://www.linkedin.com/posts/y-combinator_yc-s22-virtual-demo-day-y-combinator-activity-6957725577977999360-JA9V",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Bryce Johnson's Post - LinkedIn",
+   "snippet": "Y Combinator demo day was incredible. The current batch of almost 200 startups is growing 14% week over week!",
+   "link": "https://www.linkedin.com/posts/brycent_y-combinator-demo-day-was-incredible-the-activity-7442453786209484800-FPCO",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Absolutely loved Y Combinator Demo Day (as always ... - LinkedIn",
+   "snippet": "Absolutely loved Y Combinator Demo Day (as always!) This was an extra special one as: (1) saw our Google DeepMind x YC \"Make Something ...",
+   "link": "https://www.linkedin.com/posts/matthewridenour_absolutely-loved-y-combinator-demo-day-as-activity-7475688398343598080-Nilz",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "160+ startups presented at Y Combinator's S25 Demo Day last week.",
+   "snippet": "160+ startups pitched at Y Combinator's S25 Demo Day last week here's what caught my eye: After 20 years, YC is still the startup ...",
+   "link": "https://www.linkedin.com/posts/yrebryk_160-startups-presented-at-y-combinators-activity-7374753994436423680-NqK0",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Spent whole day at Y Combinator Spring 2026 Demo Day. Man, you ...",
+   "snippet": "Spent whole day at Y Combinator Spring 2026 Demo Day. Man, you feel the energy the second you walk in. So I ran a little experiment.",
+   "link": "https://www.linkedin.com/posts/bryanchangjiangliu_spent-whole-day-at-y-combinator-spring-2026-activity-7473038008741441536-X9Vh",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Ayush Sharma's Post - LinkedIn",
+   "snippet": "Y Combinator Demo Day is coming up next week, here are 3 things I learned at YC (and what I'd do differently if I did it all over again) ...",
+   "link": "https://www.linkedin.com/posts/ayushsharma01_y-combinator-demo-day-is-coming-up-next-week-activity-7399495919643172865-jwjL",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Brett Wilson's Post - LinkedIn",
+   "snippet": "I had fun at Y Combinator's Summer 2025 Demo Day yesterday. 150 founders pitched in a well-produced, real-life Shark Tank.",
+   "link": "https://www.linkedin.com/posts/bjwilson_i-had-fun-at-y-combinators-summer-2025-demo-activity-7371557194724503552-hsTb",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Y Combinator W25 Demo Day By the numbers: \u2022 160 ... - LinkedIn",
+   "snippet": "Y Combinator W25 Demo Day By the numbers: \u2022 160 companies \u2022 133 focused on Machine Learning / AI \u2022 107 US-based \u2022 21 women-founded \u2022 12 ...",
+   "link": "https://www.linkedin.com/posts/alex-zhuravlev-mento_y-combinator-w25-demo-day-by-the-numbers-activity-7312805221523464192-dX26",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Kevin Jurovich's Post - LinkedIn",
+   "snippet": "Y Combinator's Demo Day was yesterday\u2026most founders didn't make it in. Their acceptance rate is notoriously low...around 1%.",
+   "link": "https://www.linkedin.com/posts/kevinjurovich_y-combinators-demo-day-was-yesterdaymost-activity-7442596178023768064-66FO",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Lobster Capital's YC Investment Strategy and Thesis - LinkedIn",
+   "snippet": "According to Dealroom data, Y Combinator ranks as the world's leading seed investor, with 133 seed investments that later became unicorns.",
+   "link": "https://www.linkedin.com/posts/will-phillips-3b9a25191_every-fund-in-silicon-valley-claims-an-edge-activity-7490451554852921344-7A94",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Ian Hsiao's Post - LinkedIn",
+   "snippet": "Y Combinator's thesis is getting clearer. The next breakout companies may be AI-native service businesses, not software tools.",
+   "link": "https://www.linkedin.com/posts/ian-hsiao_y-combinators-thesis-is-getting-clearer-activity-7471240680560930820-9TaM",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC's Real Advantage: Financial Discipline Over Brand Name",
+   "snippet": "This is an insightful post highlighting the true value of Y Combinator beyond its brand. It's fascinating to see how financial discipline and a ...",
+   "link": "https://www.linkedin.com/posts/nathanbeckord_y-combinator-has-produced-101-unicorns-but-activity-7402771693108314112-ljnp",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Jared Heyman's Post - LinkedIn",
+   "snippet": "We talked through Y Combinator's investment thesis, how AI is changing the way startups are built, operated, and scaled, and how YC has adapted ...",
+   "link": "https://www.linkedin.com/posts/jaredheyman_a-few-weeks-ago-i-had-the-opportunity-to-activity-7452789585899610112-5nVw",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "How to Convince Investors: 9 Principles by Paul Graham - LinkedIn",
+   "snippet": "In 2013, Y Combinator co-founder Paul Graham wrote an essay titled \u201cHow to Convince Investors.\u201d Here's a summary of the principles he ...",
+   "link": "https://www.linkedin.com/posts/rubendominguezibar_in-2013-y-combinator-co-founder-paul-graham-activity-7352814827901190144-og1k",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC's Spring 2026 Thesis: AI is the Operating System - LinkedIn",
+   "snippet": "Reasons to Choose Y Combinator for Funding \u00b7 How Generative AI Affects Startup Development \u00b7 How AI Will Transform Work in Finance \u00b7 AI Funding ...",
+   "link": "https://www.linkedin.com/posts/alexandra-hirzel-35134145_y-combinators-spring-2026-thesis-software-activity-7425449007101165568-HrT-",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "The hidden power of Y Combinator. | Peter Walker - LinkedIn",
+   "snippet": "The hidden power of Y Combinator. Why do the vast majority of pre-seed deals use the post-money SAFE? Back in 2018, founders were ...",
+   "link": "https://www.linkedin.com/posts/peterjameswalker_startups-safes-founders-activity-7352404800925290496-jqZB",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC vs multistage funds: cookie-licking machine - LinkedIn",
+   "snippet": "... investment thesis: only backing @Y Combinator startups. This disciplined approach stems from a data-driven belief in YC's superior track ...",
+   "link": "https://www.linkedin.com/posts/david-burt-_unsw-startups-activity-7376822612120752128-DxHG",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Why a large portfolio strategy is better for YC startups - LinkedIn",
+   "snippet": "In my previous post on this topic On the power law of Y Combinator startups I share the power law curve that drives YC startup returns, and the ...",
+   "link": "https://www.linkedin.com/posts/jaredheyman_on-hitting-the-bullseye-activity-7392649218097729537--Z7E",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC's most notable investments and trends | Dipesh Garg posted on ...",
+   "snippet": "\u2713 How Does the Y Combinator Funding Program Work? This is not a simple list\u2014it's a research-based roadmap for anyone serious about startups.",
+   "link": "https://www.linkedin.com/posts/dipeshgarg_200-notable-companies-y-combinator-has-invested-activity-7346766893959024640-mN8V",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Andrew Yan's Post - LinkedIn",
+   "snippet": "YC Alumni Demo Day W26. The YC community has been one of the most ... YC alum building AthenaHQ alongside this community. Let's keep building.",
+   "link": "https://www.linkedin.com/posts/andrew-yan-200_yc-alumni-demo-day-w26-the-yc-community-activity-7441892006949429249-e1Hy",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "YC Alumni Stats: 4500+ Startups, 80+ Unicorns, $600B Value",
+   "snippet": "Y Combinator (YC) Alumni - Key Stats (Simple English) Scale - 4,500+ startups have gone through YC since 2005 - 70,000+ founders in the YC ...",
+   "link": "https://www.linkedin.com/posts/tatianasf_ycombinator-startup-founders-activity-7405460609208709121-DU0G",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Left the YC alumni reunion feeling so inspired and optimistic. 2700 ...",
+   "snippet": "Left the YC alumni reunion feeling so inspired and optimistic ... Mauricio Morales, graphic. Mauricio Morales. Founder & CEO \u00b7 Dailybot \u00b7 YC alum ...",
+   "link": "https://www.linkedin.com/posts/jaredfriedman_left-the-yc-alumni-reunion-feeling-so-inspired-activity-7112305175423328256-KGKW",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "YC Alumni Accelerate with $500B AUM at Open Batch Demo Day",
+   "snippet": "Open Batch is a community of YC alumni who've collectively raised hundreds of millions and produced billions in exits, all working on something ...",
+   "link": "https://www.linkedin.com/posts/alexarevalos_what-happens-when-you-put-a-room-of-yc-founders-activity-7440160920800038931-BSbC",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "YC alumni who became founders after working at fast-growing startups",
+   "snippet": "Here are the YC alumni who went from early/founding employee to venture-backed founders themselves, by total funding raised: 1. Jon Goldsmith ...",
+   "link": "https://www.linkedin.com/posts/chris-pisarski_500-of-the-5000-yc-backed-companies-have-activity-7327040507564507136-9uTK",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "Pioneer Fund - YC alumni helping YC founders succeed. - LinkedIn",
+   "snippet": "Pioneer Fund is backed by 500 YC alumni who are all LPs. These alumni actively support each other with sourcing, diligence, value creation, and ...",
+   "link": "https://www.linkedin.com/posts/pioneerfund_yc-alumni-helping-yc-founders-succeed-activity-7340783400548503552-rcY9",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "YC Alumni CRM Alternative: Context Relationship Management",
+   "snippet": "In the YC Alumni group chat, the same question gets asked every week. \"Has anyone found a CRM I don't have to update?",
+   "link": "https://www.linkedin.com/posts/reginaclin_in-the-yc-alumni-group-chat-the-same-question-activity-7475998428960018432-p7Vq",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "How to get into YC with advice from YC alumni - LinkedIn",
+   "snippet": "... YC alumni to share some advice. Here's what I recommend: 1\ufe0f\u20e3 Start ... Engineering @Resend | Published author, public speaker and YC Alum.",
+   "link": "https://www.linkedin.com/posts/zbijesse_advice-for-founders-seeking-recommendations-activity-7239627622794543105-K2k7",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "Upeka Bee's Post - LinkedIn",
+   "snippet": "Baby's first YC Alumni Reunion Weekend! This past weekend was the annual Y Combinator Alumni Weekend - and my first one!",
+   "link": "https://www.linkedin.com/posts/upeka_babys-first-yc-alumni-reunion-weekend-activity-7249798013064228864-d9wW",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Pioneer Fund team out at YC Alumni Demo Day. Always good to see ...",
+   "snippet": "Pioneer Fund team out at YC Alumni Demo Day. Always good to see fellow YC alumni, our venture partners, and all the new founders joining our portfolio.",
+   "link": "https://www.linkedin.com/posts/jasondgray_pioneer-fund-team-out-at-yc-alumni-demo-day-activity-7442037606651039744-aG4r",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "YC Founders Praise YC as Most Helpful Investor - LinkedIn",
+   "snippet": "We are excited to announce we are joining Y Combinator's summer 2026 batch to accelerate this mission. There is a long history of ambitious ...",
+   "link": "https://www.linkedin.com/posts/lewis-c-jones_for-whatever-reason-it-seems-like-everyone-activity-7478118211385749504-lwb0",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Samrath Singh Chadha's Post - LinkedIn",
+   "snippet": "Excited to announce I've been accepted into Y Combinator's Fall Batch with Mantle (YC F25)! When I was 13 years old, I started my first ...",
+   "link": "https://www.linkedin.com/posts/samrathchadha_excited-to-announce-ive-been-accepted-into-activity-7377482341608448000-0GRJ",
+   "expected_company": "Mantle",
+   "expected_reason": null
+  },
+  {
+   "title": "Jake Stevens' Post - LinkedIn",
+   "snippet": "I'm excited to announce that Y Combinator has invested $500k in Luminal (YC S25) to accelerate our effort to make AI models run at ...",
+   "link": "https://www.linkedin.com/posts/jake-stevens-_im-excited-to-announce-that-y-combinator-activity-7347008673719689216-lmLj",
+   "expected_company": "Luminal",
+   "expected_reason": null
+  },
+  {
+   "title": "Jonathan Salama's Post - LinkedIn",
+   "snippet": "Excited to announce I'm in Y Combinator this summer! It's been incredibly rewarding to work on Palisade and meet other amazing founders in ...",
+   "link": "https://www.linkedin.com/posts/jonathan-salama_excited-to-announce-im-in-y-combinator-this-activity-7494151465465311233-G9vu",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Vishnu R. Tejus' Post - LinkedIn",
+   "snippet": "So excited to announce that David, Andrew, and I are co-founding 10x Science (YC W26), backed by Y Combinator. I feel so alive and an ...",
+   "link": "https://www.linkedin.com/posts/vishnutejus_so-excited-to-announce-that-david-andrew-activity-7416938812771094528-xx03",
+   "expected_company": "10x Science",
+   "expected_reason": null
+  },
+  {
+   "title": "YC startups use 95% AI code: Martin Reynolds - LinkedIn",
+   "snippet": "Y Combinator CEO says YC startups launch with 95% of their code ... We are incredibly excited to announce the completion of our $3.2M ...",
+   "link": "https://www.linkedin.com/posts/nickdurkin_95-ai-written-code-unpacking-the-y-combinator-activity-7320812809561206787-eooS",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Adam Cohen's Post - LinkedIn",
+   "snippet": "I'm excited to announce that we got into YC! Even after watching ... View organization page for Y Combinator. Y Combinator. 1,776,816 ...",
+   "link": "https://www.linkedin.com/posts/adam-b-cohen_im-excited-to-announce-that-we-got-into-activity-7292611035193036801-scBT",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "10 days into Y Combinator, some key takeaways | Matthew Gunton",
+   "snippet": "Excited to announce Structured AI is backed by Y Combinator! We've now raised $1m to bring our vision to life: what if AI could give design ...",
+   "link": "https://www.linkedin.com/posts/matthewjgunton_10-days-into-y-combinator-some-key-takeaways-activity-7348854862354292737-2zKU",
+   "expected_company": "Structured AI",
+   "expected_reason": "context_commentary:key takeaways"
+  },
+  {
+   "title": "Konstantin Paulus posted this - LinkedIn",
+   "snippet": "Excited to announce that I've been accepted into the Y Combinator startup accelerator program (YC F24).",
+   "link": "https://www.linkedin.com/posts/konstantin-paulus_excited-to-announce-that-ive-been-accepted-activity-7246750993508368384-Jicj",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "I'm excited to announce that Quippy and I will be participating in Y ...",
+   "snippet": "I'm excited to announce that Quippy and I will be participating in Y Combinator's upcoming F26 batch! Between fifteen and nineteen, ...",
+   "link": "https://www.linkedin.com/posts/12lijonathan_im-excited-to-announce-that-quippy-and-i-activity-7498420881283723264-zWl3",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Ryan Walker's Post - LinkedIn",
+   "snippet": "Going through Y Combinator W26 was a defining moment for me personally and for our company General Legal (YC26).",
+   "link": "https://www.linkedin.com/posts/ryanwalkerdata_going-through-y-combinator-w26-was-a-defining-activity-7443340724265332736-AJlw",
+   "expected_company": "General Legal",
+   "expected_reason": null
+  },
+  {
+   "title": "Jordan D.'s Post - LinkedIn",
+   "snippet": "Y Combinator changed my life in many ways. But one brutal conversation completely altered the course of our company. In mid-2023, more than ...",
+   "link": "https://www.linkedin.com/posts/jordandearsley_y-combinator-changed-my-life-in-many-ways-activity-7296942669182685184-7v28",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Life inside Y Combinator, compressed into 60 seconds | Illiana Reed",
+   "snippet": "Close menu. Life inside Y Combinator, compressed into 60 seconds Demo Day felt like a blackout. ... our company most nights. The intensity was ...",
+   "link": "https://www.linkedin.com/posts/illiana-reed_startups-ycombinator-ai-activity-7353106718664372225-5-Lt",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "My advice to the youngsters that just finished YC. | Marty Kausas",
+   "snippet": "We're debating whether to add \"AI\" to our company name. Our partner stopped us cold. \"I cannot believe you're wasting my office hours on this.",
+   "link": "https://www.linkedin.com/posts/martykausas_my-advice-to-the-youngsters-that-just-finished-activity-7341857384882982912-za3X",
+   "expected_company": null,
+   "expected_reason": "no_program_evidence"
+  },
+  {
+   "title": "Exploratorium Night with AWS and Y Combinator Startup School",
+   "snippet": "... Y Combinator Startup School afterparty. We presented the Physical ... In order to take our company to the next stage. It's been a long ...",
+   "link": "https://www.linkedin.com/posts/yubing-ji_aws-x-yc-startup-school-afterparty-activity-7490489114480230400-_awP",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "YC is coming to NYC on Thursday, May 21! Calling all fintech ...",
+   "snippet": "View organization page for Y Combinator \u00b7 Y Combinator. 1,798,998 ... We would love for the team to take a look at our company we're ready ...",
+   "link": "https://www.linkedin.com/posts/y-combinator_yc-is-coming-to-nyc-on-thursday-may-21-activity-7457805368497459200-9dco",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "Iman Radjavi and I are joining the Y Combinator fall batch ... - LinkedIn",
+   "snippet": "Some very exciting news: Iman Radjavi and I are joining the Y Combinator fall batch with our company, Specific (YC F25).",
+   "link": "https://www.linkedin.com/posts/fabian-lindfors_some-very-exciting-news-iman-radjavi-and-activity-7375952264651243520-oyB3",
+   "expected_company": "Specific",
+   "expected_reason": null
+  },
+  {
+   "title": "Suchintan Singh's Post - LinkedIn",
+   "snippet": "Getting into YC changed our company's trajectory I wrote a blog post ... View organization page for Y Combinator. Y Combinator. 1,779,270 ...",
+   "link": "https://www.linkedin.com/posts/suchintansingh_getting-into-yc-changed-our-companys-trajectory-activity-7226980422021234692-iw7e",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  },
+  {
+   "title": "I am a 37 year old mom with 2 little kids starting a biotech ... - LinkedIn",
+   "snippet": "... our company. The Y Combinator partners are entrepreneurship and fundraising experts and really helped us set Adventris on a path for success ...",
+   "link": "https://www.linkedin.com/posts/jennylesser_i-was-skeptical-about-whether-it-made-sense-activity-7049798365542318080-280b",
+   "expected_company": null,
+   "expected_reason": "no_company_identity"
+  }
+ ],
+ "official_snapshot": [
+  {
+   "id": 3160,
+   "name": "10x Science",
+   "normalized_name": "10xscience",
+   "batch": "Winter 2026",
+   "domain": "https://10xscience.com",
+   "url": "https://www.ycombinator.com/companies/10x-science",
+   "source": "yc_directory"
+  },
+  {
+   "id": 3379,
+   "name": "Andustry",
+   "normalized_name": "andustry",
+   "batch": "Spring 2026",
+   "domain": "http://andustry.com/",
+   "url": "https://www.ycombinator.com/companies/andustry",
+   "source": "yc_directory"
+  },
+  {
+   "id": 3410,
+   "name": "Arga Labs",
+   "normalized_name": "argalabs",
+   "batch": "Spring 2026",
+   "domain": "https://www.argalabs.com/",
+   "url": "https://www.ycombinator.com/companies/arga-labs",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2093,
+   "name": "CoArena",
+   "normalized_name": "coarena",
+   "batch": "Summer 2026",
+   "domain": "http://coarena.ai",
+   "url": "https://www.ycombinator.com/companies/coarena",
+   "source": "yc_directory"
+  },
+  {
+   "id": 6026,
+   "name": "Collar",
+   "normalized_name": "collar",
+   "batch": "Fall 2026",
+   "domain": "https://usecollarai.com",
+   "url": "https://www.ycombinator.com/companies/collar",
+   "source": "yc_directory"
+  },
+  {
+   "id": 1353,
+   "name": "Common Paper",
+   "normalized_name": "commonpaper",
+   "batch": "Winter 2023",
+   "domain": "https://commonpaper.com/",
+   "url": "https://www.ycombinator.com/companies/common-paper",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2082,
+   "name": "Definite",
+   "normalized_name": "definite",
+   "batch": "Summer 2026",
+   "domain": "https://www.usedefinite.com",
+   "url": "https://www.ycombinator.com/companies/definite",
+   "source": "yc_directory"
+  },
+  {
+   "id": 1919,
+   "name": "Dream",
+   "normalized_name": "dream",
+   "batch": "Summer 2026",
+   "domain": "https://www.pingdream.com/",
+   "url": "https://www.ycombinator.com/companies/dream",
+   "source": "yc_directory"
+  },
+  {
+   "id": 1943,
+   "name": "Erinys",
+   "normalized_name": "erinys",
+   "batch": "Summer 2026",
+   "domain": "https://erinys.ai",
+   "url": "https://www.ycombinator.com/companies/erinys",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2091,
+   "name": "Florin",
+   "normalized_name": "florin",
+   "batch": "Summer 2026",
+   "domain": "https://florin.inc",
+   "url": "https://www.ycombinator.com/companies/florin",
+   "source": "yc_directory"
+  },
+  {
+   "id": 3109,
+   "name": "General Legal",
+   "normalized_name": "generallegal",
+   "batch": "Winter 2026",
+   "domain": "https://general.legal",
+   "url": "https://www.ycombinator.com/companies/general-legal",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2031,
+   "name": "Illume Labs",
+   "normalized_name": "illumelabs",
+   "batch": "Summer 2026",
+   "domain": "https://www.illumelabs.ai",
+   "url": "https://www.ycombinator.com/companies/illume-labs",
+   "source": "yc_directory"
+  },
+  {
+   "id": 3305,
+   "name": "Intelligence Factory",
+   "normalized_name": "intelligencefactory",
+   "batch": "Spring 2026",
+   "domain": "https://intelligence-factory.com",
+   "url": "https://www.ycombinator.com/companies/intelligence-factory",
+   "source": "yc_directory"
+  },
+  {
+   "id": 3339,
+   "name": "Klaimee",
+   "normalized_name": "klaimee",
+   "batch": "Spring 2026",
+   "domain": "https://www.klaimee.ai",
+   "url": "https://www.ycombinator.com/companies/klaimee",
+   "source": "yc_directory"
+  },
+  {
+   "id": 6011,
+   "name": "Lantern AI",
+   "normalized_name": "lanternai",
+   "batch": "Fall 2026",
+   "domain": "https://www.lantern.md",
+   "url": "https://www.ycombinator.com/companies/lantern-ai",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2066,
+   "name": "Locke",
+   "normalized_name": "locke",
+   "batch": "Summer 2026",
+   "domain": "https://locke.inc",
+   "url": "https://www.ycombinator.com/companies/locke",
+   "source": "yc_directory"
+  },
+  {
+   "id": 3905,
+   "name": "Luminal",
+   "normalized_name": "luminal",
+   "batch": "Summer 2025",
+   "domain": "https://luminal.com",
+   "url": "https://www.ycombinator.com/companies/luminal",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2103,
+   "name": "Marble",
+   "normalized_name": "marble",
+   "batch": "Summer 2026",
+   "domain": "https://joinmarble.ai/",
+   "url": "https://www.ycombinator.com/companies/joinmarble",
+   "source": "yc_directory"
+  },
+  {
+   "id": 3404,
+   "name": "Minicor",
+   "normalized_name": "minicor",
+   "batch": "Spring 2026",
+   "domain": "https://minicor.com",
+   "url": "https://www.ycombinator.com/companies/minicor",
+   "source": "yc_directory"
+  },
+  {
+   "id": 5998,
+   "name": "Orca Aerospace",
+   "normalized_name": "orcaaerospace",
+   "batch": "Fall 2026",
+   "domain": "https://orcaaerospace.com/",
+   "url": "https://www.ycombinator.com/companies/orca-aerospace",
+   "source": "yc_directory"
+  },
+  {
+   "id": 1921,
+   "name": "Palisade",
+   "normalized_name": "palisade",
+   "batch": "Summer 2026",
+   "domain": "https://palisade.run",
+   "url": "https://www.ycombinator.com/companies/palisade",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2005,
+   "name": "Palisade",
+   "normalized_name": "palisade",
+   "batch": "Summer 2026",
+   "domain": "https://palisade-ai.com/",
+   "url": "https://www.ycombinator.com/companies/palisade-2",
+   "source": "yc_directory"
+  },
+  {
+   "id": 1945,
+   "name": "Prodigy Research",
+   "normalized_name": "prodigyresearch",
+   "batch": "Summer 2026",
+   "domain": "https://prodigy.markets",
+   "url": "https://www.ycombinator.com/companies/prodigy-research",
+   "source": "yc_directory"
+  },
+  {
+   "id": 811,
+   "name": "Shepherd",
+   "normalized_name": "shepherd",
+   "batch": "Winter 2021",
+   "domain": "https://shepherdinsurance.com",
+   "url": "https://www.ycombinator.com/companies/shepherd",
+   "source": "yc_directory"
+  },
+  {
+   "id": 1808,
+   "name": "Shepherd",
+   "normalized_name": "shepherd",
+   "batch": "Winter 2024",
+   "domain": "https://www.shepherd.study",
+   "url": "https://www.ycombinator.com/companies/shepherd-2",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2123,
+   "name": "Sidekick",
+   "normalized_name": "sidekick",
+   "batch": "Summer 2026",
+   "domain": "https://textsidekick.com/",
+   "url": "https://www.ycombinator.com/companies/textsidekick",
+   "source": "yc_directory"
+  },
+  {
+   "id": 6016,
+   "name": "Simulithic",
+   "normalized_name": "simulithic",
+   "batch": "Fall 2026",
+   "domain": "https://simulithic.com",
+   "url": "https://www.ycombinator.com/companies/simulithic",
+   "source": "yc_directory"
+  },
+  {
+   "id": 4246,
+   "name": "Specific",
+   "normalized_name": "specific",
+   "batch": "Fall 2025",
+   "domain": "https://specific.dev",
+   "url": "https://www.ycombinator.com/companies/specific",
+   "source": "yc_directory"
+  },
+  {
+   "id": 4229,
+   "name": "Structured AI",
+   "normalized_name": "structuredai",
+   "batch": "Fall 2025",
+   "domain": "https://www.getstructured.ai/",
+   "url": "https://www.ycombinator.com/companies/structured-ai",
+   "source": "yc_directory"
+  },
+  {
+   "id": 1901,
+   "name": "Studio",
+   "normalized_name": "studio",
+   "batch": "Summer 2026",
+   "domain": "https://trystudio.ai",
+   "url": "https://www.ycombinator.com/companies/studio",
+   "source": "yc_directory"
+  },
+  {
+   "id": 3384,
+   "name": "TesterArmy",
+   "normalized_name": "testerarmy",
+   "batch": "Spring 2026",
+   "domain": "https://tester.army",
+   "url": "https://www.ycombinator.com/companies/testerarmy",
+   "source": "yc_directory"
+  },
+  {
+   "id": 2124,
+   "name": "Tsenta",
+   "normalized_name": "tsenta",
+   "batch": "Summer 2026",
+   "domain": "https://tsenta.com",
+   "url": "https://www.ycombinator.com/companies/tsenta",
+   "source": "yc_directory"
+  }
+ ]
+}
