@@ -52,6 +52,9 @@ class SourceState:
     last_success: datetime | None = None
     next_run: datetime | None = None
     consecutive_failures: int = 0
+    # Which path answered on the last run, for a source that has more than one
+    # (X: "native" or "indexed_fallback"). None for single-path sources.
+    mode: str | None = None
 
     # ------------------------------------------------------------------ #
     # Backoff                                                              #
@@ -110,6 +113,7 @@ class SourceState:
             "next_run": self.next_run.isoformat() if self.next_run else None,
             "seconds_until_next": seconds_until,
             "consecutive_failures": self.consecutive_failures,
+            "mode": self.mode,
         }
 
 
@@ -260,6 +264,7 @@ class PerSourceScheduler:
             else:
                 result = await self.scanner.run_named_source(state.name)
                 state.last_status = result["status"]
+                state.mode = result.get("mode")
                 if result["status"] == "ok":
                     succeeded = True
                 elif result["status"] in {"not_configured", "waiting", "billing_blocked"}:

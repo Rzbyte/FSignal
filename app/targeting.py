@@ -141,6 +141,37 @@ def x_queries(targets: SocialTargets) -> list[str]:
     return queries
 
 
+def x_indexed_queries(targets: SocialTargets) -> list[str]:
+    """The same hunt as :func:`x_queries`, expressed for an indexed-search provider.
+
+    X's own recent search is not on the free tier, so when the native call reports
+    ``billing_blocked`` the source falls back to searching *publicly indexed* X
+    URLs. The vocabulary is identical; only the syntax differs. ``-is:retweet`` is
+    an X operator and is dropped -- a search engine reads it as a literal.
+
+    One query per batch, for the same reason ``linkedin_queries`` splits them: the
+    provider caps a free-tier response at ten results, and a combined OR group
+    spends most of them on the older, fully-published batch.
+    """
+    queries: list[str] = []
+
+    for label in targets.yc_batches:
+        phrases = yc_batch_phrases([label])
+        if phrases:
+            queries.append(f"site:x.com ({_or_group(phrases)})")
+
+    queries.append(f"site:x.com ({_or_group(YC_CLAIM_PHRASES)})")
+
+    for label in targets.speedrun_cohorts:
+        phrases = speedrun_cohort_phrases([label])
+        if phrases:
+            queries.append(f"site:x.com ({_or_group(phrases)})")
+
+    queries.append(f"site:x.com ({_or_group(SPEEDRUN_CLAIM_PHRASES)})")
+
+    return queries
+
+
 def linkedin_queries(targets: SocialTargets) -> list[str]:
     """Indexed-search queries scoped to public LinkedIn posts and company pages.
 

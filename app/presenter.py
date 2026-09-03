@@ -64,8 +64,18 @@ _GTM_REASON_DISPLAY = {
 
 
 def source_display(signal: dict) -> str:
+    """The platform, and how we reached it when that is not the obvious way.
+
+    A post found through public search carries less than one pulled from the
+    platform's own API -- no bio, no profile URL, no exact post time. Saying so
+    in the alert costs one parenthetical and keeps the reader from assuming
+    metadata that is not there.
+    """
     source = (signal.get("source") or "").lower()
-    return SOURCE_DISPLAY.get(source, source.title() or "Unknown")
+    name = SOURCE_DISPLAY.get(source, source.title() or "Unknown")
+    if signal.get("collection_mode") == "indexed_fallback":
+        return f"{name} (indexed search)"
+    return name
 
 
 def display_reasons(signal: dict, limit: int = 3) -> list[str]:
@@ -171,7 +181,10 @@ def company_display(signal: dict) -> str:
 
 def source_badge(signal: dict) -> str:
     source = (signal.get("source") or "").lower()
-    return f"`SOURCE · {SOURCE_LABELS.get(source, source.upper() or 'UNKNOWN')}`"
+    label = SOURCE_LABELS.get(source, source.upper() or "UNKNOWN")
+    if signal.get("collection_mode") == "indexed_fallback":
+        label = f"{label} · INDEXED SEARCH"
+    return f"`SOURCE · {label}`"
 
 
 # --------------------------------------------------------------------------- #

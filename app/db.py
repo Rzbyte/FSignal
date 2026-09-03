@@ -61,6 +61,9 @@ CREATE TABLE IF NOT EXISTS social_signals(
     alerted_ghost_at TEXT,
     alerted_confirmed_at TEXT,
     raw_json TEXT,
+    -- Which collection path produced this signal ("native", "indexed_fallback"),
+    -- for a source that has more than one. NULL otherwise.
+    collection_mode TEXT,
     UNIQUE(source, external_id)
 );
 
@@ -109,7 +112,10 @@ CREATE TABLE IF NOT EXISTS source_runs(
     item_count INTEGER NOT NULL,
     error TEXT,
     started_at TEXT NOT NULL,
-    finished_at TEXT NOT NULL
+    finished_at TEXT NOT NULL,
+    -- Which path answered, when a source has more than one. NULL for sources
+    -- that only ever have the one.
+    mode TEXT
 );
 
 CREATE TABLE IF NOT EXISTS pond_runs(
@@ -193,6 +199,10 @@ class Database:
                 connection, "official_snapshots", {"active_batches": "TEXT"}
             )
             self._add_missing_columns(connection, "alert_outbox", {"dead_at": "TEXT"})
+            self._add_missing_columns(connection, "source_runs", {"mode": "TEXT"})
+            self._add_missing_columns(
+                connection, "social_signals", {"collection_mode": "TEXT"}
+            )
 
     @staticmethod
     def _add_missing_columns(connection, table: str, columns: dict[str, str]) -> None:
@@ -399,8 +409,9 @@ class Database:
                     company_name, normalized_company_name, company_domain, company_key,
                     batch, program, confidence, confidence_label, evidence_json,
                     gtm_score, gtm_priority, gtm_reasons_json, status,
-                    official_company_id, detected_at, official_check_json, raw_json
-                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                    official_company_id, detected_at, official_check_json, raw_json,
+                    collection_mode
+                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                 """,
                 (
                     signal.source,
@@ -426,6 +437,7 @@ class Database:
                     signal.detected_at.isoformat(),
                     json.dumps(getattr(signal, "official_check", None) or {}),
                     json.dumps(signal.raw),
+                    getattr(signal, "collection_mode", None),
                 ),
             )
             return cursor.lastrowid, True
@@ -554,12 +566,13 @@ class Database:
         started_at: str,
         finished_at: str,
         error: str | None = None,
+        mode: str | None = None,
     ) -> None:
         with self.connect() as connection:
             connection.execute(
-                "INSERT INTO source_runs(source,status,item_count,error,started_at,finished_at) "
-                "VALUES(?,?,?,?,?,?)",
-                (source, status, count, error, started_at, finished_at),
+                "INSERT INTO source_runs(source,status,item_count,error,started_at,finished_at,mode) "
+                "VALUES(?,?,?,?,?,?,?)",
+                (source, status, count, error, started_at, finished_at, mode),
             )
 
     def source_status(self) -> list[dict]:

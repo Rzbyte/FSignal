@@ -125,6 +125,9 @@ class Scanner:
             status = "error"
 
         finished_at = datetime.now(timezone.utc)
+        # Which path answered, for a source that has more than one. Read after
+        # collect() so a fallback is reported as the fallback.
+        mode = getattr(source, "last_mode", None)
         self.db.record_source_run(
             source.name,
             status,
@@ -132,5 +135,6 @@ class Scanner:
             started_at.isoformat(),
             finished_at.isoformat(),
             error,
+            mode=mode,
         )
-        return {"status": status, "items": count, "error": error}
+        return {"status": status, "items": count, "error": error, "mode": mode}

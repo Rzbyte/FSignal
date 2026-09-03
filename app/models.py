@@ -35,5 +35,9 @@ class SocialSignal:
     gtm_reasons: list[str] = field(default_factory=list)
     program: str = "yc"
     company_key: str | None = None
+    # Which collection path produced this signal, when its source has more than
+    # one. Persisted rather than inferred, so an alert can say plainly whether it
+    # came from a platform API or from indexed public search.
+    collection_mode: str | None = None
     official_check: dict[str, Any] = field(default_factory=dict)
     raw: dict[str, Any] = field(default_factory=dict)

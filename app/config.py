@@ -72,6 +72,10 @@ class Settings:
     # announcements that are still genuinely early. A week is the useful default:
     # company-level dedup means the wider window cannot produce repeat alerts.
     linkedin_lookback: str = os.getenv("LINKEDIN_LOOKBACK", "w")
+    # The indexed fallback for X needs a wider window than LinkedIn. Narrowing it
+    # to a week collapses the result set onto profile pages rather than posts,
+    # because individual X status URLs are indexed with a longer lag.
+    x_indexed_lookback: str = os.getenv("X_INDEXED_LOOKBACK", "m")
     min_signal_confidence: int = int(os.getenv("MIN_SIGNAL_CONFIDENCE", "60"))
     gtm_high_priority_threshold: int = int(os.getenv("GTM_HIGH_PRIORITY_THRESHOLD", "80"))
 
