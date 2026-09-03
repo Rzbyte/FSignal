@@ -18,7 +18,20 @@ from pathlib import Path
 import httpx
 
 from .config import settings
-from .intelligence import compact_evidence, compact_gtm_reasons
+from .presenter import (
+    company_display,
+    display_evidence,
+    display_reasons,
+    excerpt,
+    founder_display,
+    official_batch_label,
+    official_check_lines,
+    program_batch,
+    program_label,
+    source_badge,
+    source_display,
+    verify_url,
+)
 
 try:  # Pacific time matches how the task itself writes timestamps.
     from zoneinfo import ZoneInfo
@@ -51,6 +64,23 @@ def _clock(value: str | None) -> str:
     if moment.tzinfo is None:
         moment = moment.replace(tzinfo=timezone.utc)
     return f"{moment.astimezone(timezone.utc):%H:%M} UTC"
+
+
+#: The only symbols in the product. Each one means a state, not decoration.
+EARLY = "\U0001f525"      # a founder announced ahead of the directory
+CONFIRMED = "\u2705"      # the directory caught up
+CHECK = "\U0001f50e"      # independent verification against the official source
+STATE = "\u26a1"          # the one-line status assertion
+
+
+def _lead_time(detected, confirmed) -> str:
+    """"47h 18m" / "3d 4h" -- only ever from real persisted timestamps."""
+    seconds = max(0, (confirmed - detected).total_seconds())
+    hours, minutes = divmod(int(seconds // 60), 60)
+    if hours >= 48:
+        days, rem = divmod(hours, 24)
+        return f"{days}d {rem}h"
+    return f"{hours}h {minutes:02d}m"
 
 
 #: How each attempted match reads once it has failed.
@@ -98,76 +128,73 @@ class SlackNotifier:
     # ------------------------------------------------------------------ #
 
     async def send_ghost(self, signal: dict):
-        company = signal.get("company_name") or signal.get("company_domain") or "Unknown company"
-        program = (signal.get("program") or "yc").upper()
-        label = "SPEEDRUN" if program == "SPEEDRUN" else "YC"
-        priority = (signal.get("gtm_priority") or "standard").upper()
+        """The hero alert: a founder announced before the directory caught up.
 
-        title = f"🔥 EARLY {label} SIGNAL · {company}"
-        if signal.get("gtm_priority") == "high":
-            title = f"🚨 {title}"
-
-        fields = [
-            f"*Company*\n{company}",
-            f"*Founder / author*\n{signal.get('author_handle') or signal.get('author_name') or 'See post'}",
-            f"*Program*\n{program}",
-            f"*Batch*\n{signal.get('batch') or 'Not stated'}",
-            f"*Source*\n{(signal.get('source') or '').title()}",
-            f"*Detected*\n{_pacific(signal.get('detected_at'))}",
-        ]
+        The block order is the reading order a GTM user needs -- who, from where,
+        what state, in their own words, then the independent verification, then
+        what to do about it.
+        """
+        company = signal.get("company_name") or "Unknown company"
+        label = program_label(signal)
+        title = f"{EARLY} EARLY {label} SIGNAL · {company}"
 
         blocks = [
             {"type": "header", "text": {"type": "plain_text", "text": title[:150]}},
+            self._fields(
+                [
+                    ("Company", company_display(signal)),
+                    ("Founder", founder_display(signal)),
+                    ("Program", label),
+                    ("Batch", signal.get("batch") or "Not stated"),
+                    ("Source", source_display(signal)),
+                    ("Detected", _pacific(signal.get("detected_at"))),
+                ]
+            ),
+            self._context(source_badge(signal)),
             {
                 "type": "section",
-                "fields": [{"type": "mrkdwn", "text": text[:2000]} for text in fields[:10]],
+                "text": {
+                    "type": "mrkdwn",
+                    "text": (
+                        f"*Status*\n{STATE} Founder announced · "
+                        f"not yet listed in {program_batch(signal)}"
+                    ),
+                },
             },
         ]
 
-        excerpt = (signal.get("text") or "").strip()
-        if excerpt:
-            quoted = "\n".join(f"> {line}" for line in excerpt[:600].splitlines() if line)
-            blocks.append({"type": "section", "text": {"type": "mrkdwn", "text": quoted[:3000]}})
-
-        blocks.append(
-            {
-                "type": "context",
-                "elements": [{"type": "mrkdwn", "text": official_receipt(signal)[:3000]}],
-            }
-        )
-
-        reasons = compact_gtm_reasons(signal)
-        evidence = compact_evidence(signal)
-        detail = []
-        if reasons:
-            detail.append("*Why act now*\n" + "\n".join(f"• {item}" for item in reasons))
-        if evidence:
-            detail.append("*Evidence*\n" + "\n".join(f"• {item}" for item in evidence))
-        if detail:
+        quote = excerpt(signal)
+        if quote:
             blocks.append(
-                {"type": "section", "text": {"type": "mrkdwn", "text": "\n\n".join(detail)[:3000]}}
+                {"type": "section", "text": {"type": "mrkdwn", "text": f"> {quote}"[:3000]}}
             )
 
-        links = [("Open founder post", signal.get("url"))]
-        if signal.get("company_domain"):
-            links.append(("Company website", f"https://{signal['company_domain']}"))
-        blocks.append(self._actions(links))
-
+        blocks.append({"type": "divider"})
+        headline, provenance, detail = official_check_lines(signal)
         blocks.append(
             {
-                "type": "context",
-                "elements": [
-                    {
-                        "type": "mrkdwn",
-                        "text": (
-                            f"Signal confidence *{int(signal.get('confidence') or 0)}%* "
-                            f"({(signal.get('confidence_label') or 'review').upper()}) · "
-                            f"GTM priority *{int(signal.get('gtm_score') or 0)}/100* ({priority})"
-                        ),
-                    }
-                ],
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": f"{CHECK} *OFFICIAL CHECK*\n{headline}\n{provenance}"[:3000],
+                },
             }
         )
+        if detail:
+            blocks.append(self._context(detail))
+
+        blocks.extend(self._bullets("Why act now", display_reasons(signal, 3)))
+        blocks.extend(self._bullets("Evidence", display_evidence(signal, 3)))
+
+        blocks.append(
+            self._actions(
+                [
+                    ("View founder post  →", signal.get("url"), "primary"),
+                    (f"Verify {label} status  →", verify_url(signal), None),
+                ]
+            )
+        )
+        blocks.append(self._context(self._scoreline(signal)))
         return await self._send(title, blocks)
 
     async def send_corroboration(self, signal: dict, thread_ts: str | None):
@@ -180,84 +207,100 @@ class SlackNotifier:
                 "text": {
                     "type": "mrkdwn",
                     "text": (
-                        f"*{(signal.get('source') or '').title()}* also shows "
+                        f"*{source_display(signal)}* also shows "
                         f"*{company}*"
                         f"{' (' + signal['batch'] + ')' if signal.get('batch') else ''}. "
                         "No new alert raised -- this strengthens the existing signal."
                     ),
                 },
             },
-            self._actions([("Open corroborating post", signal.get("url"))]),
+            self._context(source_badge(signal)),
+            self._actions([("View corroborating post  →", signal.get("url"), None)]),
         ]
         return await self._send(title, blocks, thread_ts=thread_ts)
 
     async def send_official(self, company: dict):
+        """A directory addition FSignal did not see announced beforehand."""
         is_yc = company.get("source") == "yc_directory"
         label = "YC" if is_yc else "SPEEDRUN"
-        emoji = "✅" if is_yc else "🏁"
         company_name = company.get("name") or "Unknown"
-        title = f"{emoji} NEW {label} COMPANY · {company_name}"
+        title = f"{CONFIRMED} NEW {label} COMPANY · {company_name}"
 
         blocks = [
             {"type": "header", "text": {"type": "plain_text", "text": title[:150]}},
-            {
-                "type": "section",
-                "fields": [
-                    {"type": "mrkdwn", "text": f"*Company*\n{company_name}"},
-                    {"type": "mrkdwn", "text": f"*Batch*\n{company.get('batch') or 'Unknown'}"},
-                    {"type": "mrkdwn", "text": f"*Program*\n{label}"},
-                    {"type": "mrkdwn", "text": "*Status*\nConfirmed by the official directory"},
-                ],
-            },
+            self._fields(
+                [
+                    ("Company", company_name),
+                    ("Batch", company.get("batch") or "Unknown"),
+                    ("Program", label),
+                    ("Status", f"{CONFIRMED} Listed by the official directory"),
+                ]
+            ),
+            self._context(f"`SOURCE · {label} DIRECTORY`"),
             {
                 "type": "section",
                 "text": {
                     "type": "mrkdwn",
-                    "text": (company.get("description") or "New directory entry since the previous scan.")[:3000],
+                    "text": (company.get("description")
+                             or "New directory entry since the previous scan.")[:3000],
                 },
             },
-            self._actions([("Open official profile", company.get("url"))]),
+            self._actions([(f"View {label} profile  →", company.get("url"), "primary")]),
         ]
         return await self._send(title, blocks)
 
     async def send_confirmed(self, signal: dict, company: dict):
+        """The receipt for the whole thesis: we saw it first, by this much."""
         detected = datetime.fromisoformat(signal["detected_at"])
         confirmed = datetime.fromisoformat(signal["confirmed_at"])
-        hours = (confirmed - detected).total_seconds() / 3600
+        lead = _lead_time(detected, confirmed)
+
         company_name = company.get("name") or signal.get("company_name") or "Unknown"
-        title = f"✅ CONFIRMED · {company_name} · {hours:.1f}h early"
+        label = program_label(signal)
+        batch_label = company.get("batch") or official_batch_label(signal.get("batch"))
+        title = f"{CONFIRMED} {label} CONFIRMED · {company_name}"
 
         blocks = [
             {"type": "header", "text": {"type": "plain_text", "text": title[:150]}},
             {
                 "type": "section",
-                "fields": [
-                    {"type": "mrkdwn", "text": f"*Company*\n{company_name}"},
-                    {"type": "mrkdwn", "text": f"*Batch*\n{company.get('batch') or signal.get('batch') or 'Unknown'}"},
-                    {"type": "mrkdwn", "text": f"*First seen on*\n{(signal.get('source') or '').title()}"},
-                    {"type": "mrkdwn", "text": f"*Confirmed by*\n{company.get('source')}"},
-                    {"type": "mrkdwn", "text": f"*Detected*\n{_pacific(signal.get('detected_at'))}"},
-                    {"type": "mrkdwn", "text": f"*Listed*\n{_pacific(signal.get('confirmed_at'))}"},
-                ],
+                "text": {
+                    "type": "mrkdwn",
+                    "text": (
+                        f"*Status*\n{CONFIRMED} Officially listed"
+                        f"{' in ' + label + ' ' + batch_label if batch_label else ''}"
+                    ),
+                },
             },
+            self._fields(
+                [
+                    ("Company", company_name),
+                    ("Founder", founder_display(signal)),
+                    ("Program", label),
+                    ("Batch", batch_label or "Unknown"),
+                    ("Early detected", _pacific(signal.get("detected_at"))),
+                    ("Officially listed", _pacific(signal.get("confirmed_at"))),
+                ]
+            ),
+            self._context(source_badge(signal)),
+            {"type": "divider"},
             {
-                "type": "context",
-                "elements": [
-                    {
-                        "type": "mrkdwn",
-                        "text": (
-                            f"⏱ Measured lead time *{hours:.1f} hours* — how long FSignal "
-                            "knew about this company before the official directory listed it."
-                        ),
-                    }
-                ],
+                "type": "section",
+                "text": {
+                    "type": "mrkdwn",
+                    "text": (
+                        f"*EARLY DETECTED  →  OFFICIALLY CONFIRMED*\n"
+                        f"Early detection lead: *{lead}* before official listing"
+                    ),
+                },
             },
             self._actions(
                 [
-                    ("Original founder post", signal.get("url")),
-                    ("Official profile", company.get("url")),
+                    (f"View {label} profile  →", company.get("url"), "primary"),
+                    ("View original announcement  →", signal.get("url"), None),
                 ]
             ),
+            self._context(self._scoreline(signal)),
         ]
         return await self._send(title, blocks)
 
@@ -266,14 +309,53 @@ class SlackNotifier:
     # ------------------------------------------------------------------ #
 
     @staticmethod
-    def _actions(links: list[tuple[str, str | None]]) -> dict:
-        buttons = [
-            {"type": "button", "text": {"type": "plain_text", "text": label[:75]}, "url": url}
-            for label, url in links
-            if url
-        ][:5]
+    def _fields(pairs: list[tuple[str, str]]) -> dict:
+        """Two-column identity block. Slack caps this at 10 fields, 2000 chars each."""
+        return {
+            "type": "section",
+            "fields": [
+                {"type": "mrkdwn", "text": f"*{name}*\n{value}"[:2000]}
+                for name, value in pairs[:10]
+            ],
+        }
+
+    @staticmethod
+    def _context(text: str) -> dict:
+        return {"type": "context", "elements": [{"type": "mrkdwn", "text": text[:3000]}]}
+
+    @staticmethod
+    def _bullets(heading: str, items: list[str]) -> list[dict]:
+        if not items:
+            return []
+        body = "\n".join(f"• {item}" for item in items)
+        return [
+            {"type": "section", "text": {"type": "mrkdwn", "text": f"*{heading}*\n{body}"[:3000]}}
+        ]
+
+    @staticmethod
+    def _scoreline(signal: dict) -> str:
+        """Two different questions, kept visibly separate and never inflated."""
+        confidence = int(signal.get("confidence") or 0)
+        gtm = int(signal.get("gtm_score") or 0)
         return (
-            {"type": "actions", "elements": buttons}
+            f"Confidence: *{confidence}%* · {(signal.get('confidence_label') or 'review').title()}"
+            f"    ·    GTM priority: *{gtm}/100* · "
+            f"{(signal.get('gtm_priority') or 'standard').title()}"
+        )
+
+    @staticmethod
+    def _actions(links: list[tuple[str, str | None, str | None]]) -> dict:
+        """At most two navigation actions: inspect the founder, verify the claim."""
+        buttons = []
+        for label, url, style in links:
+            if not url:
+                continue
+            button = {"type": "button", "text": {"type": "plain_text", "text": label[:75]}, "url": url}
+            if style:
+                button["style"] = style
+            buttons.append(button)
+        return (
+            {"type": "actions", "elements": buttons[:2]}
             if buttons
             else {"type": "context", "elements": [{"type": "mrkdwn", "text": "No link available."}]}
         )

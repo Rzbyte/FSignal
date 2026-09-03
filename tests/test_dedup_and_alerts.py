@@ -265,5 +265,11 @@ async def test_early_alert_block_kit_is_well_formed(tmp_path, monkeypatch):
             assert len(field["text"]) <= 2000
         if "text" in block and isinstance(block["text"], dict):
             assert len(block["text"]["text"]) <= 3000
-    assert any("6,199 YC records" in e["text"] for b in payload["blocks"]
-               for e in b.get("elements", []) if e.get("type") == "mrkdwn")
+    # The official check is a full section, not a footnote: it is the credibility
+    # block, so it must carry visual weight.
+    sections = [
+        b["text"]["text"]
+        for b in payload["blocks"]
+        if b["type"] == "section" and isinstance(b.get("text"), dict)
+    ]
+    assert any("OFFICIAL CHECK" in t and "6,199 YC records" in t for t in sections)
