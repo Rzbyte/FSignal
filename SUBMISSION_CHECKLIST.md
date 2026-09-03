@@ -15,7 +15,7 @@ minute. Seven are met and verifiable right now; the eighth needs a person at a s
 | 3 | Persistent stateful monitoring, no re-alerts | **met** | State lives on a mounted volume and has survived every redeploy. Three separate posts about Adalat AI produced **one** alert plus two threaded corroborations |
 | 4 | Early-detection logic | **met** | `Adalat AI (YC F26)` was alerted on and is **still absent** from the 31-company Fall 2026 roster. Filter the directory to Fall 2026 and search it |
 | 5 | Slack: company, source, description, link | **met** | All four in every alert, plus the founder and a `Reach out` line. Rendered payloads in [`docs/DEMO.md`](docs/DEMO.md) |
-| 6 | Pond agent integration | **met** | Anonymous `GET /manifest` → `marketplace-agent` `1.0`, four actions. `POST /runs` without a token → `401` |
+| 6 | Pond agent integration | **met** | Anonymous `GET /manifest` → `marketplace-agent` `1.0`, four actions. `POST /runs` without a token → `401`; with one → `200` and a real result, and a byte-identical resend under the same `Idempotency-Key` returns the *persisted* result rather than re-running. Captured in [`evidence/raw/pond-runs.json`](evidence/raw/pond-runs.json) |
 | 7 | **Proof: screenshot or recording of a real Slack alert** | **outstanding** | Needs a person at a screen. Shot list in [`docs/DEMO.md`](docs/DEMO.md) |
 | 8 | Future upgradability; runs on Pond infrastructure | **met** | A new platform needs only `name` + `async collect()`. Pond V1 is served by the same always-on process that does the monitoring |
 
@@ -99,6 +99,10 @@ backoff, failure isolation, and a persistent outbox with retry and dead-letterin
       failed visibly, which is why it survived a green checklist.
 - [x] Pond agent published and healthy — `POND_ACCESS_KEY` and `PUBLIC_BASE_URL` set, agent
       registered
+- [x] **Pond idempotency proven, not asserted** — `evidence/raw/pond-runs.json` holds one
+      authenticated `POST /runs` and a byte-identical resend under the same
+      `Idempotency-Key`, with `identical_response: true`. Pond retries; an agent that
+      re-executed on a retry would double-count, which is why the run store exists.
 - [x] Polling paced to survive review — the two metered social sources run every 4 hours
       (the brief allows 8); the free directory sources stay tight so new listings and
       Ghost -> Confirmed reconciliation are not delayed. ~70 search credits/day.

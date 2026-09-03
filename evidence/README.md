@@ -6,6 +6,16 @@ Written by `python scripts/capture_evidence.py`. Each file carries the URL it ca
 the moment it was taken, so any claim below can be re-derived rather than trusted. See
 [`../docs/EVIDENCE.md`](../docs/EVIDENCE.md) for what each file establishes.
 
+## `raw/pond-runs.json`
+
+The Pond contract, exercised against the live deployment: an authenticated `POST /runs`
+returning `200` with a real result, and a byte-identical resend under the same
+`Idempotency-Key` returning `identical_response: true`.
+
+That second call is the one that matters. Pond retries, and an agent that re-executed on
+a retry would double-count its own work — so the run store is not a nicety, it is the
+reason the integration is safe to health-check.
+
 ## `live-run.json`
 
 A real production scan: the official snapshot sizes each verdict was checked against, the

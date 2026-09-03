@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-09-03T22:24:20.246818+00:00",
+  "captured_at": "2026-09-03T22:33:47.139941+00:00",
   "captured_from": "https://fsignal-production.up.railway.app/signals/14/timeline",
   "note": "Full history of the alert for Adalat AI.",
   "body": {
@@ -31,7 +31,8 @@
       "alerted_ghost_at": "2026-09-03T21:39:08.207678+00:00",
       "alerted_confirmed_at": null,
       "raw_json": "{\"title\": \"Adalat AI (YC F26) \\u0639\\u0644\\u0649 X: \\\"5/ With YC behind us, we're taking this ...\", \"link\": \"https://x.com/Adalat_AI/status/2090071721856712924?lang=ar\", \"snippet\": \"Adalat AI (YC F26) \\u00b7 @Adalat_AI \\u00b7 19 \\u0623\\u063a\\u0633\\u0637\\u0633. 1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \\u2014 and the ...\", \"date\": \"Aug 19, 2026\", \"position\": 8}",
-      "collection_mode": "indexed_fallback"
+      "collection_mode": "indexed_fallback",
+      "posted_at": null
     },
     "timeline": [
       {

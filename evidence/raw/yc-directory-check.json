@@ -1,26 +1,19 @@
 {
-  "captured_at": "2026-09-03T22:24:27.514850+00:00",
+  "captured_at": "2026-09-03T22:33:55.038571+00:00",
   "captured_from": "https://www.ycombinator.com/companies (crawled directly)",
   "note": "Crawled independently of the deployment. For each alerted company: whether it is listed in the batch it claimed -- which is what the alert actually asserts -- the full roster of that batch so the absence is checkable by eye, and separately any same-name company in a different batch, which does not contradict the claim.",
   "body": {
     "directory_size": 6200,
     "alerted_companies": [
       {
-        "company_name": "Adalat AI",
-        "claimed_batch": "F26",
-        "claimed_batch_label": "Fall 2026",
-        "listed_in_claimed_batch": false,
-        "same_name_in_other_batches": []
-      },
-      {
-        "company_name": "Adalat AI",
-        "claimed_batch": "F26",
-        "claimed_batch_label": "Fall 2026",
-        "listed_in_claimed_batch": false,
-        "same_name_in_other_batches": []
-      },
-      {
         "company_name": "@Adalat_AI",
+        "claimed_batch": "F26",
+        "claimed_batch_label": "Fall 2026",
+        "listed_in_claimed_batch": false,
+        "same_name_in_other_batches": []
+      },
+      {
+        "company_name": "Adalat AI",
         "claimed_batch": "F26",
         "claimed_batch_label": "Fall 2026",
         "listed_in_claimed_batch": false,

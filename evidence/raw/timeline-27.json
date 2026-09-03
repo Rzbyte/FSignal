@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-09-03T22:24:20.431850+00:00",
+  "captured_at": "2026-09-03T22:33:46.935804+00:00",
   "captured_from": "https://fsignal-production.up.railway.app/signals/27/timeline",
   "note": "Full history of the alert for @Adalat_AI.",
   "body": {
@@ -31,7 +31,8 @@
       "alerted_ghost_at": "2026-09-03T21:41:11.540384+00:00",
       "alerted_confirmed_at": null,
       "raw_json": "{\"title\": \"IndiaAI on X: \\\"Stronger support to India's justice-tech ecosystem ...\", \"link\": \"https://x.com/OfficialINDIAai/status/2092160053566435737\", \"snippet\": \"@Adalat_AI (YC F26) is now backed by @ycombinator , marking a significant step forward for its mission to enable timely justice through technology. With ...\", \"date\": \"Aug 25, 2026\", \"position\": 5}",
-      "collection_mode": "indexed_fallback"
+      "collection_mode": "indexed_fallback",
+      "posted_at": null
     },
     "timeline": [
       {
