@@ -1,15 +1,15 @@
 {
-  "captured_at": "2026-09-03T21:31:58.160150+00:00",
-  "captured_from": "http://localhost:8899/signals/23/timeline",
+  "captured_at": "2026-09-03T21:39:43.944427+00:00",
+  "captured_from": "https://fsignal-production.up.railway.app/signals/14/timeline",
   "note": "Full history of the alert for Adalat AI.",
   "body": {
     "signal": {
-      "id": 23,
+      "id": 14,
       "source": "x",
       "external_id": "2090071721856712924",
       "url": "https://x.com/Adalat_AI/status/2090071721856712924",
-      "text": "Adalat AI (YC F26) \u0639\u0644\u0649 X: \"5/ With YC behind us, we're taking this ... Adalat AI (YC F26) \u00b7 @Adalat_AI \u00b7 19 \u0623\u063a\u0633\u0637\u0633. 1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \u2014 and the ...",
-      "author_name": null,
+      "text": "Adalat AI (YC F26) \u00b7 @Adalat_AI \u00b7 19 \u0623\u063a\u0633\u0637\u0633. 1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \u2014 and the ... Adalat AI (YC F26)",
+      "author_name": "Adalat AI (YC F26)",
       "author_handle": "Adalat_AI",
       "company_name": "Adalat AI",
       "normalized_company_name": "adalatai",
@@ -25,23 +25,23 @@
       "gtm_reasons_json": "[\"Pre-directory timing advantage\", \"Founder is directly reachable from the post\", \"Current accelerator cohort identified\"]",
       "status": "ghost",
       "official_company_id": null,
-      "detected_at": "2026-09-03T21:18:41.684147+00:00",
+      "detected_at": "2026-09-03T21:39:01.818031+00:00",
       "confirmed_at": null,
-      "official_check_json": "{\"matched\": false, \"method\": null, \"methods_tried\": [\"exact_name\", \"batch_prefix\"], \"batch_scope\": \"F26\", \"records_checked\": 6461, \"official_name\": null, \"official_batch\": null, \"official_url\": null, \"checked_at\": \"2026-09-03T21:18:44.474430+00:00\", \"snapshot_source\": \"yc_directory\", \"snapshot_size\": 6200, \"snapshot_taken_at\": \"2026-09-03T21:18:36.584404+00:00\"}",
-      "alerted_ghost_at": "2026-09-03T21:18:53.278386+00:00",
+      "official_check_json": "{\"matched\": false, \"method\": null, \"methods_tried\": [\"exact_name\", \"batch_prefix\"], \"batch_scope\": \"F26\", \"records_checked\": 6461, \"official_name\": null, \"official_batch\": null, \"official_url\": null, \"checked_at\": \"2026-09-03T21:39:07.411169+00:00\", \"snapshot_source\": \"yc_directory\", \"snapshot_size\": 6200, \"snapshot_taken_at\": \"2026-09-03T21:39:00.426361+00:00\"}",
+      "alerted_ghost_at": "2026-09-03T21:39:08.207678+00:00",
       "alerted_confirmed_at": null,
-      "raw_json": "{\"title\": \"Adalat AI (YC F26) \\u0639\\u0644\\u0649 X: \\\"5/ With YC behind us, we're taking this ...\", \"link\": \"https://x.com/Adalat_AI/status/2090071721856712924?lang=ar\", \"snippet\": \"Adalat AI (YC F26) \\u00b7 @Adalat_AI \\u00b7 19 \\u0623\\u063a\\u0633\\u0637\\u0633. 1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \\u2014 and the ...\", \"date\": \"Aug 19, 2026\", \"position\": 10}",
+      "raw_json": "{\"title\": \"Adalat AI (YC F26) \\u0639\\u0644\\u0649 X: \\\"5/ With YC behind us, we're taking this ...\", \"link\": \"https://x.com/Adalat_AI/status/2090071721856712924?lang=ar\", \"snippet\": \"Adalat AI (YC F26) \\u00b7 @Adalat_AI \\u00b7 19 \\u0623\\u063a\\u0633\\u0637\\u0633. 1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \\u2014 and the ...\", \"date\": \"Aug 19, 2026\", \"position\": 8}",
       "collection_mode": "indexed_fallback"
     },
     "timeline": [
       {
-        "id": 6492,
+        "id": 6481,
         "event_key": "signal:x:2090071721856712924:detected",
         "event_type": "social_detected",
-        "signal_id": 23,
+        "signal_id": 14,
         "official_company_id": null,
         "source": "x",
-        "event_at": "2026-09-03T21:18:41.684147+00:00",
+        "event_at": "2026-09-03T21:39:01.818031+00:00",
         "metadata": {
           "company": "Adalat AI",
           "confidence": 75,
@@ -51,25 +51,25 @@
         }
       },
       {
-        "id": 6493,
+        "id": 6482,
         "event_key": "signal:x:2090071721856712924:ghost",
         "event_type": "ghost_classified",
-        "signal_id": 23,
+        "signal_id": 14,
         "official_company_id": null,
         "source": "x",
-        "event_at": "2026-09-03T21:18:41.684147+00:00",
+        "event_at": "2026-09-03T21:39:01.818031+00:00",
         "metadata": {
           "reason": "No official directory match at detection time"
         }
       },
       {
-        "id": 6531,
+        "id": 6503,
         "event_key": "alert:corroboration:yc:F26:adalatai:x:2090071721856712924:sent",
         "event_type": "slack_alert_sent",
-        "signal_id": 23,
+        "signal_id": 14,
         "official_company_id": null,
         "source": "slack",
-        "event_at": "2026-09-03T21:18:53.294957+00:00",
+        "event_at": "2026-09-03T21:39:08.216724+00:00",
         "metadata": {
           "kind": "corroboration"
         }

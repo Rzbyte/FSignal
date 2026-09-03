@@ -171,7 +171,12 @@ This is what the reference deployment runs on
 
 1. Push your fork to GitHub.
 2. At [railway.app](https://railway.app) → **New Project** → **Deploy from GitHub repo** →
-   pick it. Railway reads the `Dockerfile` and builds it.
+   pick it. Railway builds it and redeploys on every push to your default branch.
+
+   Take the GitHub path, not `railway up` from your laptop. A service created by
+   uploading a local snapshot stays pinned to that snapshot: pushing to GitHub changes
+   nothing, and **Redeploy** rebuilds the same old code. If a service is already in that
+   state, open **Settings** → **Source** → connect the repository.
 3. Open the service → **Variables** → add the same three required values from your `.env`.
 4. **Settings** → **Networking** → **Generate Domain**. That URL is your bot's home.
 5. **Do not skip this one.** Add a **Volume** mounted at `/app/data`, and set

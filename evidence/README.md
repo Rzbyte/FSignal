@@ -14,9 +14,14 @@ official-check receipt and timeline.
 
 ## The claims, and how to check them yourself
 
-### Adalat AI (YC F26) — from X
+### Adalat AI (YC F26) — from X, from the deployment
 
-On 2026-09-03 the X source produced its first live EARLY alert. The founder account posted:
+On 2026-09-03 the X source produced its first live EARLY alert, first from a local run and
+then — once the new build reached Railway — from the deployment itself. The artifacts in
+`raw/` are the deployment's: `health.json` shows `production_ready: true` with X reporting
+`mode: "indexed_fallback"`, and `alerts.sent: 2`.
+
+The founder account posted:
 
 > *"1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in
 > nearly five years — and the first Indian-…"*

@@ -8,7 +8,7 @@ to it. Unticked boxes state what is actually blocking them.
 - [x] Public repository with complete runnable source — <https://github.com/Rzbyte/FSignal>
 - [x] `.env` never committed — `git log --all --full-history -- .env` is empty
 - [x] `.env` and `.venv` excluded from the Docker build context — `.dockerignore`
-- [x] Test suite green — `pytest -q` (185 tests), with no credentials configured
+- [x] Test suite green — `pytest -q` (187 tests), with no credentials configured
 - [x] Precision enforced in CI, not just asserted — `pytest tests/test_precision.py`
 - [x] Setup a non-technical operator can complete — `docs/INSTALL.md`, with prerequisites,
       the Slack click path, Windows and macOS, permanent hosting, and a troubleshooting
@@ -61,9 +61,18 @@ to it. Unticked boxes state what is actually blocking them.
 - [x] Polling paced to survive review — the two metered social sources run every 4 hours
       (the brief allows 8); the free directory sources stay tight so new listings and
       Ghost -> Confirmed reconciliation are not delayed. ~70 search credits/day.
-- [x] Machine-capturable evidence captured — `python scripts/capture_evidence.py` writes
-      served state, the Pond idempotency proof, per-signal timelines, and an independent
-      directory crawl into `evidence/raw/`
+- [x] Deploys from GitHub — the service was pinned to an uploaded snapshot, so pushes
+      changed nothing and **Redeploy** rebuilt the same old code. Now connected to
+      `Rzbyte/FSignal` on `main`.
+- [x] `/health` reports `production_ready: true` — all four sources healthy, X as
+      `mode: "indexed_fallback"`
+- [x] **The deployment has delivered real Slack alerts** — `alerts.sent: 2`, both EARLY
+      signals for `Adalat AI (YC F26)` found on X. Its ledger for the same run:
+      2 alerted, 12 already-listed, 12 possible, 28 suppressed with reason codes.
+- [x] Machine-capturable evidence captured **from the deployment** —
+      `python scripts/capture_evidence.py` wrote `evidence/raw/`: served state, per-signal
+      timelines, and a directory crawl run independently of the deployment confirming
+      Adalat AI is absent from all 6,200 records and from the 31-company Fall 2026 roster
 - [ ] Slack screenshots and the 2-minute recording — needs a person at a screen.
       `docs/DEMO.md` has the shot list in recording order.
 

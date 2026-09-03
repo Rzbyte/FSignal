@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-09-03T21:32:04.233769+00:00",
+  "captured_at": "2026-09-03T21:39:50.925137+00:00",
   "captured_from": "https://www.ycombinator.com/companies (crawled directly)",
   "note": "Crawled independently of the deployment. For each alerted company: whether it is listed in the batch it claimed -- which is what the alert actually asserts -- the full roster of that batch so the absence is checkable by eye, and separately any same-name company in a different batch, which does not contradict the claim.",
   "body": {
@@ -18,24 +18,6 @@
         "claimed_batch_label": "Fall 2026",
         "listed_in_claimed_batch": false,
         "same_name_in_other_batches": []
-      },
-      {
-        "company_name": "Lark",
-        "claimed_batch": "F26",
-        "claimed_batch_label": "Fall 2026",
-        "listed_in_claimed_batch": false,
-        "same_name_in_other_batches": [
-          {
-            "name": "Lark",
-            "batch": "Summer 2025",
-            "url": "https://www.ycombinator.com/companies/lark"
-          },
-          {
-            "name": "Olark",
-            "batch": "Summer 2009",
-            "url": "https://www.ycombinator.com/companies/olark"
-          }
-        ]
       }
     ],
     "batch_rosters": {
