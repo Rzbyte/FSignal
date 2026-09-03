@@ -14,11 +14,19 @@ failed to match the official `Nodus Compute`, and `Shepherd (YC S26)` matched a
 different, older `Shepherd` from Winter 2021.
 
 The resolution order is therefore domain, then exact normalized name, then a
-batch-scoped strict token-prefix -- and never fuzzy similarity.
+batch-scoped strict token-prefix, then a batch-scoped handle comparison -- and
+never fuzzy similarity.
+
+The last one exists because X names companies by handle. `@speko_ai` is the
+directory's `Speko`, and comparing those as names says they are different
+companies -- which is exactly how an already-listed company gets announced as an
+early discovery. Both sides are reduced identically and only within the batch
+the post itself claims, so it can never reach across cohorts.
 """
 
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 
 from .db import normalize_name
@@ -27,6 +35,27 @@ from .targeting import batch_code, batch_codes, cohort_code
 #: A one-token prefix has to be this long before it can stand in for a company.
 #: "Nodus" -> "Nodus Compute" is fine; "AI" -> "AI Labs" is not.
 MIN_PREFIX_CHARS = 5
+
+#: A handle core has to be this long to stand in for a company. Shorter than the
+#: prefix rule because both sides go through the same reduction and the
+#: comparison is batch-scoped, so "lark" cannot reach past ~30 companies.
+MIN_HANDLE_CHARS = 4
+
+#: Tokens founders append to a handle because the bare name was taken. None of
+#: them is part of the company's name: @speko_ai is Speko, @evo_hq is EVO.
+_HANDLE_SUFFIXES = (
+    "ai", "hq", "io", "app", "labs", "lab", "inc", "co", "xyz", "dev", "tech",
+    "official", "team",
+)
+
+#: The same, on the front. @tryfoo, @getfoo, @usefoo are all foo.
+_HANDLE_PREFIXES = ("try", "get", "use", "join", "the", "hey", "we", "its")
+
+#: The subset safe to peel when nothing separates it from the name. Separated,
+#: "io" is unambiguous (@foo_io); fused, it is the tail of studio, radio, audio.
+#: Guessing there cost "trystudioai" its identity and left "stud", which is long
+#: enough to collide with something real.
+_FUSED_SUFFIXES = ("ai", "hq", "app", "labs", "official")
 
 
 def _normalize_domain(value: str | None) -> str:
@@ -87,6 +116,52 @@ def _is_token_prefix(candidate: str, official: str) -> bool:
     if len(candidate_tokens) == 1 and len(candidate_tokens[0]) < MIN_PREFIX_CHARS:
         return False
     return True
+
+
+def _strip_affixes(core: str) -> str:
+    """Peel one fused vanity affix from each end of a handle.
+
+    Once per end, not until nothing changes. A loop cascades: "trystudioai"
+    lost "try", then "ai", then read "studio" as ending in the "io" suffix and
+    settled on "stud" -- still long enough to match something it is not.
+    """
+    for prefix in _HANDLE_PREFIXES:
+        if core.startswith(prefix) and len(core) - len(prefix) >= MIN_HANDLE_CHARS:
+            core = core[len(prefix):]
+            break
+    for suffix in _FUSED_SUFFIXES:
+        if core.endswith(suffix) and len(core) - len(suffix) >= MIN_HANDLE_CHARS:
+            core = core[: -len(suffix)]
+            break
+    return core
+
+
+def handle_identity(name: str | None) -> str:
+    """The company inside a social handle. ``@speko_ai`` -> ``speko``.
+
+    X names a company by its handle far more often than LinkedIn does, and a
+    handle is shaped by what was still available rather than by what the company
+    is called. `@speko_ai` and the directory's `Speko` are the same company, and
+    an exact-name comparison says they are not -- which is how a company that is
+    already listed gets announced as an early discovery.
+
+    Both sides are reduced the same way, so this only ever compares like with
+    like. Returns "" when nothing survives that is long enough to be an identity.
+    """
+    text = (name or "").strip().lstrip("@").lower()
+    parts = [part for part in re.split(r"[\s._\-]+", text) if part]
+    if not parts:
+        return ""
+
+    # Drop generic trailing words first ("Adalat AI" -> "adalat"), then peel any
+    # affixes still fused to the remaining token ("tryspeko" -> "speko").
+    while len(parts) > 1 and parts[-1] in _HANDLE_SUFFIXES:
+        parts.pop()
+    while len(parts) > 1 and parts[0] in _HANDLE_PREFIXES:
+        parts.pop(0)
+
+    core = _strip_affixes("".join(parts))
+    return core if len(core) >= MIN_HANDLE_CHARS else ""
 
 
 @dataclass
@@ -164,6 +239,27 @@ def resolve_official(
                 continue
             if _is_token_prefix(company_name, row.get("name") or ""):
                 check.match, check.method = row, "batch_prefix"
+                return check
+
+    # A handle is not a name. Batch-scoped for the same reason the prefix rule
+    # is: reducing both sides is only safe against the ~30 companies the post
+    # itself claims to belong to, never across the whole directory.
+    handle = handle_identity(company_name)
+    if handle and scope:
+        check.methods_tried.append("handle")
+        for row in rows:
+            if not batches_match(row.get("batch"), scope):
+                continue
+            official_name = row.get("name") or ""
+            # Equal after the same reduction (@speko_ai / Speko), or the same
+            # shortening founders already do in prose (@lambda_ai / Lambda
+            # Robotics), which the prefix rule above could not see through the
+            # handle's punctuation.
+            if (
+                handle_identity(official_name) == handle
+                or _is_token_prefix(handle, official_name)
+            ):
+                check.match, check.method = row, "handle"
                 return check
 
     return check

@@ -10,10 +10,15 @@ from datetime import datetime, timedelta, timezone
 
 import pytest
 
-from app.db import Database
+from app.db import Database, normalize_name
 from app.engine import RadarEngine
 from app.extract import enrich_signal
-from app.matcher import MIN_PREFIX_CHARS, normalize_batch, resolve_official
+from app.matcher import (
+    MIN_PREFIX_CHARS,
+    handle_identity,
+    normalize_batch,
+    resolve_official,
+)
 from app.models import Company, SocialSignal
 
 
@@ -93,7 +98,7 @@ def test_check_records_what_was_compared():
     assert payload["matched"] is False
     assert payload["records_checked"] == len(DIRECTORY)
     assert payload["batch_scope"] == "F26"
-    assert payload["methods_tried"] == ["exact_name", "batch_prefix"]
+    assert payload["methods_tried"] == ["exact_name", "batch_prefix", "handle"]
 
 
 def test_early_alert_persists_its_receipt(tmp_path):
@@ -164,3 +169,95 @@ def test_spring_batch_aliases_are_the_same_cohort():
     assert resolve_official("Andustry", None, directory, "P26").match is not None
     assert resolve_official("Andustry", None, directory, "X26").match is not None
     assert resolve_official("Andustry", None, directory, "F26").match is None
+
+
+# --------------------------------------------------------------------------- #
+# Handles are not names                                                        #
+# --------------------------------------------------------------------------- #
+
+
+def _batch(names, batch="Fall 2026"):
+    return [
+        {
+            "id": index,
+            "name": name,
+            "normalized_name": normalize_name(name),
+            "batch": batch,
+            "domain": None,
+        }
+        for index, name in enumerate(names)
+    ]
+
+
+def test_a_handle_resolves_to_the_company_it_names():
+    """The failure this guards against was found on the brief's own example.
+
+    The task names `x.com/beknabdik` as the kind of founder to catch. That
+    account builds Speko, which the directory lists under Summer 2026 -- but the
+    post identifies the company as `@speko_ai`, and comparing that to `Speko` as
+    a *name* says they are different companies. FSignal would have announced an
+    already-listed company as an early discovery, which is the one failure a
+    reader can disprove in ten seconds.
+    """
+    check = resolve_official("@speko_ai", None, _batch(["Speko"], "Summer 2026"), "S26")
+    assert check.match is not None
+    assert check.match["name"] == "Speko"
+    assert check.method == "handle"
+
+
+@pytest.mark.parametrize(
+    "candidate,official",
+    [
+        ("@speko_ai", "Speko"),          # separated suffix
+        ("spekoai", "Speko"),            # fused suffix
+        ("@tryspeko", "Speko"),          # vanity prefix
+        ("speko.ai", "Speko"),           # the domain written as a name
+        ("@quippy_app", "Quippy"),
+        ("@lambda_ai", "Lambda Robotics"),  # a handle *and* a shortening
+    ],
+)
+def test_handle_forms_reach_their_company(candidate, official):
+    check = resolve_official(candidate, None, _batch([official]), "F26")
+    assert check.match is not None, f"{candidate} should reach {official}"
+
+
+def test_a_handle_never_reaches_a_company_it_does_not_name():
+    check = resolve_official("@unrelated_ai", None, _batch(["Speko", "Quippy"]), "F26")
+    assert check.match is None
+    assert "handle" in check.methods_tried
+
+
+def test_a_handle_cannot_reach_across_batches():
+    """Same guard as the prefix rule: reduction is only safe inside one cohort."""
+    rows = _batch(["Speko"], "Summer 2025")
+    assert resolve_official("@speko_ai", None, rows, "F26").match is None
+
+
+def test_a_handle_with_no_batch_is_never_reduced_against_the_directory():
+    """Without a batch there is no scope to make the reduction safe."""
+    check = resolve_official("@speko_ai", None, _batch(["Speko"]), None)
+    assert check.match is None
+    assert "handle" not in check.methods_tried
+
+
+@pytest.mark.parametrize(
+    "name,expected",
+    [
+        ("@tryStudioai", "studio"),   # not "stud": the cascade used to eat "io"
+        ("Studio", "studio"),
+        ("Radio", "radio"),
+        ("Audio Labs", "audio"),
+        ("Lambda Robotics", "lambdarobotics"),  # a real word is not an affix
+        ("@evo_hq", ""),              # nothing long enough survives
+        ("AI", ""),
+        ("@x_ai", ""),
+    ],
+)
+def test_reduction_keeps_real_words_intact(name, expected):
+    assert handle_identity(name) == expected
+
+
+def test_the_receipt_records_the_handle_attempt():
+    """An EARLY claim has to say every comparison it made, including this one."""
+    check = resolve_official("@unlisted_ai", None, _batch(["Speko"]), "F26")
+    assert check.as_dict()["methods_tried"] == ["exact_name", "batch_prefix", "handle"]

@@ -126,6 +126,7 @@ _METHOD_LABELS = {
     "domain": "no domain match",
     "exact_name": "no exact-name match",
     "batch_prefix": "no in-batch prefix match",
+    "handle": "no in-batch handle match",
 }
 
 

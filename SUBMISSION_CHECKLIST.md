@@ -8,7 +8,7 @@ to it. Unticked boxes state what is actually blocking them.
 - [x] Public repository with complete runnable source — <https://github.com/Rzbyte/FSignal>
 - [x] `.env` never committed — `git log --all --full-history -- .env` is empty
 - [x] `.env` and `.venv` excluded from the Docker build context — `.dockerignore`
-- [x] Test suite green — `pytest -q` (189 tests), with no credentials configured
+- [x] Test suite green — `pytest -q` (208 tests), with no credentials configured
 - [x] Precision enforced in CI, not just asserted — `pytest tests/test_precision.py`
 - [x] Setup a non-technical operator can complete — `docs/INSTALL.md`, with prerequisites,
       the Slack click path, Windows and macOS, permanent hosting, and a troubleshooting
@@ -43,6 +43,12 @@ to it. Unticked boxes state what is actually blocking them.
       because the indexed collector keys on the X post id rather than a hash of the URL.
 - [x] Early detection with a defensible verdict — every EARLY alert stores and displays the
       snapshot size, snapshot time, batch scope, and every match method attempted
+- [x] Handles resolve to the companies they name — found by running the brief's own
+      example (`x.com/beknabdik`) through the matcher: that founder builds **Speko**, which
+      the directory lists under Summer 2026, but the post identifies it as `@speko_ai` and
+      a name comparison called those different companies. Three live candidates
+      (`@speko_ai`, `@florin_hq`, `@tryStudioai`) now correctly resolve to `Speko`,
+      `Florin` and `Studio` instead of being eligible for a false EARLY alert.
 - [x] **New official listings alert too** — `✅ NEW YC COMPANY`, the task brief's second
       example. Raised live for `OnePatch` when the Fall 2026 roster went from 30 to 31.
 - [x] Suppression is auditable — every rejected candidate carries a reason code (`/ledger`),

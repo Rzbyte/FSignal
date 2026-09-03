@@ -32,7 +32,7 @@ X / LinkedIn ──→ identity gate ──→ scoring ──→ official check 
 **Official snapshot.** `ycombinator.com/companies` is a client-side Algolia application;
 FSignal uses the same public search key the page hands its own JavaScript. A single
 Algolia query caps at 1,000 hits, so a full crawl enumerates the `batch` facet and pulls
-one slice per batch — **6,199 of 6,199 companies in about 8 seconds**. Between full
+one slice per batch — **6,200 of 6,200 companies in about 8 seconds**. Between full
 crawls, one recent-window query against the launch-date index catches new listings.
 Speedrun uses a16z's own first-party API, the one `speedrun.a16z.com` calls itself.
 
@@ -49,8 +49,12 @@ investor commentary). Anything that fails is ledgered with a reason and never al
 
 **Official check.** Domain first, then exact normalized name, then a batch-scoped strict
 token-prefix so `Nodus` resolves to `Nodus Compute` while `Shepherd (YC S26)` does not
-match the unrelated `Shepherd (Winter 2021)`. Never fuzzy similarity. If the snapshot is
-stale, the verdict is `possible`, never `early`.
+match the unrelated `Shepherd (Winter 2021)`. Last, a batch-scoped handle comparison,
+because X names companies by handle: `@speko_ai` is the directory's `Speko`, and comparing
+those as *names* says they are different companies — which is how an already-listed company
+gets announced as an early discovery. Never fuzzy similarity, and both the prefix and
+handle rules are confined to the batch the post itself claims, so neither can reach across
+cohorts. If the snapshot is stale, the verdict is `possible`, never `early`.
 
 **Dedup.** One alert per company, not per post. A second independent source for the same
 company replies in the original Slack thread as corroboration.
