@@ -8,7 +8,7 @@ to it. Unticked boxes state what is actually blocking them.
 - [x] Public repository with complete runnable source — <https://github.com/Rzbyte/FSignal>
 - [x] `.env` never committed — `git log --all --full-history -- .env` is empty
 - [x] `.env` and `.venv` excluded from the Docker build context — `.dockerignore`
-- [x] Test suite green — `pytest -q` (224 tests), with no credentials configured
+- [x] Test suite green — `pytest -q` (238 tests), with no credentials configured
 - [x] Precision enforced in CI, not just asserted — `pytest tests/test_precision.py`
 - [x] Setup a non-technical operator can complete — `docs/INSTALL.md`, with prerequisites,
       the Slack click path, Windows and macOS, permanent hosting, and a troubleshooting
@@ -57,6 +57,15 @@ to it. Unticked boxes state what is actually blocking them.
       confidence, and links to both the founder's post and that signal's full history,
       one row per company
 - [x] Slack alerts carry company, founder, source, description/excerpt, and link
+- [x] **The alert ends where the outreach starts** — a `Reach out` line with the
+      founder's actual profile (X handle, or the author slug LinkedIn embeds in its own
+      post URLs) and the company's site. Links, not buttons: two buttons is a call to
+      action, five is none. No line at all rather than a label with nothing behind it.
+- [x] **Speedrun produces signals** — it never had. The gap was extraction, not queries:
+      `building @infragrid` and `starting @codos_ai` are the shapes founders use on X,
+      and the extractor was written against LinkedIn prose. `@codos_ai` now resolves to
+      the listed `Codos (SR007)`; `@infragrid` and `MUNARI LABS` are in neither
+      directory and sit at `possible` because their posts name no cohort.
 - [x] Architecture supports new social platforms — a source needs only `name` + `collect()`
 
 ## Deployment and evidence

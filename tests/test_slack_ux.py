@@ -18,6 +18,9 @@ from app.config import settings as base_settings
 from app.slack import official_listing_moment
 from app.presenter import (
     company_display,
+    company_site_url,
+    founder_profile_url,
+    outreach_links,
     display_evidence,
     excerpt,
     founder_display,
@@ -497,3 +500,56 @@ def test_the_confirmed_alert_shows_the_directorys_moment_and_says_so():
     assert "20d 2h" in body            # YC's clock
     assert "20d 4h" not in body        # not ours, which is 2h28m later
     assert "directory's own published listing time" in body
+
+
+# --------------------------------------------------------------------------- #
+# Outreach                                                                     #
+# --------------------------------------------------------------------------- #
+
+
+def test_an_x_signal_offers_the_founders_profile():
+    """The brief is written by someone who wants to contact these founders.
+
+    Telling them who announced and when, and then stopping, is one step short of
+    the job.
+    """
+    signal = dict(LARK, source="x", author_handle="Adalat_AI",
+                  url="https://x.com/Adalat_AI/status/2090071662784086176")
+    assert founder_profile_url(signal) == "https://x.com/Adalat_AI"
+    assert "Reach out" in all_text(render(lambda n: n.send_ghost(signal)))
+
+
+def test_a_linkedin_post_yields_the_authors_real_profile():
+    """LinkedIn post URLs embed the author's own slug, so this is not a guess."""
+    assert founder_profile_url(LARK) == (
+        "https://www.linkedin.com/in/michael-wang-40061923b"
+    )
+
+
+def test_a_company_page_has_no_person_to_open():
+    signal = dict(LARK, url="https://www.linkedin.com/company/shepherdai")
+    assert founder_profile_url(signal) is None
+
+
+def test_a_resolved_domain_becomes_somewhere_to_click():
+    signal = dict(LARK, company_domain="adalat.ai")
+    assert company_site_url(signal) == "https://adalat.ai"
+    assert "<https://adalat.ai|adalat.ai>" in outreach_links(signal)
+
+
+def test_no_outreach_line_rather_than_a_dead_one():
+    """A label with nothing behind it is worse than no label."""
+    signal = dict(LARK, author_handle=None, company_domain=None,
+                  url="https://www.linkedin.com/feed/")
+    assert outreach_links(signal) is None
+    assert "Reach out" not in all_text(render(lambda n: n.send_ghost(signal)))
+
+
+def test_outreach_adds_no_buttons():
+    """Two buttons is a call to action. Five is none."""
+    signal = dict(LARK, source="x", author_handle="janef",
+                  company_domain="lark.ai",
+                  url="https://x.com/janef/status/1")
+    payload = render(lambda n: n.send_ghost(signal))
+    assert len(buttons(payload)) == 2
+    assert "Reach out" in all_text(payload)

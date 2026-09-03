@@ -26,6 +26,7 @@ from .presenter import (
     founder_display,
     official_batch_label,
     official_check_lines,
+    outreach_links,
     program_batch,
     program_label,
     source_badge,
@@ -259,6 +260,11 @@ class SlackNotifier:
                 ]
             )
         )
+        # Where the outreach starts. A context line rather than more buttons:
+        # two buttons is a call to action, five is none.
+        reach = outreach_links(signal)
+        if reach:
+            blocks.append(self._context(reach))
         blocks.append(self._context(self._scoreline(signal)))
         return await self._send(title, blocks)
 
@@ -373,8 +379,15 @@ class SlackNotifier:
                     ("View original announcement  →", signal.get("url"), None),
                 ]
             ),
-            self._context(self._scoreline(signal)),
         ]
+        # Confirmation is the second outreach moment, not the end of one: the
+        # company is now public, so everyone else is about to arrive.
+        reach = outreach_links(dict(signal, company_domain=(
+            signal.get("company_domain") or company.get("domain")
+        )))
+        if reach:
+            blocks.append(self._context(reach))
+        blocks.append(self._context(self._scoreline(signal)))
         return await self._send(title, blocks)
 
     # ------------------------------------------------------------------ #

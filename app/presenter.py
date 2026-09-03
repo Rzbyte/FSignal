@@ -172,6 +172,56 @@ def founder_display(signal: dict) -> str:
     return "Unknown founder"
 
 
+# --------------------------------------------------------------------------- #
+# Outreach                                                                     #
+# --------------------------------------------------------------------------- #
+
+
+def founder_profile_url(signal: dict) -> str | None:
+    """Where to actually reach the person, when the post says.
+
+    The alert told a GTM reader who announced and when, and then stopped -- which
+    is one step short of the job. The brief is written by someone who wants to
+    contact these founders, so the alert should end where the outreach starts.
+    """
+    handle = (signal.get("author_handle") or "").strip().lstrip("@")
+    if handle and (signal.get("source") or "").lower() == "x":
+        return f"https://x.com/{handle}"
+
+    url = signal.get("url") or ""
+    if "linkedin.com/company/" in url.lower():
+        # A company page has no person behind it to open.
+        return None
+    slug = _PROFILE_SLUG.search(url)
+    # LinkedIn post URLs embed the author's own profile slug, so this is their
+    # real profile rather than a guess.
+    return f"https://www.linkedin.com/in/{slug.group(1)}" if slug else None
+
+
+def company_site_url(signal: dict) -> str | None:
+    """The company's own site, when a domain was actually resolved."""
+    domain = (signal.get("company_domain") or "").strip()
+    if not domain:
+        return None
+    if domain.startswith(("http://", "https://")):
+        return domain
+    return f"https://{domain}"
+
+
+def outreach_links(signal: dict) -> str | None:
+    """One line a reader can act on, or nothing rather than a dead label."""
+    parts = []
+    profile = founder_profile_url(signal)
+    if profile:
+        handle = (signal.get("author_handle") or "").strip().lstrip("@")
+        label = f"@{handle}" if handle else "Founder profile"
+        parts.append(f"<{profile}|{label}>")
+    site = company_site_url(signal)
+    if site:
+        parts.append(f"<{site}|{(signal.get('company_domain') or '').strip()}>")
+    return "Reach out · " + " · ".join(parts) if parts else None
+
+
 def company_display(signal: dict) -> str:
     """``Lark`` or ``Lark · lark.ai`` when a domain was actually resolved."""
     company = signal.get("company_name") or signal.get("company_domain") or "Unknown company"
