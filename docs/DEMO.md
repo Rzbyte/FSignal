@@ -30,6 +30,24 @@ pending reconciliation instead — **and say so on camera.**
 
 **1:50–2:00 — Operable.** Pond showing the agent connected and healthy, then `/health`.
 
+## Shot list, in recording order
+
+Run `python scripts/capture_evidence.py` first: the JSON it writes into `evidence/raw/` is
+the same state these screenshots show, so the two corroborate each other.
+
+| # | File | Open this | Make sure this is visible |
+|---|---|---|---|
+| 1 | `04-health.png` | `<base>/health` | Four sources; the X source's `mode`; `snapshots[].size` around 6,200 |
+| 2 | `01-slack-early.png` | Slack, the alert channel | Header, Company, Founder, Batch, Source, Detected, the OFFICIAL CHECK block, both buttons |
+| 3 | `02-directory-absent.png` | `ycombinator.com/companies` | The batch filter set to the alert's batch, the company name typed in the search box, zero results — **in the same frame** |
+| 4 | `03-ledger.png` | `<base>/ledger` | The alerted row and suppressed rows together, reason codes readable |
+| 5 | `06-restart-silence.png` | terminal | `docker compose restart`, then a rescan, then `alerts.sent` unchanged |
+| 6 | `08-pond.png` | Pond | The agent listed, connected, healthy |
+| 7 | `07-slack-confirmed.png` | Slack | Only if a real Ghost -> Confirmed has happened. Skip it otherwise and say so. |
+
+Shot 3 is the one that wins the submission. The filter, the query and the empty result must
+be in one uncropped frame — a screenshot of an empty search box proves nothing.
+
 ### Not allowed
 
 No fake timestamps. No back-dated detection presented as real. No hand-constructed signal

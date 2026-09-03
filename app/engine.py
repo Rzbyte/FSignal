@@ -191,19 +191,18 @@ class RadarEngine:
             else:
                 initial_status, verdict, reason = "ghost", "alerted", None
 
-            ledger.append(
-                {
-                    "source": signal.source,
-                    "external_id": signal.external_id,
-                    "url": signal.url,
-                    "company_name": signal.company_name,
-                    "batch": signal.batch,
-                    "program": signal.program,
-                    "verdict": verdict,
-                    "reason": reason,
-                    "confidence": signal.confidence,
-                }
-            )
+            entry = {
+                "source": signal.source,
+                "external_id": signal.external_id,
+                "url": signal.url,
+                "company_name": signal.company_name,
+                "batch": signal.batch,
+                "program": signal.program,
+                "verdict": verdict,
+                "reason": reason,
+                "confidence": signal.confidence,
+            }
+            ledger.append(entry)
 
             signal.company_key = company_key(
                 signal.company_name, signal.company_domain, signal.program, signal.batch
@@ -211,6 +210,10 @@ class RadarEngine:
             signal_id, is_new = self.db.insert_signal(
                 signal, initial_status, match["id"] if match else None
             )
+            # A ledger row saying "alerted" with no way to reach the signal it
+            # alerted on is half an audit trail. Written after the insert, which
+            # is where the id comes from.
+            entry["signal_id"] = signal_id
             if not is_new:
                 continue
 

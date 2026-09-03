@@ -93,6 +93,9 @@ CREATE TABLE IF NOT EXISTS candidate_ledger(
     reason TEXT,
     confidence INTEGER,
     evaluated_at TEXT NOT NULL,
+    -- The signal this candidate became, when it became one. Lets /ledger link
+    -- an "alerted" row to /signals/{id}/timeline.
+    signal_id INTEGER,
     PRIMARY KEY(source, external_id)
 );
 
@@ -200,6 +203,9 @@ class Database:
             )
             self._add_missing_columns(connection, "alert_outbox", {"dead_at": "TEXT"})
             self._add_missing_columns(connection, "source_runs", {"mode": "TEXT"})
+            self._add_missing_columns(
+                connection, "candidate_ledger", {"signal_id": "INTEGER"}
+            )
             self._add_missing_columns(
                 connection, "social_signals", {"collection_mode": "TEXT"}
             )
@@ -650,6 +656,7 @@ class Database:
                 entry.get("reason"),
                 entry.get("confidence"),
                 entry.get("evaluated_at") or now,
+                entry.get("signal_id"),
             )
             for entry in entries
         ]
@@ -657,7 +664,7 @@ class Database:
             connection.executemany(
                 "INSERT OR REPLACE INTO candidate_ledger("
                 "source,external_id,url,company_name,batch,program,verdict,reason,"
-                "confidence,evaluated_at) VALUES(?,?,?,?,?,?,?,?,?,?)",
+                "confidence,evaluated_at,signal_id) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
                 rows,
             )
 
