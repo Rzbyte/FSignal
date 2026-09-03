@@ -15,7 +15,7 @@ import pytest
 
 import app.slack as slack_module
 from app.config import settings as base_settings
-from app.slack import official_listing_moment
+from app.slack import official_listing_moment, post_age_note
 from app.presenter import (
     company_display,
     company_site_url,
@@ -206,9 +206,13 @@ def test_a_company_page_is_not_presented_as_a_person():
     assert founder_display(signal) == "Company page"
 
 
+def _field_labels(payload) -> list[str]:
+    fields = next(b for b in payload["blocks"] if b.get("fields"))["fields"]
+    return [f["text"].split("\n")[0].strip("*") for f in fields]
+
+
 def test_identity_fields_are_present_and_two_column():
-    fields = next(b for b in EARLY["blocks"] if b.get("fields"))["fields"]
-    labels = [f["text"].split("\n")[0].strip("*") for f in fields]
+    labels = _field_labels(EARLY)
     assert labels == ["Company", "Founder", "Program", "Batch", "Source", "Detected"]
     body = all_text(EARLY)
     assert "Lark" in body and "Michael Wang" in body
@@ -553,3 +557,63 @@ def test_outreach_adds_no_buttons():
     payload = render(lambda n: n.send_ghost(signal))
     assert len(buttons(payload)) == 2
     assert "Reach out" in all_text(payload)
+
+
+# --------------------------------------------------------------------------- #
+# When the founder posted, versus when we caught it                            #
+# --------------------------------------------------------------------------- #
+
+
+STALE = dict(
+    LARK,
+    source="x",
+    author_handle="Adalat_AI",
+    company_name="Adalat AI",
+    # Day precision: this came from a search index, which knows the day and not
+    # the hour.
+    posted_at="2026-08-19",
+    detected_at="2026-09-03T21:18:41+00:00",
+)
+
+
+def test_a_day_precision_date_never_grows_a_clock_time():
+    """The index knows the day. Rendering midnight would invent the rest.
+
+    A reader acts on what the alert says, so "Aug 19, 2026, 12:00 AM PT" is a
+    number nobody measured presented as one somebody did.
+    """
+    body = all_text(render(lambda n: n.send_ghost(STALE)))
+    assert "Aug 19, 2026" in body
+    assert "Aug 19, 2026, 12:00 AM" not in body
+
+
+def test_an_exact_timestamp_keeps_its_clock():
+    """The platform API knows the moment, so the alert may show it."""
+    signal = dict(STALE, posted_at="2026-08-19T09:14:00+00:00")
+    assert "Aug 19, 2026, 2:14 AM PT" in all_text(render(lambda n: n.send_ghost(signal)))
+
+
+def test_an_old_post_says_so_rather_than_reading_as_fresh():
+    """A monitor that has just started finds posts that were already public.
+
+    The alert used to say only "Detected: today". A reader who clicked through
+    to a three-week-old post would rightly wonder what else it was not saying.
+    """
+    note = post_age_note(STALE)
+    assert note and "16 days old" in note
+    assert "early against the directory, not against the post" in note
+    assert note in all_text(render(lambda n: n.send_ghost(STALE)))
+
+
+def test_a_fresh_post_gets_no_note():
+    """Saying "posted 2 hours ago, detected 2 hours ago" twice is noise."""
+    fresh = dict(STALE, posted_at="2026-09-03T19:00:00+00:00")
+    assert post_age_note(fresh) is None
+    assert "already" not in all_text(render(lambda n: n.send_ghost(fresh)))
+
+
+def test_an_unknown_post_date_shows_no_field_and_no_note():
+    """A field reading "unknown" is a dead label; the reader still has Detected."""
+    unknown = dict(STALE, posted_at=None)
+    assert post_age_note(unknown) is None
+    assert "Posted" not in _field_labels(render(lambda n: n.send_ghost(unknown)))

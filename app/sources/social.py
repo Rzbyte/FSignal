@@ -44,6 +44,35 @@ _X_TITLE_AUTHOR = re.compile(
     r'^(?!["“])(.{1,80}?)\s+\w{1,8}\s+X\s*(?::|$)', re.IGNORECASE
 )
 
+#: "Aug 19, 2026" is how a search index dates a result. It is a *day*, not a
+#: moment, so it is stored as a bare date -- the value's shape is what tells the
+#: renderer not to put a clock time on it.
+_INDEX_DATE = re.compile(r"^([A-Z][a-z]{2})\s+(\d{1,2}),\s+(\d{4})$")
+_MONTHS = {
+    month: index
+    for index, month in enumerate(
+        ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"), start=1
+    )
+}
+
+
+def index_post_date(value: str | None) -> str | None:
+    """``"Aug 19, 2026"`` -> ``"2026-08-19"``, or nothing.
+
+    Day precision, deliberately stored without a time. A search index knows the
+    day a post went up and not the hour; writing midnight into the field would
+    read downstream as a real timestamp.
+    """
+    match = _INDEX_DATE.match((value or "").strip())
+    if not match:
+        return None
+    month = _MONTHS.get(match.group(1))
+    if not month:
+        return None
+    return f"{match.group(3)}-{month:02d}-{int(match.group(2)):02d}"
+
+
 #: ``x.com/i/status/123`` is a real post URL, but ``i`` is a routing segment
 #: rather than anybody's handle.
 _X_RESERVED_HANDLES = {"i", "home", "search", "explore", "notifications", "messages"}
@@ -201,6 +230,8 @@ class XSource:
                         author_name=user.get("name"),
                         author_handle=username,
                         collection_mode="native",
+                        # The platform knows the exact moment; the index does not.
+                        posted_at=tweet.get("created_at"),
                         raw={"tweet": tweet, "user": user},
                     )
                     enrich_signal(signal)
@@ -303,6 +334,7 @@ class XIndexedSource:
                     None if handle.lower() in _X_RESERVED_HANDLES else handle
                 ),
                 collection_mode="indexed_fallback",
+                posted_at=index_post_date(item.get("date")),
                 raw=item,
             )
             enrich_signal(signal)
@@ -379,6 +411,7 @@ class LinkedInSource:
                 external_id=hashlib.sha256(link.encode()).hexdigest()[:24],
                 url=link,
                 text=text,
+                posted_at=index_post_date(item.get("date")),
                 raw=item,
             )
             enrich_signal(signal)

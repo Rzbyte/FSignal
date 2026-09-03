@@ -93,6 +93,58 @@ def _slack_remedy(code: str) -> str:
     return f" -- {remedy}" if remedy else ""
 
 
+def _moment(value: str | None) -> str:
+    """A timestamp at whatever precision it actually has.
+
+    A search index dates a post to the day. Rendering that as
+    "Aug 19, 2026, 12:00 AM PT" would put a clock time on the alert that nobody
+    measured -- and a reader would reasonably act on it. A bare date reads as a
+    date, which is what it is.
+    """
+    if not value:
+        return "unknown"
+    if "T" not in value:
+        try:
+            day = datetime.strptime(value, "%Y-%m-%d")
+        except ValueError:
+            return "unknown"
+        return f"{day:%b %-d, %Y}"
+    return _pacific(value)
+
+
+#: Below this, "posted" and "detected" are the same event to a reader and saying
+#: both twice is noise. Above it, the alert is about a post that has been public
+#: for a while, and not saying so lets the reader assume it is fresh.
+STALE_POST_HOURS = 36.0
+
+
+def post_age_note(signal: dict) -> str | None:
+    """Say plainly when the post being alerted on is not new.
+
+    A monitor that has just started finds posts that were already public. The
+    alert said only "Detected: today", and a reader who clicked through to a
+    three-week-old post would rightly wonder what else it was not saying.
+    """
+    posted, detected = signal.get("posted_at"), signal.get("detected_at")
+    if not posted or not detected:
+        return None
+    try:
+        posted_at = datetime.fromisoformat(posted)
+        detected_at = datetime.fromisoformat(detected)
+    except (TypeError, ValueError):
+        return None
+    if posted_at.tzinfo is None:
+        posted_at = posted_at.replace(tzinfo=timezone.utc)
+    hours = (detected_at - posted_at).total_seconds() / 3600
+    if hours < STALE_POST_HOURS:
+        return None
+    days = hours / 24
+    return (
+        f"This post was already {days:.0f} days old when this monitor first saw "
+        f"it — it is early against the directory, not against the post."
+    )
+
+
 def _clock(value: str | None) -> str:
     if not value:
         return "unknown"
@@ -213,6 +265,13 @@ class SlackNotifier:
                     ("Program", label),
                     ("Batch", signal.get("batch") or "Not stated"),
                     ("Source", source_display(signal)),
+                    # Only when we actually know. A field reading "unknown" is a
+                    # dead label, and the reader still has "Detected".
+                    *(
+                        [("Posted", _moment(signal.get("posted_at")))]
+                        if signal.get("posted_at")
+                        else []
+                    ),
                     ("Detected", _pacific(signal.get("detected_at"))),
                 ]
             ),
@@ -228,6 +287,12 @@ class SlackNotifier:
                 },
             },
         ]
+
+        # Immediately under the status claim, because that is where a reader
+        # decides how fresh this is.
+        age = post_age_note(signal)
+        if age:
+            blocks.append(self._context(age))
 
         quote = excerpt(signal)
         if quote:

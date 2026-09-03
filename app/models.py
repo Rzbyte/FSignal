@@ -44,5 +44,11 @@ class SocialSignal:
     # one. Persisted rather than inferred, so an alert can say plainly whether it
     # came from a platform API or from indexed public search.
     collection_mode: str | None = None
+    # When the founder actually posted, as opposed to when we caught it. The
+    # value's own shape carries its precision: "2026-08-19" came from a search
+    # index, which reports to the day, and a full ISO timestamp came from the
+    # platform's API. Rendering a day-precision date with a clock time on it
+    # would be inventing a number.
+    posted_at: str | None = None
     official_check: dict[str, Any] = field(default_factory=dict)
     raw: dict[str, Any] = field(default_factory=dict)

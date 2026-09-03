@@ -67,6 +67,9 @@ CREATE TABLE IF NOT EXISTS social_signals(
     -- Which collection path produced this signal ("native", "indexed_fallback"),
     -- for a source that has more than one. NULL otherwise.
     collection_mode TEXT,
+    -- When the founder posted. "2026-08-19" is day precision from a search
+    -- index; a full ISO timestamp came from the platform API.
+    posted_at TEXT,
     UNIQUE(source, external_id)
 );
 
@@ -213,7 +216,9 @@ class Database:
                 connection, "candidate_ledger", {"signal_id": "INTEGER"}
             )
             self._add_missing_columns(
-                connection, "social_signals", {"collection_mode": "TEXT"}
+                connection,
+                "social_signals",
+                {"collection_mode": "TEXT", "posted_at": "TEXT"},
             )
 
     @staticmethod
@@ -425,8 +430,8 @@ class Database:
                     batch, program, confidence, confidence_label, evidence_json,
                     gtm_score, gtm_priority, gtm_reasons_json, status,
                     official_company_id, detected_at, official_check_json, raw_json,
-                    collection_mode
-                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                    collection_mode, posted_at
+                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
                 """,
                 (
                     signal.source,
@@ -453,6 +458,7 @@ class Database:
                     json.dumps(getattr(signal, "official_check", None) or {}),
                     json.dumps(signal.raw),
                     getattr(signal, "collection_mode", None),
+                    getattr(signal, "posted_at", None),
                 ),
             )
             return cursor.lastrowid, True
