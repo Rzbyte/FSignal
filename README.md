@@ -100,6 +100,8 @@ token, set `X_BEARER_TOKEN`. **Recent search is not on the free tier** — witho
 plan the API returns `402 credits depleted` and `/health` reports that source as
 `billing_blocked` rather than failing silently.
 
+*(We intentionally chose the native X API over free scraping/search alternatives because native metadata—such as bio, URLs, and exact timestamps—is strictly required to maintain our 90%+ precision claim without false positives.)*
+
 ### LinkedIn (required for the LinkedIn source)
 
 LinkedIn has no public post-search API. FSignal searches *indexed public* LinkedIn URLs
