@@ -8,10 +8,12 @@ around the earlier moment: the founder has announced acceptance publicly, but th
 directory has not caught up. The hard part is not finding posts that mention YC; it is
 knowing which of them are genuinely early. So every EARLY alert carries a receipt:
 
-> 🔎 Checked against 6,199 YC records · snapshot 14:02 UTC · batch scope F26 · no domain
-> match · no exact-name match · no in-batch prefix match
+> 🔎 **OFFICIAL CHECK**
+> **Not found in YC Fall 2026**
+> 6,199 YC records checked · snapshot 17:14 UTC
+> *No match on exact name, shortened name within the batch*
 
-You can verify that on ycombinator.com in about ten seconds. Everything the bot rejects
+Every alert links straight to the directory search that proves it, so you can check it yourself in about ten seconds. Everything the bot rejects
 is recorded too, with a reason — see `/ledger`.
 
 ## How it works

@@ -8,8 +8,9 @@ to it. Unticked boxes state what is actually blocking them.
 - [x] Public repository with complete runnable source — `git log`, `pip install -r requirements.txt`
 - [x] `.env` never committed — `git log --all --full-history -- .env` is empty
 - [x] `.env` and `.venv` excluded from the Docker build context — `.dockerignore`
-- [x] Test suite green — `pytest -q` (116 tests)
-- [x] CI green on push — `.github/workflows/test.yml`
+- [x] Test suite green — `pytest -q` (151 tests), with no credentials configured
+- [x] CI-equivalent run verified — the workflow's exact steps (`pip install -r requirements.txt`, `pytest -q`) pass on Python 3.12 in a
+      clean container with no `.env` present. GitHub Actions itself has not run until this is pushed.
 - [x] Precision enforced in CI, not just asserted — `pytest tests/test_precision.py`
 
 ## Sources (live)

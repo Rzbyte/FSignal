@@ -118,7 +118,6 @@
         "snapshot_size": 6199,
         "snapshot_taken_at": "2026-09-03T17:14:11.648424+00:00"
       },
-      "receipt_rendered_in_slack": "\ud83d\udd0e Checked against 6,199 YC records \u00b7 snapshot 17:14 UTC \u00b7 batch scope F26 \u00b7 no exact-name match \u00b7 no in-batch prefix match",
       "timeline": [
         {
           "at": "2026-09-03T17:14:17.525624+00:00",
@@ -132,7 +131,19 @@
           "at": "2026-09-03T17:14:21.896844+00:00",
           "event": "slack_alert_sent"
         }
-      ]
+      ],
+      "founder": "Michael Wang",
+      "evidence_shown_in_slack": [
+        "Explicit \"Y Combinator F26\" statement",
+        "Company identity: Lark",
+        "First-person founder announcement"
+      ],
+      "official_check_shown_in_slack": {
+        "headline": "Not found in YC Fall 2026",
+        "provenance": "6,199 YC records checked \u00b7 snapshot 17:14 UTC",
+        "detail": "No match on exact name, shortened name within the batch"
+      },
+      "verify_url": "https://www.ycombinator.com/companies?query=Lark&batch=Fall+2026"
     }
   ],
   "suppressed_sample": [
@@ -460,5 +471,6 @@
       "confidence": 62,
       "evaluated_at": "2026-09-03T17:13:01.312604+00:00"
     }
-  ]
+  ],
+  "regenerated_at": "2026-09-03T17:50:30.699973+00:00"
 }

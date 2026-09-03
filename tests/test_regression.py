@@ -1,3 +1,4 @@
+from dataclasses import replace
 from urllib.parse import unquote
 
 import pytest
@@ -5,6 +6,7 @@ import httpx
 from app.sources.official import YCDirectorySource
 from app.sources.social import LinkedInSource
 from app.targeting import SocialTargets
+from app.config import settings as app_settings
 
 class _MockResponse:
     def __init__(self, json_data=None, text="", status_code=200):
@@ -199,6 +201,9 @@ async def test_linkedin_serper_request(monkeypatch):
         signal.company_name = "Test Company"
     monkeypatch.setattr("app.sources.social.enrich_signal", mock_enrich)
 
+    monkeypatch.setattr(
+        "app.sources.social.settings", replace(app_settings, serper_api_key="test-key")
+    )
     source = LinkedInSource(SocialTargets(yc_batches=("Fall 2026",)))
     signals = await source.collect()
     assert len(signals) == 1
@@ -229,6 +234,9 @@ async def test_linkedin_serper_400_retains_detail(monkeypatch):
         signal.company_name = "Test Company"
     monkeypatch.setattr("app.sources.social.enrich_signal", mock_enrich)
 
+    monkeypatch.setattr(
+        "app.sources.social.settings", replace(app_settings, serper_api_key="test-key")
+    )
     source = LinkedInSource(SocialTargets(yc_batches=("Fall 2026",)))
     with pytest.raises(RuntimeError, match="Bad Request Detail String"):
         await source.collect()
