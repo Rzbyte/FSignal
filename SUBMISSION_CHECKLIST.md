@@ -5,12 +5,12 @@ to it. Unticked boxes state what is actually blocking them.
 
 ## Code and tests
 
-- [x] Public repository with complete runnable source — `git log`, `pip install -r requirements.txt`
+- [x] Public repository with complete runnable source — <https://github.com/Rzbyte/FSignal>
 - [x] `.env` never committed — `git log --all --full-history -- .env` is empty
 - [x] `.env` and `.venv` excluded from the Docker build context — `.dockerignore`
 - [x] Test suite green — `pytest -q` (151 tests), with no credentials configured
-- [x] CI-equivalent run verified — the workflow's exact steps (`pip install -r requirements.txt`, `pytest -q`) pass on Python 3.12 in a
-      clean container with no `.env` present. GitHub Actions itself has not run until this is pushed.
+- [x] CI green — GitHub Actions run for `6ce6a45` completed `success`. The same steps also
+      pass on Python 3.12 in a clean container with no `.env` present.
 - [x] Precision enforced in CI, not just asserted — `pytest tests/test_precision.py`
 
 ## Sources (live)
