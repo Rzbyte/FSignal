@@ -211,6 +211,29 @@ def get_manifest():
     return manifest()
 
 
+@app.get("/tasks/{task_id}")
+def get_task(task_id: str):
+    """Pond Protocol V1 async task polling endpoint.
+
+    FSignal operates synchronously (capabilities.async_tasks = false), so all
+    runs return a terminal result directly from POST /runs. This endpoint exists
+    solely to satisfy Pond's connectivity check during agent registration.
+    """
+    return JSONResponse(
+        status_code=404,
+        content={
+            "error": {
+                "code": "task_not_found",
+                "message": (
+                    "This agent operates synchronously. All results are returned "
+                    "directly from POST /runs. Async task polling is not used."
+                ),
+            }
+        },
+    )
+
+
+
 @app.post("/runs")
 async def runs(
     request: Request,
