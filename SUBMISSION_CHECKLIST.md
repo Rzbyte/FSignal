@@ -3,6 +3,26 @@
 Every ticked box below is independently verifiable by the command or artifact named next
 to it. Unticked boxes state what is actually blocking them.
 
+## Against the eligibility requirements
+
+The eight bullets a valid submission must satisfy, and how to check each in under a
+minute. Seven are met and verifiable right now; the eighth needs a person at a screen.
+
+| # | Requirement | Status | Check it |
+|---|---|---|---|
+| 1 | Working repo, runnable source, clear setup | **met** | `git clone` → `pytest -q` → 243 pass with **zero credentials configured**. `.env` appears nowhere in history. Non-technical path: [`docs/INSTALL.md`](docs/INSTALL.md) |
+| 2 | All 4 sources monitored, each clearly implemented | **met** | [`/health`](https://fsignal-production.up.railway.app/health) → four sources `healthy`, `production_ready: true`. Each reports the path it used |
+| 3 | Persistent stateful monitoring, no re-alerts | **met** | State lives on a mounted volume and has survived every redeploy. Three separate posts about Adalat AI produced **one** alert plus two threaded corroborations |
+| 4 | Early-detection logic | **met** | `Adalat AI (YC F26)` was alerted on and is **still absent** from the 31-company Fall 2026 roster. Filter the directory to Fall 2026 and search it |
+| 5 | Slack: company, source, description, link | **met** | All four in every alert, plus the founder and a `Reach out` line. Rendered payloads in [`docs/DEMO.md`](docs/DEMO.md) |
+| 6 | Pond agent integration | **met** | Anonymous `GET /manifest` → `marketplace-agent` `1.0`, four actions. `POST /runs` without a token → `401` |
+| 7 | **Proof: screenshot or recording of a real Slack alert** | **outstanding** | Needs a person at a screen. Shot list in [`docs/DEMO.md`](docs/DEMO.md) |
+| 8 | Future upgradability; runs on Pond infrastructure | **met** | A new platform needs only `name` + `async collect()`. Pond V1 is served by the same always-on process that does the monitoring |
+
+**Not a one-shot script.** One asyncio task per source, independent intervals, adaptive
+backoff, failure isolation, and a persistent outbox with retry and dead-lettering.
+`/health` shows each source's last run and next run.
+
 ## Code and tests
 
 - [x] Public repository with complete runnable source — <https://github.com/Rzbyte/FSignal>
