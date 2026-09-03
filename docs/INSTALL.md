@@ -174,10 +174,18 @@ This is what the reference deployment runs on
    pick it. Railway reads the `Dockerfile` and builds it.
 3. Open the service → **Variables** → add the same three required values from your `.env`.
 4. **Settings** → **Networking** → **Generate Domain**. That URL is your bot's home.
-5. Add a **Volume** mounted at `/app/data` so the database survives redeploys. Without
-   this, a redeploy forgets what it has already alerted on and you get duplicates once.
+5. **Do not skip this one.** Add a **Volume** mounted at `/app/data`, and set
+   `DATABASE_PATH=/app/data/ghost_radar.db` so the database is written inside it.
 
-Any host that runs a Dockerfile works the same way — Fly, Render, a VPS.
+   Without a volume the database sits on the container's own disk, which Railway
+   replaces on every deploy. The bot then forgets every company it has already alerted
+   on and re-alerts the lot — the one behaviour a persistent monitor is not allowed to
+   have. It is easy to miss because nothing fails: the service is healthy, `/health`
+   returns 200, and the only symptom is a `/ledger` that is empty again after a deploy.
+
+Any host that runs a Dockerfile works the same way — Fly, Render, a VPS. Wherever you
+put it, the rule is the same: `DATABASE_PATH` must point inside a mount that outlives
+the container.
 
 ## Troubleshooting
 

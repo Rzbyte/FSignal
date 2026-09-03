@@ -51,6 +51,11 @@ to it. Unticked boxes state what is actually blocking them.
 
 - [x] Docker Compose with persistent volume and healthcheck
 - [x] Deployed at a public HTTPS URL — <https://fsignal-production.up.railway.app>
+- [x] Deployment state actually persists — a volume is mounted at `/app/data` and
+      `DATABASE_PATH` points inside it. It was not, until a redeploy during this work
+      emptied `/ledger` and exposed it: the container's own disk is replaced on every
+      deploy, so the bot was re-alerting from an empty database each time. Nothing
+      failed visibly, which is why it survived a green checklist.
 - [x] Pond agent published and healthy — `POND_ACCESS_KEY` and `PUBLIC_BASE_URL` set, agent
       registered
 - [x] Polling paced to survive review — the two metered social sources run every 4 hours

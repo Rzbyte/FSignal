@@ -6,7 +6,9 @@
 
 FSignal is a persistent Slack launch-intelligence monitor for early GTM outreach. It monitors the YC Directory, the configured Speedrun company directory, X, and public LinkedIn signals. Founder announcements are extracted and cross-checked against official directory snapshots.
 
-If a social announcement identifies a company and no official match exists, the bot raises an **EARLY SIGNAL** — and stores the receipt behind it: which snapshot was checked, how large it was, when it was taken, the batch scope, and every match method attempted. That line is rendered in Slack, so a reader can verify the claim on ycombinator.com in seconds. Everything rejected is recorded too, with a reason code, so precision is demonstrable rather than asserted.
+X is monitored native-first: X's own recent search when the deployment has a paid plan, and publicly indexed X URLs when it does not, so the source reports either way. Which path answered is carried through `/health`, persisted on every signal, and rendered in the alert as `Source: X (indexed search)` — an indexed result is never presented as a native one.
+
+A company newly listed in either official directory raises a **NEW YC COMPANY** / **NEW SPEEDRUN COMPANY** alert. More importantly, if a social announcement identifies a company and no official match exists, the bot raises an **EARLY SIGNAL** — and stores the receipt behind it: which snapshot was checked, how large it was, when it was taken, the batch scope, and every match method attempted. That line is rendered in Slack, so a reader can verify the claim on ycombinator.com in seconds. Everything rejected is recorded too, with a reason code, so precision is demonstrable rather than asserted.
 
 Every signal has a persistent timeline. If the company later appears in an official directory, its lifecycle changes from **GHOST -> CONFIRMED**, Slack reports the measured early-detection lead time, and the timeline preserves when the signal was first detected, classified, alerted, and confirmed.
 

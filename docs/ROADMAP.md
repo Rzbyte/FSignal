@@ -8,7 +8,8 @@ FSignal is designed as a persistent monitoring service, not a one-off scraper. *
 
 - YC Directory monitoring: complete facet-sliced snapshot (6,199/6,199 companies)
 - Speedrun monitoring through a16z's own first-party API, with a labelled fallback
-- X/Twitter founder-announcement monitoring
+- X founder-announcement monitoring, native-first with an indexed-search fallback so
+  the source keeps reporting on an account without a paid X plan
 - Public indexed LinkedIn signal monitoring
 - Batch targeting derived from the directory rather than hardcoded
 - Identity gate that refuses to alert without a defensible company name
@@ -24,7 +25,7 @@ FSignal is designed as a persistent monitoring service, not a one-off scraper. *
 - Persistent SQLite state, company-level deduplication and threaded corroboration
 - Persistent Slack outbox with retry and dead-lettering
 - Startup scan + recurring scheduler
-- Per-source health history
+- Per-source health history, including which collection path answered
 - Rich Slack Block Kit alerts with source/company links
 - Pond Protocol V1 `/manifest` and `/runs`
 - Pond actions: `scan_now`, `get_status`, `list_ghosts`, `get_timeline`
