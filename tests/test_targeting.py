@@ -116,3 +116,18 @@ def test_empty_targets_are_reported_as_empty():
     assert SocialTargets().is_empty
     assert SocialTargets(yc_batches=("Unspecified",)).is_empty
     assert not SocialTargets(yc_batches=("Fall 2026",)).is_empty
+
+
+def test_linkedin_uses_one_query_per_batch():
+    """The provider caps a free-tier response at 10 results.
+
+    Folding two batches into one OR group halves the coverage of each, and the
+    older fully-published batch wins the ranking -- exactly the wrong half to keep.
+    """
+    queries = linkedin_queries(
+        SocialTargets(yc_batches=("Fall 2026", "Summer 2026"), speedrun_cohorts=("SR007", "SR006"))
+    )
+    post_queries = [q for q in queries if "site:linkedin.com/posts" in q]
+    assert any("YC F26" in q and "YC S26" not in q for q in post_queries)
+    assert any("YC S26" in q and "YC F26" not in q for q in post_queries)
+    assert any("SR007" in q and "SR006" not in q for q in post_queries)

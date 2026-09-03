@@ -142,19 +142,29 @@ def x_queries(targets: SocialTargets) -> list[str]:
 
 
 def linkedin_queries(targets: SocialTargets) -> list[str]:
-    """Indexed-search queries scoped to public LinkedIn posts and company pages."""
+    """Indexed-search queries scoped to public LinkedIn posts and company pages.
+
+    One query *per batch* rather than one covering all of them. The provider caps
+    a free-tier response at ten results, so folding two batches into a single OR
+    group halves the coverage of each -- and the older, fully-published batch wins
+    the ranking, which is exactly the wrong half to keep.
+    """
     queries: list[str] = []
 
-    yc = yc_batch_phrases(targets.yc_batches)
-    if yc:
-        queries.append(f"site:linkedin.com/posts ({_or_group(yc)})")
-        # Company pages are only worth searching when a batch token can keep the
-        # result set tight; without one they return mostly recruiting boilerplate.
-        queries.append(f"site:linkedin.com/company ({_or_group(yc)})")
+    for label in targets.yc_batches:
+        phrases = yc_batch_phrases([label])
+        if not phrases:
+            continue
+        queries.append(f"site:linkedin.com/posts ({_or_group(phrases)})")
+        # Company pages are only worth searching when a batch token keeps the
+        # result set tight; without one they return recruiting boilerplate.
+        queries.append(f"site:linkedin.com/company ({_or_group(phrases)})")
+
     queries.append(f"site:linkedin.com/posts ({_or_group(YC_CLAIM_PHRASES)})")
 
-    speedrun = speedrun_cohort_phrases(targets.speedrun_cohorts)
-    if speedrun:
-        queries.append(f"site:linkedin.com/posts ({_or_group(speedrun)})")
+    for label in targets.speedrun_cohorts:
+        phrases = speedrun_cohort_phrases([label])
+        if phrases:
+            queries.append(f"site:linkedin.com/posts ({_or_group(phrases)})")
 
     return queries

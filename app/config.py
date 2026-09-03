@@ -68,7 +68,10 @@ class Settings:
     x_bearer_token: str = os.getenv("X_BEARER_TOKEN", "")
     x_max_results: int = int(os.getenv("X_MAX_RESULTS", "50"))
     serper_api_key: str = os.getenv("SERPER_API_KEY", "")
-    linkedin_lookback: str = os.getenv("LINKEDIN_LOOKBACK", "d")
+    # Google indexes public LinkedIn posts with a lag, so a one-day window misses
+    # announcements that are still genuinely early. A week is the useful default:
+    # company-level dedup means the wider window cannot produce repeat alerts.
+    linkedin_lookback: str = os.getenv("LINKEDIN_LOOKBACK", "w")
     min_signal_confidence: int = int(os.getenv("MIN_SIGNAL_CONFIDENCE", "60"))
     gtm_high_priority_threshold: int = int(os.getenv("GTM_HIGH_PRIORITY_THRESHOLD", "80"))
 

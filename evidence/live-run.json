@@ -1,0 +1,464 @@
+{
+  "captured_at": "2026-09-03T17:15:17.361770+00:00",
+  "how_to_verify": [
+    "Open https://www.ycombinator.com/companies and filter to the Fall 2026 batch.",
+    "Search for the company named in `early_signals[].company_name`.",
+    "It is absent. The founder post linked below announced it first."
+  ],
+  "snapshots": [
+    {
+      "source": "speedrun",
+      "size": 261,
+      "mode": "canonical",
+      "index_used": "https://speedrun-api.a16z.com/api/companies/companies/?limit=500",
+      "active_batches": "[\"SR007\", \"SR006\"]",
+      "taken_at": "2026-09-03T17:14:15.719701+00:00"
+    },
+    {
+      "source": "yc_directory",
+      "size": 6199,
+      "mode": "full",
+      "index_used": "YCCompany_By_Launch_Date_production",
+      "active_batches": "[\"Fall 2026\", \"Summer 2026\"]",
+      "taken_at": "2026-09-03T17:14:11.648424+00:00"
+    }
+  ],
+  "ledger": {
+    "verdicts": {
+      "alerted": 1,
+      "already_official": 5,
+      "possible": 10,
+      "suppressed": 11
+    },
+    "reasons": {
+      "no_company_identity": 10,
+      "below_confidence_threshold": 10,
+      "already_official": 5,
+      "no_program_evidence": 1
+    },
+    "evaluated": 27
+  },
+  "outbox": {
+    "pending": 0,
+    "sent": 1,
+    "dead": 0
+  },
+  "stats": {
+    "ghosts": 1,
+    "high_priority_ghosts": 0,
+    "confirmed": 0,
+    "signals": 16,
+    "official_companies": 6460,
+    "average_early_lead_hours": null
+  },
+  "source_runs": [
+    {
+      "id": 12,
+      "source": "linkedin",
+      "status": "ok",
+      "item_count": 7,
+      "error": null,
+      "started_at": "2026-09-03T17:14:16.088453+00:00",
+      "finished_at": "2026-09-03T17:14:21.401685+00:00"
+    },
+    {
+      "id": 10,
+      "source": "speedrun",
+      "status": "ok",
+      "item_count": 0,
+      "error": null,
+      "started_at": "2026-09-03T17:14:11.658055+00:00",
+      "finished_at": "2026-09-03T17:14:15.723698+00:00"
+    },
+    {
+      "id": 11,
+      "source": "x",
+      "status": "billing_blocked",
+      "item_count": 0,
+      "error": "billing_blocked: X API credits are depleted ({\"detail\":\"credits depleted\",\"status\":402,\"title\":\"Payment Required\",\"type\":\"https://api.x.com/2/problems/credits-deplet)",
+      "started_at": "2026-09-03T17:14:15.749405+00:00",
+      "finished_at": "2026-09-03T17:14:16.076246+00:00"
+    },
+    {
+      "id": 9,
+      "source": "yc_directory",
+      "status": "ok",
+      "item_count": 0,
+      "error": null,
+      "started_at": "2026-09-03T17:14:03.742251+00:00",
+      "finished_at": "2026-09-03T17:14:11.651730+00:00"
+    }
+  ],
+  "early_signals": [
+    {
+      "company_name": "Lark",
+      "batch": "F26",
+      "program": "yc",
+      "source": "linkedin",
+      "url": "https://www.linkedin.com/posts/michael-wang-40061923b_im-dropping-out-of-nyu-ive-always-enjoyed-activity-7500964549022523392-lukT",
+      "excerpt": "Michael Wang's Post - LinkedIn Now I'm leaving NYU to work on Lark (YC F26) full time with my brother, Jason Wang. Lark is part of Y Combinator F26. We're building AI for wholesale ...",
+      "confidence": 75,
+      "confidence_label": "likely",
+      "gtm_score": 65,
+      "detected_at": "2026-09-03T17:14:17.525624+00:00",
+      "official_check": {
+        "matched": false,
+        "method": null,
+        "methods_tried": [
+          "exact_name",
+          "batch_prefix"
+        ],
+        "batch_scope": "F26",
+        "records_checked": 6460,
+        "official_name": null,
+        "official_batch": null,
+        "official_url": null,
+        "checked_at": "2026-09-03T17:14:21.268964+00:00",
+        "snapshot_source": "yc_directory",
+        "snapshot_size": 6199,
+        "snapshot_taken_at": "2026-09-03T17:14:11.648424+00:00"
+      },
+      "receipt_rendered_in_slack": "\ud83d\udd0e Checked against 6,199 YC records \u00b7 snapshot 17:14 UTC \u00b7 batch scope F26 \u00b7 no exact-name match \u00b7 no in-batch prefix match",
+      "timeline": [
+        {
+          "at": "2026-09-03T17:14:17.525624+00:00",
+          "event": "social_detected"
+        },
+        {
+          "at": "2026-09-03T17:14:17.525624+00:00",
+          "event": "ghost_classified"
+        },
+        {
+          "at": "2026-09-03T17:14:21.896844+00:00",
+          "event": "slack_alert_sent"
+        }
+      ]
+    }
+  ],
+  "suppressed_sample": [
+    {
+      "source": "linkedin",
+      "external_id": "2bf7f3c6f9dac11299ab95f2",
+      "url": "https://www.linkedin.com/posts/michael-wang-40061923b_im-dropping-out-of-nyu-ive-always-enjoyed-activity-7500964549022523392-lukT",
+      "company_name": "Lark",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "alerted",
+      "reason": null,
+      "confidence": 75,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "c41099eb4e6180bf162ca52e",
+      "url": "https://www.linkedin.com/posts/alymoursy_happy-to-announce-that-veeza-ai-yc-f26-activity-7501013959932833793--WVJ",
+      "company_name": "Veeza AI",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "already_official",
+      "reason": "already_official",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "ee285a3ed66fc50409af2764",
+      "url": "https://www.linkedin.com/posts/jasonhy-wang_three-months-ago-i-left-datost-yc-p26-activity-7500964541598666754-8RkH",
+      "company_name": "Lark",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "1229479c3aba06735b9abfb2",
+      "url": "https://www.linkedin.com/posts/lsunwoo_my-law-school-professor-heard-yc-interview-activity-7500978920171765762-OL7Z",
+      "company_name": "Law",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "674376aad77283e81e8dae02",
+      "url": "https://www.linkedin.com/posts/sagar-sharma-design_antimattr-activity-7501154756661391360-4FEK",
+      "company_name": null,
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "a651ae5a6f426a3fd07d4f88",
+      "url": "https://www.linkedin.com/posts/lrao_after-5-years-and-5-internships-having-activity-7501047513131409408-QlqV",
+      "company_name": "Breaking Simantic",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "99328bf56ae773d413b5c6d4",
+      "url": "https://www.linkedin.com/posts/12lijonathan_quippy-the-gym-but-for-your-social-life-activity-7501060187311484928-cO-0",
+      "company_name": "Quippy",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "already_official",
+      "reason": "already_official",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "111b8f2eb01403a0776efdc9",
+      "url": "https://www.linkedin.com/posts/rahulguptarmv_we-at-day-zero-ventures-did-the-1st-call-activity-7500978988799094784-D7dl",
+      "company_name": "AI inference bills @ EVO",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "801812bcc25cecc0c6a579a9",
+      "url": "https://www.linkedin.com/posts/thestartuppostindia_artificialintelligence-ai-indianstartups-activity-7501219128813432832-hhjH",
+      "company_name": "Adalat AI",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "d461e89267f93434228e629b",
+      "url": "https://www.linkedin.com/posts/alicia-vasquez-291b1481_hiring-solutionsengineer-fintech-activity-7501199249074937858-2Xl2",
+      "company_name": "Sales @ Lantern",
+      "batch": "F26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "697e25b87261d557697e0be8",
+      "url": "https://www.linkedin.com/posts/y-combinator_ultrasonium-yc-s26-is-building-a-new-way-activity-7501004856594210816-sbFF",
+      "company_name": "Ultrasonium",
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "already_official",
+      "reason": "already_official",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "145b51b1e4c06add138ad31d",
+      "url": "https://www.linkedin.com/posts/gabrieljarrosson_funding-the-top-2-of-yc-s26-yc-creates-activity-7501032067242250240-i1DS",
+      "company_name": null,
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "34c0557110b468df04345712",
+      "url": "https://www.linkedin.com/posts/yotamrosenbaum_founder-entrepreneur-startup-activity-7501013586673217537-JYN9",
+      "company_name": null,
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "fa20cf5a8aa2a8d0deb37b4d",
+      "url": "https://www.linkedin.com/posts/yahia-bakour_back-to-regularly-scheduled-programming-activity-7501176831946149888-SKhY",
+      "company_name": "New case study unlocked OpenTag",
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "fe559daea73fa2a428842575",
+      "url": "https://www.linkedin.com/posts/yahia-bakour_we-just-shipped-self-service-sso-at-contextdev-activity-7501205033133400065-g7E2",
+      "company_name": "Context.dev",
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "already_official",
+      "reason": "already_official",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "c0c1e3efbe3eb08e29577425",
+      "url": "https://www.linkedin.com/posts/ollieforsyth_y-combinators-summer-2026-demo-day-is-taking-activity-7500976274874523648-b-58",
+      "company_name": "Ollie Forsyth Agentcard",
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "d8ad6449ecb64097fbbfdac9",
+      "url": "https://www.linkedin.com/posts/emerson-standish-330203171_youve-had-degrees-of-freedom-wrong-this-activity-7501297033807294464-mQrr",
+      "company_name": "Robotics",
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "b3f3df64c68d80f908776195",
+      "url": "https://www.linkedin.com/posts/screenpipe_the-most-valuable-operating-knowledge-in-activity-7501021415882792960-qIzT",
+      "company_name": null,
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "69c7fafd30f7e2b37b41a906",
+      "url": "https://www.linkedin.com/posts/bhbryant_ycombinator-venturecapital-industrials-activity-7501174925299392512-Gg3o",
+      "company_name": null,
+      "batch": null,
+      "program": "yc",
+      "verdict": "suppressed",
+      "reason": "no_program_evidence",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "7ba980dfd5d36f02b5f84edd",
+      "url": "https://www.linkedin.com/posts/suryansh-tiwari-89b0b62a7_everyone-on-my-team-knew-the-crm-was-a-mess-activity-7501303482256117760-kqAO",
+      "company_name": null,
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "d663817168595f85f54edca0",
+      "url": "https://www.linkedin.com/posts/nicoleorsak_today-were-introducing-tenera-behavioral-activity-7500975050963972096-jpZl",
+      "company_name": null,
+      "batch": "SR007",
+      "program": "speedrun",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "927bead0086f0b4cb3695cc8",
+      "url": "https://www.linkedin.com/posts/siddharth-dhanasekar_excited-to-say-kairo-is-backed-by-a16z-speedrun-activity-7500973529287307264-SGjU",
+      "company_name": null,
+      "batch": "SR007",
+      "program": "speedrun",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "96bbc278baa09a5d35a7c22b",
+      "url": "https://www.linkedin.com/posts/rugi-l_todays-the-day-product-simulation-sits-activity-7500981834210799617-scJy",
+      "company_name": null,
+      "batch": "SR007",
+      "program": "speedrun",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "1b34b27612ad36bf5e7b77f4",
+      "url": "https://www.linkedin.com/posts/mrkaic-momcilo_had-a-blast-today-co-working-from-openai-activity-7501083877776646144-HzfA",
+      "company_name": "Co-Founder @ Hoid",
+      "batch": "SR007",
+      "program": "speedrun",
+      "verdict": "possible",
+      "reason": "below_confidence_threshold",
+      "confidence": 50,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "894d07a85c9cee65915e65fc",
+      "url": "https://www.linkedin.com/posts/param-shah-32b426170_i-asked-sam-altman-co-founder-of-openai-activity-7500968325536124928-SDqb",
+      "company_name": null,
+      "batch": "SR007",
+      "program": "speedrun",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "2f797a18bac16be56870624d",
+      "url": "https://www.linkedin.com/posts/vijayppathak_congratulations-to-the-loops-ai-team-brilliant-activity-7501265769876520960-30xB",
+      "company_name": null,
+      "batch": "SR006",
+      "program": "speedrun",
+      "verdict": "suppressed",
+      "reason": "no_company_identity",
+      "confidence": 0,
+      "evaluated_at": "2026-09-03T17:14:21.395304+00:00"
+    },
+    {
+      "source": "linkedin",
+      "external_id": "e1caa43b5bce13a9dc9b1c93",
+      "url": "https://ca.linkedin.com/company/prsnid",
+      "company_name": "Alkera AI",
+      "batch": "S26",
+      "program": "yc",
+      "verdict": "already_official",
+      "reason": "already_official",
+      "confidence": 62,
+      "evaluated_at": "2026-09-03T17:13:01.312604+00:00"
+    }
+  ]
+}
