@@ -32,14 +32,43 @@ _COHORT_LABEL = re.compile(r"^SR\s*0*(\d{1,3})$", re.IGNORECASE)
 #: Announcement language that carries no batch token. Kept as its own query family
 #: so a batch token *sharpens* the search without gating it -- plenty of founders
 #: post "we got into YC" and never name the batch.
+#:
+#: These were chosen by measuring, not by guessing. Each candidate was run
+#: against live search and kept only if it returned founder announcements the
+#: existing set missed *and* the pipeline suppressed its noise. More were
+#: rejected than added:
+#:
+#:   "YC backed" / "part of YC"  -- how people *describe* YC companies, not how
+#:                                  founders announce. Every result was
+#:                                  commentary: "thoughts and prayers to the YC
+#:                                  backed founder who cannot afford Netflix".
+#:   "got into YC"               -- dropping "we" opens it to third parties:
+#:                                  "8 startups I referred got into YC".
+#:
+#: "backed by Y Combinator" and "Speedrun batch" are both named in the task
+#: brief as keywords to watch, and neither was here. The first found the only
+#: EARLY alert this monitor has produced.
 YC_CLAIM_PHRASES = (
     "accepted into Y Combinator",
     "we got into YC",
     "joining Y Combinator",
 )
+
+#: A second query family rather than a longer OR group. The provider caps a
+#: free-tier response at ten results, so folding these in would spend the same
+#: ten across twice the vocabulary -- the identical reason the batch queries are
+#: split one per batch. "backed by" also returns funding news about companies
+#: that are already listed, which the official check suppresses; keeping it in
+#: its own query stops that traffic crowding out the acceptance phrasings.
+YC_BACKING_PHRASES = (
+    "backed by Y Combinator",
+    "is now backed by Y Combinator",
+)
+
 SPEEDRUN_CLAIM_PHRASES = (
     "accepted into a16z Speedrun",
     "joining a16z Speedrun",
+    "Speedrun batch",
 )
 
 
@@ -132,6 +161,7 @@ def x_queries(targets: SocialTargets) -> list[str]:
     if yc:
         queries.append(f"({_or_group(yc)}) -is:retweet")
     queries.append(f"({_or_group(YC_CLAIM_PHRASES)}) -is:retweet")
+    queries.append(f"({_or_group(YC_BACKING_PHRASES)}) -is:retweet")
 
     speedrun = speedrun_cohort_phrases(targets.speedrun_cohorts)
     if speedrun:
@@ -161,6 +191,7 @@ def x_indexed_queries(targets: SocialTargets) -> list[str]:
             queries.append(f"site:x.com ({_or_group(phrases)})")
 
     queries.append(f"site:x.com ({_or_group(YC_CLAIM_PHRASES)})")
+    queries.append(f"site:x.com ({_or_group(YC_BACKING_PHRASES)})")
 
     for label in targets.speedrun_cohorts:
         phrases = speedrun_cohort_phrases([label])
@@ -192,6 +223,7 @@ def linkedin_queries(targets: SocialTargets) -> list[str]:
         queries.append(f"site:linkedin.com/company ({_or_group(phrases)})")
 
     queries.append(f"site:linkedin.com/posts ({_or_group(YC_CLAIM_PHRASES)})")
+    queries.append(f"site:linkedin.com/posts ({_or_group(YC_BACKING_PHRASES)})")
 
     for label in targets.speedrun_cohorts:
         phrases = speedrun_cohort_phrases([label])

@@ -68,6 +68,30 @@ CLAIM_ANCHOR = re.compile(
 #: "our company Atlas AI has been accepted ..." -- the name follows the anchor.
 POSSESSIVE_ANCHOR = re.compile(r"(?:our company|our startup)[,:]?\s+", re.IGNORECASE)
 
+#: "starting @codos_ai and joining a16z @speedrun SR007", "building @infragrid".
+#:
+#: On X a founder names their company by its handle far more often than in
+#: prose, and the verb in front is what separates the company from every other
+#: account in the post -- "@ashwinkodib and I" is a person, "building @infragrid"
+#: is the company. The prose extractors were written against LinkedIn, where
+#: this shape barely occurs; X was never live long enough to expose the gap, and
+#: it is why Speedrun had never produced a single early signal.
+PRODUCT_HANDLE = re.compile(
+    r"\b(?:building|launching|starting|started|shipping|working on|founded|"
+    r"co-?founded|co-?founding)\s+@([A-Za-z0-9_]{2,15})\b",
+    re.IGNORECASE,
+)
+
+#: Handles belonging to the programs and their investors. A post naming one is
+#: talking about the accelerator, never announcing a company called that.
+_PROGRAM_HANDLES = frozenset(
+    {"ycombinator", "yc", "speedrun", "a16z", "a16zspeedrun", "ycombinator_"}
+)
+
+#: "1/ Adalat AI is now backed by Y Combinator" -- the thread counter is not part
+#: of the company's name, and it reached the alert as `1/ Adalat AI`.
+_THREAD_MARKER = re.compile(r"^\s*\(?\d{1,2}\s*[/)\.]\s*(?:\d{1,2}\s*[)\.]?)?\s*")
+
 #: Longest plausible company name, in tokens.
 _MAX_NAME_TOKENS = 5
 
@@ -130,6 +154,9 @@ def clean_company_name(candidate: str) -> str:
     # tag-stripping regex would not have removed it upstream.
     _EDGES = " -\u2013\u2014,:;.!\"'\u2019\n\t"
     name = re.sub(r"\s*\([^)]*\)\s*$", "", candidate.strip(_EDGES))
+    # A thread counter is not part of anybody's name. "1/ Adalat AI is now
+    # backed by Y Combinator" reached the alert as the company `1/ Adalat AI`.
+    name = _THREAD_MARKER.sub("", name)
     return name.strip(_EDGES)
 
 
@@ -238,6 +265,13 @@ def extract_company(text: str) -> tuple[str | None, str | None]:
         if name:
             return name, "possessive"
 
+    # 4. "building @infragrid" -- the X shape, where the handle is the identity.
+    for match in PRODUCT_HANDLE.finditer(text):
+        handle = match.group(1)
+        if handle.lower() in _PROGRAM_HANDLES:
+            continue
+        return f"@{handle}", "product_handle"
+
     return None, None
 
 
@@ -255,6 +289,13 @@ FIRST_PERSON_CLAIMS = (
     "our company", "our startup", "we founded", "we are building",
     "we're building", "accepted into y combinator", "accepted into yc",
     "joining y combinator", "we will be participating", "we are participating",
+    # Speedrun's own vocabulary. Its cohorts announce in the same shapes, and
+    # without these the source could find posts but never call one an
+    # announcement -- which is why it had produced no early signal at all.
+    "joining a16z speedrun", "joining speedrun", "joining the speedrun",
+    "accepted into a16z speedrun", "accepted into speedrun",
+    "part of the speedrun", "part of a16z speedrun", "in the speedrun batch",
+    "part of the upcoming speedrun", "and joining a16z speedrun",
 )
 
 #: Acceptance stated with the *company* as the subject rather than the founder:
@@ -265,6 +306,7 @@ COMPANY_VOICE_CLAIMS = (
     "has been accepted into", "is coming out of stealth",
     "got into y combinator", "got into yc", "joined y combinator",
     "is joining y combinator", "accepted into y combinator's",
+    "is joining a16z speedrun", "joined a16z speedrun", "is part of a16z speedrun",
 )
 
 #: Context families that mean "this post is not a founder announcing acceptance".
@@ -342,11 +384,31 @@ def extract_domain(text: str) -> str | None:
     return None
 
 
+#: On X the programs are written as handles, so the prose the claim lists look
+#: for never appears: "joining a16z @speedrun SR007" contains no "a16z speedrun".
+#: Normalised only for claim and context matching -- the original text is what
+#: identity extraction and the excerpt still see.
+_PROGRAM_HANDLE_PROSE = (
+    ("@ycombinator", "y combinator"),
+    ("@a16zspeedrun", "a16z speedrun"),
+    ("a16z @speedrun", "a16z speedrun"),
+    ("@speedrun", "speedrun"),
+    ("@a16z", "a16z"),
+    ("@yc", "yc"),
+)
+
+
+def _claim_text(low: str) -> str:
+    for handle, prose in _PROGRAM_HANDLE_PROSE:
+        low = low.replace(handle, prose)
+    return low
+
+
 def extract(text: str, url: str = "") -> Extraction:
     """Resolve a post into a company identity plus the reason if that failed."""
     result = Extraction()
     text = text or ""
-    low = text.lower()
+    low = _claim_text(text.lower())
 
     yc_hit = _has_any(low, YC_TERMS) or (
         "yc batch reference" if YC_BATCH_REFERENCE.search(text) else None

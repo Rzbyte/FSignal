@@ -19,6 +19,7 @@ from app.targeting import (
     cohort_code,
     linkedin_queries,
     speedrun_cohort_phrases,
+    x_indexed_queries,
     x_queries,
     yc_batch_phrases,
 )
@@ -131,3 +132,57 @@ def test_linkedin_uses_one_query_per_batch():
     assert any("YC F26" in q and "YC S26" not in q for q in post_queries)
     assert any("YC S26" in q and "YC F26" not in q for q in post_queries)
     assert any("SR007" in q and "SR006" not in q for q in post_queries)
+
+
+# --------------------------------------------------------------------------- #
+# Claim vocabulary                                                             #
+# --------------------------------------------------------------------------- #
+
+
+def test_the_brief_s_own_keywords_are_hunted():
+    """The task names these two by hand, and neither was in the vocabulary.
+
+    "backed by Y Combinator" is the phrasing of the only EARLY alert this
+    monitor has produced -- it was found by a batch query, not a claim query.
+    "Speedrun batch" is how a16z cohorts announce, and Speedrun had never
+    produced an early signal at all.
+    """
+    targets = SocialTargets(yc_batches=("Fall 2026",), speedrun_cohorts=("SR007",))
+    everything = " ".join(
+        x_indexed_queries(targets) + linkedin_queries(targets) + x_queries(targets)
+    )
+    assert '"backed by Y Combinator"' in everything
+    assert '"Speedrun batch"' in everything
+
+
+def test_backing_phrases_get_their_own_query():
+    """Not a longer OR group.
+
+    The provider caps a free-tier response at ten results, so folding these in
+    would spend the same ten across twice the vocabulary -- and "backed by"
+    also pulls funding news about already-listed companies, which would crowd
+    out the acceptance phrasings it shares a query with.
+    """
+    queries = x_indexed_queries(SocialTargets(yc_batches=("Fall 2026",)))
+    backing = [q for q in queries if "backed by Y Combinator" in q]
+    assert len(backing) == 1
+    assert "we got into YC" not in backing[0]
+
+
+@pytest.mark.parametrize(
+    "rejected",
+    [
+        # Measured against live search and rejected: these are how people
+        # *describe* YC companies, not how founders announce their own.
+        "YC backed", "YC-backed", "part of YC",
+        # Dropping "we" opens it to third parties: "8 startups I referred got
+        # into YC", "my 10th referral got into YC". The quotes matter here --
+        # "we got into YC" is kept and contains this as a substring.
+        "got into YC", "got into Y Combinator", "accepted to YC",
+    ],
+)
+def test_phrases_that_returned_only_commentary_stay_out(rejected):
+    targets = SocialTargets(yc_batches=("Fall 2026",), speedrun_cohorts=("SR007",))
+    everything = " ".join(x_indexed_queries(targets) + linkedin_queries(targets))
+    # A search term is a whole quoted phrase; the bare word run is not one.
+    assert f'"{rejected}"' not in everything
