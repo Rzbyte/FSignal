@@ -125,21 +125,18 @@ def _or_group(phrases) -> str:
 
 
 def x_queries(targets: SocialTargets) -> list[str]:
-    """X recent-search queries routed through Serper Google Search.
-    
-    Using site:x.com instead of native X API to bypass billing limits.
-    """
+    """X recent-search queries: sharp batch queries plus batch-free claim queries."""
     queries: list[str] = []
 
     yc = yc_batch_phrases(targets.yc_batches)
     if yc:
-        queries.append(f"site:x.com ({_or_group(yc)})")
-    queries.append(f"site:x.com ({_or_group(YC_CLAIM_PHRASES)})")
+        queries.append(f"({_or_group(yc)}) -is:retweet")
+    queries.append(f"({_or_group(YC_CLAIM_PHRASES)}) -is:retweet")
 
     speedrun = speedrun_cohort_phrases(targets.speedrun_cohorts)
     if speedrun:
-        queries.append(f"site:x.com ({_or_group(speedrun)})")
-    queries.append(f"site:x.com ({_or_group(SPEEDRUN_CLAIM_PHRASES)})")
+        queries.append(f"({_or_group(speedrun)}) -is:retweet")
+    queries.append(f"({_or_group(SPEEDRUN_CLAIM_PHRASES)}) -is:retweet")
 
     return queries
 

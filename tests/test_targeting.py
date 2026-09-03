@@ -63,7 +63,7 @@ def test_queries_target_the_active_batch_and_never_a_published_one():
     for query in x_queries(targets):
         assert "S26" not in query          # Summer 2026 is fully published
     assert any("YC F26" in query for query in x_queries(targets))
-    assert all(query.startswith("site:x.com") for query in x_queries(targets))
+    assert all(query.endswith("-is:retweet") for query in x_queries(targets))
 
     linkedin = linkedin_queries(targets)
     assert any("YC F26" in q and "site:linkedin.com/posts" in q for q in linkedin)
