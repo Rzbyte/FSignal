@@ -73,12 +73,17 @@ non-actionable alert per twenty, in CI, against that fixture.
 
 ## Setup
 
+> **New to Python or the terminal? Read [`docs/INSTALL.md`](docs/INSTALL.md) instead.**
+> Same result, every click spelled out, Windows and macOS both covered, with a
+> troubleshooting table keyed to the exact errors you might hit.
+
 Requires Python 3.12+ (or Docker) and a Slack workspace where you can install an app.
+Two credentials are enough to run everything: a Slack bot token and a Serper key.
 
 ```bash
-python -m venv .venv && source .venv/bin/activate
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-cp .env.example .env          # then fill in the values below
+cp .env.example .env          # three lines marked >>> REQUIRED <<<
 python -m uvicorn app.main:app --port 8000
 ```
 
@@ -93,20 +98,28 @@ Or `docker compose up -d`, which mounts `./data` so state survives restarts.
 4. Copy the channel ID (right-click the channel → View channel details) and the bot token
    (`xoxb-…`) into `SLACK_CHANNEL_ID` and `SLACK_BOT_TOKEN`.
 
-### X (required for the X source)
+### Search provider (required)
 
-Create an app in the [X developer portal](https://developer.x.com), generate a bearer
-token, set `X_BEARER_TOKEN`. **Recent search is not on the free tier** — without a paid
-plan the API returns `402 credits depleted` and `/health` reports that source as
-`billing_blocked` rather than failing silently.
+Neither X nor LinkedIn offers unrestricted public post search on a free plan, so both
+social sources read *publicly indexed* URLs through [Serper](https://serper.dev) rather
+than scraping authenticated pages. Create a key and set `SERPER_API_KEY`; the free tier is
+enough. Results cap at 10 per query, which is why the bot issues one query per active
+batch rather than one combined query.
 
-*(We intentionally chose the native X API over free scraping/search alternatives because native metadata—such as bio, URLs, and exact timestamps—is strictly required to maintain our 90%+ precision claim without false positives.)*
+### X (optional — improves the X source, does not enable it)
 
-### LinkedIn (required for the LinkedIn source)
+X's own recent search carries metadata indexed search cannot: author bio, profile URL, and
+the exact post timestamp. FSignal prefers it whenever it is reachable. **It is not on the
+free tier** — without a paid plan the API answers `402 credits depleted`.
 
-LinkedIn has no public post-search API. FSignal searches *indexed public* LinkedIn URLs
-through [Serper](https://serper.dev) instead of scraping authenticated pages. Create a key
-and set `SERPER_API_KEY`. The free tier caps results at 10 per query.
+So the X source has two paths. Native first; on a billing block or a missing token, the
+same vocabulary runs against indexed public X URLs using the Serper key above. Which path
+answered is never hidden: `/health` reports `mode` per source, the mode is persisted on
+every signal, and Slack renders `Source: X (indexed search)` when the alert came from the
+fallback. An indexed result is never presented as a native one.
+
+Set `X_BEARER_TOKEN` if you have a paid plan. Leave it empty otherwise — the source works
+either way.
 
 ### Pond (optional)
 

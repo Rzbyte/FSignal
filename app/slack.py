@@ -54,6 +54,44 @@ def _pacific(value: str | None) -> str:
     return f"{moment.astimezone(PACIFIC):%b %-d, %Y, %-I:%M %p} {label}"
 
 
+#: What to actually do about the handful of Slack errors a new operator hits.
+#: Without this the first run of a correctly-written bot fails with the bare
+#: string "not_in_channel", which appears nowhere in the docs and reads like a
+#: defect rather than a missing /invite.
+_SLACK_REMEDIES = {
+    "not_in_channel": (
+        "the bot is not in that channel. In Slack, open the channel and run "
+        "`/invite @FSignal`."
+    ),
+    "channel_not_found": (
+        "SLACK_CHANNEL_ID does not match a channel this bot can see. Copy the ID "
+        "from the bottom of the channel's About tab (it starts with C), or a DM "
+        "ID (starts with D)."
+    ),
+    "invalid_auth": (
+        "SLACK_BOT_TOKEN is wrong or was revoked. Copy the Bot User OAuth Token "
+        "(xoxb-...) from your app's OAuth & Permissions page."
+    ),
+    "token_revoked": (
+        "SLACK_BOT_TOKEN has been revoked. Reinstall the app to the workspace "
+        "and copy the new Bot User OAuth Token."
+    ),
+    "account_inactive": "the bot user is deactivated in this workspace.",
+    "missing_scope": (
+        "the app lacks the chat:write scope. Add it under OAuth & Permissions, "
+        "then click Reinstall to Workspace -- a scope added without reinstalling "
+        "does not take effect."
+    ),
+    "is_archived": "that channel is archived. Unarchive it or pick another.",
+    "ratelimited": "Slack is rate-limiting us; the outbox will retry on its own.",
+}
+
+
+def _slack_remedy(code: str) -> str:
+    remedy = _SLACK_REMEDIES.get(code)
+    return f" -- {remedy}" if remedy else ""
+
+
 def _clock(value: str | None) -> str:
     if not value:
         return "unknown"
@@ -391,5 +429,6 @@ class SlackNotifier:
             response.raise_for_status()
             result = response.json()
             if not result.get("ok"):
-                raise RuntimeError(f"Slack API error: {result.get('error', 'unknown_error')}")
+                code = result.get("error", "unknown_error")
+                raise RuntimeError(f"Slack API error: {code}{_slack_remedy(code)}")
             return result

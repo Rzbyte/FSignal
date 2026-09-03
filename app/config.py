@@ -80,12 +80,23 @@ class Settings:
     gtm_high_priority_threshold: int = int(os.getenv("GTM_HIGH_PRIORITY_THRESHOLD", "80"))
 
     # Per-source polling intervals (minutes). Each source runs independently.
-    # Tune X_SCAN_INTERVAL_MINUTES to stay within your X API rate-limit budget.
-    x_scan_interval_minutes: float = float(os.getenv("X_SCAN_INTERVAL_MINUTES", "10"))
-    linkedin_scan_interval_minutes: float = float(os.getenv("LINKEDIN_SCAN_INTERVAL_MINUTES", "15"))
-    yc_scan_interval_minutes: float = float(os.getenv("YC_SCAN_INTERVAL_MINUTES", "20"))
-    speedrun_scan_interval_minutes: float = float(os.getenv("SPEEDRUN_SCAN_INTERVAL_MINUTES", "30"))
-    ghost_recheck_interval_minutes: float = float(os.getenv("GHOST_RECHECK_INTERVAL_MINUTES", "10"))
+    #
+    # The two social sources are metered and the two directories are not, so they
+    # are not paced alike. Every social scan spends roughly one search credit per
+    # query and issues one query per active batch; at a ten-minute interval that
+    # is over a thousand credits a day, which exhausts a free search plan in
+    # about two days and takes the bot down with it. The brief this was built
+    # against asks for an eight-hour cadence, so four hours is already twice as
+    # attentive as required and costs about seventy credits a day.
+    #
+    # The directories cost nothing to poll, and both the NEW OFFICIAL alert and
+    # Ghost -> Confirmed reconciliation are only as timely as they are, so they
+    # stay tight.
+    x_scan_interval_minutes: float = float(os.getenv("X_SCAN_INTERVAL_MINUTES", "240"))
+    linkedin_scan_interval_minutes: float = float(os.getenv("LINKEDIN_SCAN_INTERVAL_MINUTES", "240"))
+    yc_scan_interval_minutes: float = float(os.getenv("YC_SCAN_INTERVAL_MINUTES", "60"))
+    speedrun_scan_interval_minutes: float = float(os.getenv("SPEEDRUN_SCAN_INTERVAL_MINUTES", "120"))
+    ghost_recheck_interval_minutes: float = float(os.getenv("GHOST_RECHECK_INTERVAL_MINUTES", "30"))
 
     # Slack destination can be a channel ID (C...) or DM/conversation ID (D...).
     slack_bot_token: str = os.getenv("SLACK_BOT_TOKEN", "")

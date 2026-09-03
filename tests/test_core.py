@@ -701,13 +701,30 @@ def test_source_state_as_dict_keys():
     assert d['interval_minutes'] == 20.0
 
 
-def test_scheduler_interval_defaults_from_config():
+def test_metered_sources_are_paced_slower_than_free_ones():
+    """The property, not the literals.
+
+    Every social scan spends search credits; the directories cost nothing. A
+    social interval set as tight as a directory one burns a free search plan in
+    about two days and takes the bot down with it, which is a worse failure than
+    finding a signal an hour later. Asserting the exact minute values instead
+    just meant this test had to be edited every time they were tuned.
+    """
     from app.config import settings
-    assert settings.x_scan_interval_minutes == 10.0
-    assert settings.linkedin_scan_interval_minutes == 15.0
-    assert settings.yc_scan_interval_minutes == 20.0
-    assert settings.speedrun_scan_interval_minutes == 30.0
-    assert settings.ghost_recheck_interval_minutes == 10.0
+
+    metered = min(
+        settings.x_scan_interval_minutes, settings.linkedin_scan_interval_minutes
+    )
+    free = max(
+        settings.yc_scan_interval_minutes, settings.speedrun_scan_interval_minutes
+    )
+    assert metered >= free
+    # The brief allows an eight-hour cadence; going slower than that stops being
+    # the continuous monitor it asks for.
+    assert metered <= 8 * 60
+    # Reconciliation is local work against an already-fetched snapshot, so it has
+    # no reason to lag the directory that feeds it.
+    assert settings.ghost_recheck_interval_minutes <= free
 
 
 def test_per_source_scheduler_from_config(tmp_path):
@@ -720,11 +737,16 @@ def test_per_source_scheduler_from_config(tmp_path):
     assert set(sched.states.keys()) == {
         'yc_directory', 'speedrun', 'x', 'linkedin', 'ghost_reconciliation'
     }
-    assert sched.states['x'].interval_seconds == 600.0
-    assert sched.states['linkedin'].interval_seconds == 900.0
-    assert sched.states['yc_directory'].interval_seconds == 1200.0
-    assert sched.states['speedrun'].interval_seconds == 1800.0
-    assert sched.states['ghost_reconciliation'].interval_seconds == 600.0
+    from app.config import settings
+    # Configured minutes reach the scheduler as seconds, per source.
+    for name, minutes in (
+        ('x', settings.x_scan_interval_minutes),
+        ('linkedin', settings.linkedin_scan_interval_minutes),
+        ('yc_directory', settings.yc_scan_interval_minutes),
+        ('speedrun', settings.speedrun_scan_interval_minutes),
+        ('ghost_reconciliation', settings.ghost_recheck_interval_minutes),
+    ):
+        assert sched.states[name].interval_seconds == minutes * 60
 
 
 def test_run_named_source_unknown_raises(tmp_path):
