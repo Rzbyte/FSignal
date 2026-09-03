@@ -92,6 +92,26 @@ def health():
     }
 
 
+#: How a collection path reads on the dashboard.
+_MODE_LABELS = {
+    "native": "platform API",
+    "indexed_fallback": "indexed search",
+    "full": "full crawl",
+    "hot": "recent window",
+    "canonical": "first-party API",
+    "fallback": "fallback scrape",
+}
+
+
+def _source_label(signal: dict) -> str:
+    """`X` or `X (indexed search)` -- never the bare platform when it was not."""
+    name = (signal.get("source") or "").replace("linkedin", "LinkedIn").upper()
+    name = "LinkedIn" if name == "LINKEDIN" else name
+    if signal.get("collection_mode") == "indexed_fallback":
+        return f"{name} (indexed search)"
+    return name
+
+
 @app.get("/", response_class=HTMLResponse)
 def home():
     stats = db.stats()
@@ -100,13 +120,46 @@ def home():
         "<tr>"
         f"<td>{html.escape(item['source'])}</td>"
         f"<td>{html.escape(item.get('health') or 'unknown')}</td>"
+        # Which path answered. An indexed result must never read as a native one,
+        # and this page is where most people look first.
+        f"<td>{html.escape(_MODE_LABELS.get(item.get('mode'), '—'))}</td>"
         f"<td>{html.escape(str(item.get('interval_minutes') or '—'))}</td>"
         f"<td>{html.escape(item.get('last_run') or '—')}</td>"
         f"<td>{html.escape(item.get('next_run') or '—')}</td>"
         f"<td>{item.get('consecutive_failures', 0)}</td>"
         "</tr>"
         for item in sched_sources
-    ) or '<tr><td colspan="6">Scheduler not started.</td></tr>'
+    ) or '<tr><td colspan="7">Scheduler not started.</td></tr>'
+
+    # The actual findings, not just counts. Someone landing here should see what
+    # the bot found before they see how it is configured.
+    #
+    # One row per company, not per post. `list_ghosts` returns signals, and a
+    # company with corroborating posts has several -- which on a page headed
+    # "open early signals" reads as several separate discoveries. It is already
+    # sorted best-first, so the first row for a company is the one to keep.
+    seen_companies: set[str] = set()
+    ghosts = []
+    for candidate in db.list_ghosts(50):
+        key = candidate.get("company_key") or f"id:{candidate['id']}"
+        if key in seen_companies:
+            continue
+        seen_companies.add(key)
+        ghosts.append(candidate)
+        if len(ghosts) == 10:
+            break
+    ghost_rows = "".join(
+        "<tr>"
+        f"<td><b>{html.escape(g.get('company_name') or 'Unknown')}</b></td>"
+        f"<td>{html.escape(g.get('batch') or '—')}</td>"
+        f"<td>{html.escape((g.get('program') or '').upper())}</td>"
+        f"<td>{html.escape(_source_label(g))}</td>"
+        f"<td>{g.get('confidence') or 0}%</td>"
+        f'<td><a href="{html.escape(g.get("url") or "#")}">post</a> · '
+        f'<a href="/signals/{g["id"]}/timeline">timeline</a></td>'
+        "</tr>"
+        for g in ghosts
+    ) or '<tr><td colspan="6">No open early signals right now.</td></tr>'
 
     ledger = db.ledger_summary()
     ledger_rows = "".join(
@@ -134,8 +187,12 @@ td,th{{padding:13px;border-bottom:1px solid #2b313b;text-align:left}}a{{color:#8
 <div class="c"><div class="n">{stats['signals']}</div>Signals</div>
 <div class="c"><div class="n">{stats['high_priority_ghosts']}</div>High priority</div>
 </div>
+<h2>Open early signals</h2>
+<p>Announced by a founder, not yet listed in the official directory. Every one links to
+the post it came from and to its full history.</p>
+<table><tr><th>Company</th><th>Batch</th><th>Program</th><th>Source</th><th>Confidence</th><th>Evidence</th></tr>{ghost_rows}</table>
 <h2>Source health &amp; scheduler</h2>
-<table><tr><th>Source</th><th>Health</th><th>Interval (min)</th><th>Last run</th><th>Next run</th><th>Failures</th></tr>{rows}</table>
+<table><tr><th>Source</th><th>Health</th><th>Path</th><th>Interval (min)</th><th>Last run</th><th>Next run</th><th>Failures</th></tr>{rows}</table>
 <p>Average proven early lead: <b>{stats['average_early_lead_hours'] if stats['average_early_lead_hours'] is not None else '—'} hours</b></p>
 <h2>Suppression ledger</h2>
 <p>Every candidate evaluated, and why it did or did not become an alert.</p>
