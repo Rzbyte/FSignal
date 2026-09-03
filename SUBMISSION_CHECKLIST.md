@@ -53,6 +53,9 @@ to it. Unticked boxes state what is actually blocking them.
       example. Raised live for `OnePatch` when the Fall 2026 roster went from 30 to 31.
 - [x] Suppression is auditable — every rejected candidate carries a reason code (`/ledger`),
       and an alerted row now carries its `signal_id` so `/ledger` links to the timeline
+- [x] The landing page opens with what the bot found — company, batch, program, source,
+      confidence, and links to both the founder's post and that signal's full history,
+      one row per company
 - [x] Slack alerts carry company, founder, source, description/excerpt, and link
 - [x] Architecture supports new social platforms — a source needs only `name` + `collect()`
 
