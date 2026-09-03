@@ -103,6 +103,11 @@ _MODE_LABELS = {
 }
 
 
+def _is_handle_name(signal: dict) -> bool:
+    """True when the company is named by its social handle rather than its name."""
+    return (signal.get("company_name") or "").strip().startswith("@")
+
+
 def _source_label(signal: dict) -> str:
     """`X` or `X (indexed search)` -- never the bare platform when it was not."""
     name = (signal.get("source") or "").replace("linkedin", "LinkedIn").upper()
@@ -136,18 +141,21 @@ def home():
     #
     # One row per company, not per post. `list_ghosts` returns signals, and a
     # company with corroborating posts has several -- which on a page headed
-    # "open early signals" reads as several separate discoveries. It is already
-    # sorted best-first, so the first row for a company is the one to keep.
-    seen_companies: set[str] = set()
-    ghosts = []
+    # "open early signals" reads as several separate discoveries.
+    #
+    # Which of them to show is not simply the first. The list is sorted by score,
+    # and the highest-scoring signal for Adalat AI named the company `@Adalat_AI`
+    # -- a real identity, and the worst of the three available ways to write it.
+    # A signal that names the company properly wins the row.
+    by_company: dict[str, dict] = {}
     for candidate in db.list_ghosts(50):
         key = candidate.get("company_key") or f"id:{candidate['id']}"
-        if key in seen_companies:
-            continue
-        seen_companies.add(key)
-        ghosts.append(candidate)
-        if len(ghosts) == 10:
-            break
+        held = by_company.get(key)
+        if held is None or (
+            _is_handle_name(held) and not _is_handle_name(candidate)
+        ):
+            by_company[key] = candidate
+    ghosts = list(by_company.values())[:10]
     ghost_rows = "".join(
         "<tr>"
         f"<td><b>{html.escape(g.get('company_name') or 'Unknown')}</b></td>"
