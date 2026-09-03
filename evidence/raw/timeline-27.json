@@ -1,0 +1,79 @@
+{
+  "captured_at": "2026-09-03T21:45:31.670155+00:00",
+  "captured_from": "https://fsignal-production.up.railway.app/signals/27/timeline",
+  "note": "Full history of the alert for @Adalat_AI.",
+  "body": {
+    "signal": {
+      "id": 27,
+      "source": "x",
+      "external_id": "2092160053566435737",
+      "url": "https://x.com/OfficialINDIAai/status/2092160053566435737",
+      "text": "@Adalat_AI (YC F26) is now backed by @ycombinator , marking a significant step forward for its mission to enable timely justice through technology. With ... IndiaAI",
+      "author_name": "IndiaAI",
+      "author_handle": "OfficialINDIAai",
+      "company_name": "@Adalat_AI",
+      "normalized_company_name": "adalatai",
+      "company_domain": null,
+      "company_key": "yc:F26:adalatai",
+      "batch": "F26",
+      "program": "yc",
+      "confidence": 75,
+      "confidence_label": "likely",
+      "evidence_json": "[\"Explicit YC reference: 'yc batch reference'\", \"Batch/cohort identified: F26\", \"Company identity extracted: @Adalat_AI (via program_tag)\", \"Acceptance evidence: is now backed by\", \"Acceptance stated with the company as the subject\", \"Public author identity available: OfficialINDIAai\", \"No matching official-directory entry at detection time\"]",
+      "gtm_score": 65,
+      "gtm_priority": "medium",
+      "gtm_reasons_json": "[\"Pre-directory timing advantage\", \"Founder is directly reachable from the post\", \"Current accelerator cohort identified\"]",
+      "status": "ghost",
+      "official_company_id": null,
+      "detected_at": "2026-09-03T21:41:04.410256+00:00",
+      "confirmed_at": null,
+      "official_check_json": "{\"matched\": false, \"method\": null, \"methods_tried\": [\"exact_name\", \"batch_prefix\"], \"batch_scope\": \"F26\", \"records_checked\": 6461, \"official_name\": null, \"official_batch\": null, \"official_url\": null, \"checked_at\": \"2026-09-03T21:41:10.991362+00:00\", \"snapshot_source\": \"yc_directory\", \"snapshot_size\": 6200, \"snapshot_taken_at\": \"2026-09-03T21:41:01.922043+00:00\"}",
+      "alerted_ghost_at": "2026-09-03T21:41:11.540384+00:00",
+      "alerted_confirmed_at": null,
+      "raw_json": "{\"title\": \"IndiaAI on X: \\\"Stronger support to India's justice-tech ecosystem ...\", \"link\": \"https://x.com/OfficialINDIAai/status/2092160053566435737\", \"snippet\": \"@Adalat_AI (YC F26) is now backed by @ycombinator , marking a significant step forward for its mission to enable timely justice through technology. With ...\", \"date\": \"Aug 25, 2026\", \"position\": 5}",
+      "collection_mode": "indexed_fallback"
+    },
+    "timeline": [
+      {
+        "id": 6504,
+        "event_key": "signal:x:2092160053566435737:detected",
+        "event_type": "social_detected",
+        "signal_id": 27,
+        "official_company_id": null,
+        "source": "x",
+        "event_at": "2026-09-03T21:41:04.410256+00:00",
+        "metadata": {
+          "company": "@Adalat_AI",
+          "confidence": 75,
+          "confidence_label": "likely",
+          "gtm_score": 65,
+          "gtm_priority": "medium"
+        }
+      },
+      {
+        "id": 6505,
+        "event_key": "signal:x:2092160053566435737:ghost",
+        "event_type": "ghost_classified",
+        "signal_id": 27,
+        "official_company_id": null,
+        "source": "x",
+        "event_at": "2026-09-03T21:41:04.410256+00:00",
+        "metadata": {
+          "reason": "No official directory match at detection time"
+        }
+      },
+      {
+        "id": 6512,
+        "event_key": "alert:corroboration:yc:F26:adalatai:x:2092160053566435737:sent",
+        "event_type": "slack_alert_sent",
+        "signal_id": 27,
+        "official_company_id": null,
+        "source": "slack",
+        "event_at": "2026-09-03T21:41:11.558745+00:00",
+        "metadata": {
+          "kind": "corroboration"
+        }
+      }
+    ]
+  }
+}

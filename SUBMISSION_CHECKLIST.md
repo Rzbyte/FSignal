@@ -8,7 +8,7 @@ to it. Unticked boxes state what is actually blocking them.
 - [x] Public repository with complete runnable source — <https://github.com/Rzbyte/FSignal>
 - [x] `.env` never committed — `git log --all --full-history -- .env` is empty
 - [x] `.env` and `.venv` excluded from the Docker build context — `.dockerignore`
-- [x] Test suite green — `pytest -q` (187 tests), with no credentials configured
+- [x] Test suite green — `pytest -q` (189 tests), with no credentials configured
 - [x] Precision enforced in CI, not just asserted — `pytest tests/test_precision.py`
 - [x] Setup a non-technical operator can complete — `docs/INSTALL.md`, with prerequisites,
       the Slack click path, Windows and macOS, permanent hosting, and a troubleshooting
@@ -35,9 +35,12 @@ to it. Unticked boxes state what is actually blocking them.
 
 - [x] Persistent stateful monitoring — SQLite + WAL on a mounted volume
 - [x] Runs continuously — one asyncio task per source, adaptive backoff, failure isolation
-- [x] No duplicate alerts — one alert per company per stage; restart + rescan is silent.
-      A post found through both X paths collapses to one row: the indexed collector keys on
-      the X post id, not a hash of the URL.
+- [x] No duplicate alerts — **demonstrated live on the deployment.** Three separate X
+      posts about Adalat AI, including one third-party post that named the company as
+      `@Adalat_AI`, produced **one** EARLY alert and two threaded corroborations: all three
+      normalise to the same `company_key` (`yc:F26:adalatai`). A redeploy in between
+      re-alerted none of them. A post found through both X paths also collapses to one row,
+      because the indexed collector keys on the X post id rather than a hash of the URL.
 - [x] Early detection with a defensible verdict — every EARLY alert stores and displays the
       snapshot size, snapshot time, batch scope, and every match method attempted
 - [x] **New official listings alert too** — `✅ NEW YC COMPANY`, the task brief's second
@@ -66,9 +69,9 @@ to it. Unticked boxes state what is actually blocking them.
       `Rzbyte/FSignal` on `main`.
 - [x] `/health` reports `production_ready: true` — all four sources healthy, X as
       `mode: "indexed_fallback"`
-- [x] **The deployment has delivered real Slack alerts** — `alerts.sent: 2`, both EARLY
-      signals for `Adalat AI (YC F26)` found on X. Its ledger for the same run:
-      2 alerted, 12 already-listed, 12 possible, 28 suppressed with reason codes.
+- [x] **The deployment has delivered real Slack alerts** — `alerts.sent: 3`: one EARLY
+      signal for `Adalat AI (YC F26)` found on X, plus two corroborations in its thread.
+      Ledger alongside them: 19 already-listed, 19 possible, 34 suppressed with reason codes.
 - [x] Machine-capturable evidence captured **from the deployment** —
       `python scripts/capture_evidence.py` wrote `evidence/raw/`: served state, per-signal
       timelines, and a directory crawl run independently of the deployment confirming
