@@ -39,6 +39,14 @@ logger = logging.getLogger(__name__)
 #: Hard cap on how long we wait before retrying a failing source.
 MAX_BACKOFF_SECONDS: float = 3600.0  # 1 hour
 
+#: How soon to retry a source that reported it is waiting on a precondition.
+#: The social sources refuse to hunt before the first official snapshot exists,
+#: and at startup they race the directory scan and lose. That is correct -- but
+#: "come back in one full interval" is the wrong response to it: on a four-hour
+#: social cadence the bot would sit blind for four hours over a precondition that
+#: resolves in about eight seconds.
+WAITING_RETRY_SECONDS: float = 60.0
+
 
 @dataclass
 class SourceState:
@@ -295,5 +303,10 @@ class PerSourceScheduler:
             state.consecutive_failures += 1
 
         # Schedule the next run using the (possibly backed-off) delay.
-        backoff = state.backoff_seconds()
-        state.next_run = datetime.now(timezone.utc) + timedelta(seconds=backoff)
+        if state.last_status == "waiting":
+            # Not a failure and not a success: a precondition that has not
+            # arrived yet. Retry on its timescale, not the source's.
+            delay = min(WAITING_RETRY_SECONDS, state.interval_seconds)
+        else:
+            delay = state.backoff_seconds()
+        state.next_run = datetime.now(timezone.utc) + timedelta(seconds=delay)

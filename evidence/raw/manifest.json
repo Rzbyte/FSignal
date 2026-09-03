@@ -1,0 +1,96 @@
+{
+  "captured_at": "2026-09-03T21:31:58.149012+00:00",
+  "captured_from": "http://localhost:8899/manifest",
+  "note": "Anonymous GET. Pond Protocol V1 declaration -- no bearer token or protocol-version header required.",
+  "body": {
+    "protocol": "marketplace-agent",
+    "protocol_version": "1.0",
+    "agent_version": "2026.09.03-4",
+    "metadata": {
+      "name": "FSignal",
+      "short_description": "Detect founder-announced YC/Speedrun companies before official confirmation.",
+      "description": "<p>Persistent launch intelligence for GTM teams. FSignal cross-checks founder announcements against official accelerator directories, sends Slack alerts for pre-directory signals, and measures Ghost-to-Confirmed lead time.</p>",
+      "category": "sales",
+      "key_features": "<ul><li>YC Directory and Speedrun monitoring</li><li>X and LinkedIn founder-signal detection</li><li>Persistent deduplication and alert retry</li><li>Ghost-to-Confirmed reconciliation with lead-time measurement</li><li>Explainable confidence, evidence, and GTM priority scoring</li><li>Persistent signal timeline and source health monitoring</li></ul>",
+      "use_cases": "<p>Find newly accepted accelerator founders early enough for outbound, pipeline discovery, and time-sensitive GTM outreach.</p>",
+      "setup_instructions": "Deploy this server over HTTPS, configure POND_ACCESS_KEY and source credentials, then use the public Server Base URL when publishing the Agent in Pond."
+    },
+    "actions": [
+      {
+        "id": "scan_now",
+        "name": "Scan now",
+        "description": "Use when the user wants FSignal to immediately check all configured launch-monitor sources for new signals.",
+        "input_schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "get_status",
+        "name": "Get status",
+        "description": "Use when the user wants current source health, monitoring status, signal counts, or alert-delivery state.",
+        "input_schema": {
+          "type": "object",
+          "properties": {},
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "list_ghosts",
+        "name": "List ghosts",
+        "description": "Use when the user wants founder-announced YC or Speedrun signals that are not yet matched to an official directory entry.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "limit": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 50,
+              "description": "Maximum number of current ghost signals to return."
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      {
+        "id": "get_timeline",
+        "name": "Get signal timeline",
+        "description": "Use when the user wants the auditable detection, alert, and confirmation history for a specific signal.",
+        "input_schema": {
+          "type": "object",
+          "properties": {
+            "signal_id": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Persistent social signal ID returned by list_ghosts or the API."
+            }
+          },
+          "required": [
+            "signal_id"
+          ],
+          "additionalProperties": false
+        }
+      }
+    ],
+    "capabilities": {
+      "sync": true,
+      "streaming": false,
+      "async_tasks": false,
+      "cancellation": false,
+      "attachments": false,
+      "feedback": false
+    },
+    "input_modes": [
+      "text/plain"
+    ],
+    "output_modes": [
+      "text/markdown"
+    ],
+    "limits": {
+      "max_request_bytes": 1048576,
+      "max_attachment_bytes": 0,
+      "max_run_seconds": 300
+    }
+  }
+}

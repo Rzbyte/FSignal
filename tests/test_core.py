@@ -660,6 +660,55 @@ def test_source_state_backoff_capped():
     assert state.backoff_seconds() == MAX_BACKOFF_SECONDS
 
 
+def test_a_waiting_source_retries_on_the_preconditions_timescale(tmp_path):
+    """A precondition that resolves in seconds must not cost a full interval.
+
+    The social sources refuse to hunt before the first official snapshot exists.
+    At startup they race the directory scan and lose, which is correct. But
+    rescheduling that as a normal interval meant a four-hour social cadence left
+    the bot blind for four hours over something that resolves in about eight
+    seconds -- exactly what happened on the first deploy after the intervals
+    were widened.
+    """
+    from app.db import Database
+    from app.scanner import Scanner
+    from app.scheduler import WAITING_RETRY_SECONDS, PerSourceScheduler, SourceState
+
+    scheduler = PerSourceScheduler.from_config(Scanner(Database(str(tmp_path / 'w.db'))))
+    state = SourceState('x', interval_seconds=4 * 60 * 60)
+
+    async def waiting(_name):
+        return {'status': 'waiting', 'items': 0, 'error': 'waiting: no snapshot yet'}
+
+    scheduler.scanner.run_named_source = waiting
+    asyncio.run(scheduler._run_once(state))
+
+    delay = (state.next_run - datetime.now(timezone.utc)).total_seconds()
+    assert delay <= WAITING_RETRY_SECONDS + 1
+    # And it is not counted against the source's health.
+    assert state.consecutive_failures == 0
+    assert state.health_label == 'waiting'
+
+
+def test_a_healthy_source_still_waits_its_full_interval(tmp_path):
+    """The fast retry is for preconditions only, not a way around the cadence."""
+    from app.db import Database
+    from app.scanner import Scanner
+    from app.scheduler import PerSourceScheduler, SourceState
+
+    scheduler = PerSourceScheduler.from_config(Scanner(Database(str(tmp_path / 'h.db'))))
+    state = SourceState('x', interval_seconds=4 * 60 * 60)
+
+    async def ok(_name):
+        return {'status': 'ok', 'items': 3, 'error': None}
+
+    scheduler.scanner.run_named_source = ok
+    asyncio.run(scheduler._run_once(state))
+
+    delay = (state.next_run - datetime.now(timezone.utc)).total_seconds()
+    assert delay > 60 * 60
+
+
 def test_source_state_health_label_pending():
     from app.scheduler import SourceState
     state = SourceState('x', 600)

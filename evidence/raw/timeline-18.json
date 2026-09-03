@@ -1,0 +1,79 @@
+{
+  "captured_at": "2026-09-03T21:31:58.156494+00:00",
+  "captured_from": "http://localhost:8899/signals/18/timeline",
+  "note": "Full history of the alert for Adalat AI.",
+  "body": {
+    "signal": {
+      "id": 18,
+      "source": "x",
+      "external_id": "2090071662784086176",
+      "url": "https://x.com/Adalat_AI/status/2090071662784086176",
+      "text": "\"1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit ... Adalat AI (YC F26) on X: \"1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \u2014 and the first Indian- ...",
+      "author_name": null,
+      "author_handle": "Adalat_AI",
+      "company_name": "Adalat AI",
+      "normalized_company_name": "adalatai",
+      "company_domain": null,
+      "company_key": "yc:F26:adalatai",
+      "batch": "F26",
+      "program": "yc",
+      "confidence": 75,
+      "confidence_label": "likely",
+      "evidence_json": "[\"Explicit YC reference: 'y combinator'\", \"Batch/cohort identified: F26\", \"Company identity extracted: Adalat AI (via program_tag)\", \"Acceptance evidence: is now backed by\", \"Acceptance stated with the company as the subject\", \"Public author identity available: Adalat_AI\", \"No matching official-directory entry at detection time\"]",
+      "gtm_score": 65,
+      "gtm_priority": "medium",
+      "gtm_reasons_json": "[\"Pre-directory timing advantage\", \"Founder is directly reachable from the post\", \"Current accelerator cohort identified\"]",
+      "status": "ghost",
+      "official_company_id": null,
+      "detected_at": "2026-09-03T21:18:41.683528+00:00",
+      "confirmed_at": null,
+      "official_check_json": "{\"matched\": false, \"method\": null, \"methods_tried\": [\"exact_name\", \"batch_prefix\"], \"batch_scope\": \"F26\", \"records_checked\": 6461, \"official_name\": null, \"official_batch\": null, \"official_url\": null, \"checked_at\": \"2026-09-03T21:18:44.401303+00:00\", \"snapshot_source\": \"yc_directory\", \"snapshot_size\": 6200, \"snapshot_taken_at\": \"2026-09-03T21:18:36.584404+00:00\"}",
+      "alerted_ghost_at": "2026-09-03T21:18:52.867884+00:00",
+      "alerted_confirmed_at": null,
+      "raw_json": "{\"title\": \"\\\"1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit ...\", \"link\": \"https://x.com/Adalat_AI/status/2090071662784086176\", \"snippet\": \"Adalat AI (YC F26) on X: \\\"1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \\u2014 and the first Indian- ...\", \"date\": \"Aug 19, 2026\", \"position\": 2}",
+      "collection_mode": "indexed_fallback"
+    },
+    "timeline": [
+      {
+        "id": 6486,
+        "event_key": "signal:x:2090071662784086176:detected",
+        "event_type": "social_detected",
+        "signal_id": 18,
+        "official_company_id": null,
+        "source": "x",
+        "event_at": "2026-09-03T21:18:41.683528+00:00",
+        "metadata": {
+          "company": "Adalat AI",
+          "confidence": 75,
+          "confidence_label": "likely",
+          "gtm_score": 65,
+          "gtm_priority": "medium"
+        }
+      },
+      {
+        "id": 6487,
+        "event_key": "signal:x:2090071662784086176:ghost",
+        "event_type": "ghost_classified",
+        "signal_id": 18,
+        "official_company_id": null,
+        "source": "x",
+        "event_at": "2026-09-03T21:18:41.683528+00:00",
+        "metadata": {
+          "reason": "No official directory match at detection time"
+        }
+      },
+      {
+        "id": 6530,
+        "event_key": "alert:ghost:yc:F26:adalatai:sent",
+        "event_type": "slack_alert_sent",
+        "signal_id": 18,
+        "official_company_id": null,
+        "source": "slack",
+        "event_at": "2026-09-03T21:18:52.886095+00:00",
+        "metadata": {
+          "kind": "ghost"
+        }
+      }
+    ]
+  }
+}
