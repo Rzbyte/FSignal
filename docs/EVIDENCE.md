@@ -10,6 +10,7 @@ moment it was taken:
 ```bash
 python scripts/capture_evidence.py
 python scripts/capture_evidence.py --base-url http://localhost:8000   # or a local run
+python scripts/backtest_lead_time.py --batches "Fall 2026,Summer 2026,Spring 2026,Winter 2026"
 ```
 
 | File in `evidence/raw/` | What it establishes |
@@ -20,6 +21,7 @@ python scripts/capture_evidence.py --base-url http://localhost:8000   # or a loc
 | `pond-runs.json` | An authenticated `POST /runs` and a byte-identical resend under the same `Idempotency-Key`; `identical_response` must be `true` |
 | `timeline-<id>.json` | One alerted signal's full history: detection, classification, delivery |
 | `yc-directory-check.json` | The directory crawled **independently of the deployment**: whether each alerted company is listed in the batch it claimed, plus that batch's full roster |
+| `lead-time-backtest.json` | How much earlier than the directory this finds companies, measured from the founder's post date against YC's own `launched_at` — **a backtest, not delivered alerts** |
 
 `pond-runs.json` needs `POND_ACCESS_KEY` in the environment you run the script from; without
 it the script says so and continues.
@@ -69,6 +71,18 @@ authenticated `POST /runs` succeeds with `Idempotency-Key == run_id`; that repea
 identical run returns the same persisted result; that `list_ghosts` and `get_timeline` return
 real state; and that Pond shows the agent healthy. `capture_evidence.py` does the first three.
 See `docs/POND.md`.
+
+## Reporting the backtest
+
+`lead-time-backtest.json` is the one artifact here that is not a record of something
+that happened. Say "backtest" out loud whenever it is on screen. It answers "how much
+lead does this approach buy", never "this is what we sent" — the delivered alerts are
+in `ledger.json` and the Slack screenshots, and those are a different claim.
+
+Quote the shape, not just the median: most founders announce the same day the directory
+publishes, and the value is in the tail that does not. `10 of 17 measurable companies
+were announced before YC listed them, 4 of them by two weeks or more, the longest by 50
+days` is both truthful and stronger than any single number.
 
 ## Not allowed
 

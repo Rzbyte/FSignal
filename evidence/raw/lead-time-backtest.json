@@ -1,0 +1,1338 @@
+{
+  "captured_at": "2026-09-03T22:13:02.713219+00:00",
+  "what_this_is": "A BACKTEST. None of these was delivered as a Slack alert. It compares the founder post date reported by the search index against YC's own published launched_at, using the same queries, extraction and matching the live monitor uses.",
+  "limits": [
+    "The search index reports a post's date to the day, so each lead is +/-1 day.",
+    "Only companies YC has since listed can be measured; still-unlisted ones are reported separately, not averaged in.",
+    "Search ranking, not exhaustive retrieval: this is a sample of the posts that existed, never all of them."
+  ],
+  "window": "y",
+  "batches_backtested": "the batches the live monitor is currently hunting",
+  "official_corpus": 6461,
+  "batches": "YC F26, Speedrun SR007",
+  "summary": {
+    "resolved": 17,
+    "posted_before_listing": 10,
+    "posted_after_listing": 7,
+    "no_published_listing_time": 0,
+    "median_lead_days": 4.4,
+    "mean_lead_days": 15.3,
+    "max_lead_days": 50.0,
+    "ahead_by_a_week_or_more": 5,
+    "ahead_by_two_weeks_or_more": 4
+  },
+  "companies": [
+    {
+      "company": "screenpipe",
+      "batch": "Summer 2026",
+      "posted": "2026-05-18T00:00:00+00:00",
+      "listed_at": "2026-07-07T01:10:50+00:00",
+      "lead_days": 50.05,
+      "post_url": "https://x.com/louis030195/status/2056360011631313167",
+      "source": "x",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "RightNow",
+      "batch": "Fall 2026",
+      "posted": "2026-04-07T00:00:00+00:00",
+      "listed_at": "2026-05-22T18:32:36+00:00",
+      "lead_days": 45.77,
+      "post_url": "https://x.com/rightnowai_co/status/2041480726181220852",
+      "source": "x",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Agnost AI",
+      "batch": "Summer 2026",
+      "posted": "2026-06-08T00:00:00+00:00",
+      "listed_at": "2026-07-08T03:29:35+00:00",
+      "lead_days": 30.15,
+      "post_url": "https://x.com/ShubhamInTech/status/2063985390852419613",
+      "source": "x",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Kimpton",
+      "batch": "Spring 2026",
+      "posted": "2026-03-04T00:00:00+00:00",
+      "listed_at": "2026-03-20T20:48:36+00:00",
+      "lead_days": 16.87,
+      "post_url": "https://www.linkedin.com/posts/jack-zumwalt_i-am-excited-to-share-that-kimpton-ai-yc-activity-7434972177294290944-oQm3",
+      "source": "linkedin",
+      "matched_by": "handle"
+    },
+    {
+      "company": "TesterArmy",
+      "batch": "Spring 2026",
+      "posted": "2026-03-10T00:00:00+00:00",
+      "listed_at": "2026-03-17T17:06:11+00:00",
+      "lead_days": 7.71,
+      "post_url": "https://x.com/TesterArmy/status/2031426098181857564",
+      "source": "x",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Arga Labs",
+      "batch": "Spring 2026",
+      "posted": "2026-02-23T00:00:00+00:00",
+      "listed_at": "2026-02-24T03:03:34+00:00",
+      "lead_days": 1.13,
+      "post_url": "https://www.linkedin.com/posts/phillip-li-a28a84217_happy-to-share-that-arga-labs-yc-x26-is-activity-7431916382705057792-5rvf",
+      "source": "linkedin",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Forum",
+      "batch": "Winter 2026",
+      "posted": "2026-01-19T00:00:00+00:00",
+      "listed_at": "2026-01-19T07:59:13+00:00",
+      "lead_days": 0.33,
+      "post_url": "https://www.linkedin.com/posts/owen-botkin_thrilled-to-announce-that-forum-yc-w26-activity-7419059524776558592-iLxK",
+      "source": "linkedin",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Klaimee",
+      "batch": "Spring 2026",
+      "posted": "2026-04-06T00:00:00+00:00",
+      "listed_at": "2026-04-06T06:20:12+00:00",
+      "lead_days": 0.26,
+      "post_url": "https://www.linkedin.com/posts/ines-boutemadja_were-joining-y-combinator-with-klaimee-activity-7446836678964711424-lUnd",
+      "source": "linkedin",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Veeza AI",
+      "batch": "Fall 2026",
+      "posted": "2026-08-16T00:00:00+00:00",
+      "listed_at": "2026-08-16T05:35:36+00:00",
+      "lead_days": 0.23,
+      "post_url": "https://www.linkedin.com/posts/alymoursy_super-proud-and-honored-to-announce-that-activity-7494963581126586368-IXTX",
+      "source": "linkedin",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Minicor",
+      "batch": "Spring 2026",
+      "posted": "2026-03-06T00:00:00+00:00",
+      "listed_at": "2026-03-06T00:13:48+00:00",
+      "lead_days": 0.01,
+      "post_url": "https://www.linkedin.com/posts/saheed-akinbile_some-news-im-deeply-grateful-to-share-activity-7435814713696862208--6mj",
+      "source": "linkedin",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Studio",
+      "batch": "Summer 2026",
+      "posted": "2026-08-21T00:00:00+00:00",
+      "listed_at": "2026-08-19T04:40:00+00:00",
+      "lead_days": -1.81,
+      "post_url": "https://www.linkedin.com/posts/y-combinator_studio-yc-s26-allows-brands-to-engineer-activity-7496627202218733568-sy3N",
+      "source": "linkedin",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Tsenta",
+      "batch": "Summer 2026",
+      "posted": "2026-02-03T00:00:00+00:00",
+      "listed_at": "2026-01-29T23:27:32+00:00",
+      "lead_days": -4.02,
+      "post_url": "https://www.linkedin.com/posts/pulkitgupta712_tsenta-yc-s26-is-now-backed-by-y-combinator-activity-7424474186670088192-4a25",
+      "source": "linkedin",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Illume Labs",
+      "batch": "Summer 2026",
+      "posted": "2026-07-20T00:00:00+00:00",
+      "listed_at": "2026-07-15T08:32:01+00:00",
+      "lead_days": -4.64,
+      "post_url": "https://www.linkedin.com/posts/y-combinator_illume-labs-yc-s26-is-building-one-home-activity-7485018188485718016-CXnR",
+      "source": "linkedin",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Lantern AI",
+      "batch": "Fall 2026",
+      "posted": "2026-08-27T22:13:02.713219+00:00",
+      "listed_at": "2026-08-18T05:16:46+00:00",
+      "lead_days": -9.71,
+      "post_url": "https://www.linkedin.com/posts/ai-lantern_lantern-ai-yc-f26-is-listed-on-the-top-activity-7498937410895036416-jyQ_",
+      "source": "linkedin",
+      "matched_by": "batch_prefix"
+    },
+    {
+      "company": "Prodigy Research",
+      "batch": "Summer 2026",
+      "posted": "2026-08-21T00:00:00+00:00",
+      "listed_at": "2026-08-08T01:44:08+00:00",
+      "lead_days": -12.93,
+      "post_url": "https://x.com/ycombinator/status/2090900955969757256",
+      "source": "x",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Agentcard",
+      "batch": "Summer 2026",
+      "posted": "2026-08-26T00:00:00+00:00",
+      "listed_at": "2026-06-05T18:05:46+00:00",
+      "lead_days": -81.25,
+      "post_url": "https://x.com/keyserfaty/status/2092679276168638954",
+      "source": "x",
+      "matched_by": "exact_name"
+    },
+    {
+      "company": "Sidekick",
+      "batch": "Summer 2026",
+      "posted": "2026-08-07T00:00:00+00:00",
+      "listed_at": "2026-04-07T18:00:01+00:00",
+      "lead_days": -121.25,
+      "post_url": "https://x.com/ycombinator/status/2085787620186169725",
+      "source": "x",
+      "matched_by": "exact_name"
+    }
+  ],
+  "raw_searches": [
+    {
+      "source": "x",
+      "query": "site:x.com (\"YC F26\" OR \"Y Combinator F26\")",
+      "results": [
+        {
+          "title": "Y Combinator on X: \"The deadline to apply for YC F26 is tonight at ...",
+          "link": "https://x.com/ycombinator/status/2081854656842698917",
+          "snippet": "The deadline to apply for YC F26 is tonight at 8pm PT! If you're an earnest builder working on something people want, we'd love to hear from you: ...",
+          "date": "Jul 27, 2026",
+          "position": 1
+        },
+        {
+          "title": "Aaron Epstein - Apply to YC",
+          "link": "https://x.com/aaron_epstein/status/2081831375708307471",
+          "snippet": "And the deadline to apply to the YC F26 batch is tonight. It only takes a few minutes, and some of the best companies in the world applied last minute too.",
+          "date": "Jul 27, 2026",
+          "position": 2
+        },
+        {
+          "title": "\"1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit ...",
+          "link": "https://x.com/Adalat_AI/status/2090071662784086176",
+          "snippet": "Adalat AI (YC F26) on X: \"1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \u2014 and the first Indian- ...",
+          "date": "Aug 19, 2026",
+          "position": 3
+        },
+        {
+          "title": "Vivian Midha Shen on X",
+          "link": "https://x.com/vivianmshen/status/2081770921430561131",
+          "snippet": "keeping up the momentum of an exhilarating and inspiring Startup School this weekend, remember that the YC F26 deadline is today at 8pm PT!",
+          "date": "Jul 27, 2026",
+          "position": 4
+        },
+        {
+          "title": "Uv Sundrani on X",
+          "link": "https://x.com/yuvansundrani/status/2081854273877426336",
+          "snippet": "yc f26 applications close tonight at 8pm PT about a year ago i was on the other side of it -- didn't know we'd make the cut we got in.",
+          "date": "Jul 27, 2026",
+          "position": 5
+        },
+        {
+          "title": "Sirsha (YC F26) on X: \"startup life is weird",
+          "link": "https://x.com/sirsho29/status/2088498818929352835",
+          "snippet": "Sirsha (YC F26) on X: \"startup life is weird; you start with nothing, nobody believes in you; suddenly, one fine morning, everybody wants a piece of you\".",
+          "date": "Aug 14, 2026",
+          "position": 6
+        },
+        {
+          "title": "herdr on X",
+          "link": "https://x.com/herdrdev/status/2085432378822963431",
+          "snippet": "big update: herdr is joining Y Combinator, F26 batch. herdr has been a solo project from day one. in four months it reached a place i couldn't have imagined ...",
+          "date": "Aug 6, 2026",
+          "position": 7
+        },
+        {
+          "title": "Adalat AI (YC F26) \u0639\u0644\u0649 X: \"5/ With YC behind us, we're taking this ...",
+          "link": "https://x.com/Adalat_AI/status/2090071721856712924?lang=ar",
+          "snippet": "Adalat AI (YC F26) \u00b7 @Adalat_AI \u00b7 19 \u0623\u063a\u0633\u0637\u0633. 1/ Adalat AI is now backed by Y Combinator. We're the first nonprofit YC has backed in nearly five years \u2014 and the ...",
+          "date": "Aug 19, 2026",
+          "position": 8
+        },
+        {
+          "title": "IndiaAI on X: \"Stronger support to India's justice-tech ecosystem ...",
+          "link": "https://x.com/OfficialINDIAai/status/2092160053566435737",
+          "snippet": "@Adalat_AI (YC F26) is now backed by @ycombinator , marking a significant step forward for its mission to enable timely justice through technology. With ...",
+          "date": "Aug 25, 2026",
+          "position": 9
+        },
+        {
+          "title": "RightNow (YC F26) on X: \"Our new product RunInfra is live! You are ...",
+          "link": "https://x.com/rightnowai_co/status/2041480726181220852",
+          "snippet": "RightNow (YC F26) \u00b7 @rightnowai_co. Our new product RunInfra is live! You are not renting someone else's AI, you are building and optimizing your own. runinfra ...",
+          "date": "Apr 7, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "x",
+      "query": "site:x.com (\"YC S26\" OR \"Y Combinator S26\")",
+      "results": [
+        {
+          "title": "My Top 3 YC S26 Startups So Far: Robot Maids, AI Health Insurance ...",
+          "link": "https://x.com/FrancisPSantora/article/2072726672248340979",
+          "snippet": "YC S26 kicked off last week. 56 startups have already launched. Here are my top 3 so far, from robot maids to cheaper healthcare\u2026",
+          "date": "Feb 7, 2026",
+          "position": 1
+        },
+        {
+          "title": "mrs. robot on X: \"today we are excited to launch Agentcard (yc s26 ...",
+          "link": "https://x.com/keyserfaty/status/2092679276168638954",
+          "snippet": "today we are excited to launch Agentcard (yc s26) agents can buy things for us, but in order to do so they need to be able to pay. current solutions don't ...",
+          "date": "Aug 26, 2026",
+          "position": 2
+        },
+        {
+          "title": "shubham on X: \"We got into Y Combinator! Agnost AI (YC S26) is the ...",
+          "link": "https://x.com/ShubhamInTech/status/2063985390852419613",
+          "snippet": "Agnost AI (YC S26) is the infra for self-improving AI agents. We plug into conversational AI companies, find what's broken, and ship the fix as a PR. You just ...",
+          "date": "Jun 8, 2026",
+          "position": 3
+        },
+        {
+          "title": "Y Combinator on X: \"RT @Just1nSo: Sidekick (YC S26) handles ...",
+          "link": "https://x.com/ycombinator/status/2085787620186169725",
+          "snippet": "RT @Just1nSo: Sidekick (YC S26) handles frontline operations over text \u2013 no app, no login, no training. On a factory floor, the answer to\u2026",
+          "date": "Aug 7, 2026",
+          "position": 4
+        },
+        {
+          "title": "RT @realProdigyCorp: Prodigy Research (YC S26) is the frontier AI ...",
+          "link": "https://x.com/ycombinator/status/2090900955969757256",
+          "snippet": "Prodigy Research (YC S26) is the frontier AI trading research lab. We're training the world's best foundation model for quantitative finance.",
+          "date": "Aug 21, 2026",
+          "position": 5
+        },
+        {
+          "title": "Y Combinator on X: \"RT @samilaa",
+          "link": "https://x.com/ycombinator/status/2090890786468725010",
+          "snippet": "Last Accounting Company (YC S26) is the agent-native accounting firm. LAC replaces both the traditional accounting firm and legacy accounting software with ...",
+          "date": "Aug 21, 2026",
+          "position": 6
+        },
+        {
+          "title": "Alexander Wikstr\u00f6m on X: \"We're joining YC S26 to build the easiest ...",
+          "link": "https://x.com/alexwikstrom/status/2071974426510524615",
+          "snippet": "We're joining YC S26 to build the easiest solution for any enterprise to build internal tools. Blaise builds all your enterprise software, deployed on your ...",
+          "date": "Jun 30, 2026",
+          "position": 7
+        },
+        {
+          "title": "Brad Flora on X: \"Introducing TovenAI YC S26",
+          "link": "https://x.com/bradflora/status/2090487022737572313",
+          "snippet": "Introducing TovenAI YC S26: Building agents that handle the most complicated compliance workflows at the largest, most sophisticated trading firms in the world.",
+          "date": "Aug 20, 2026",
+          "position": 8
+        },
+        {
+          "title": "louis030195 | screenpipe (YC S26)",
+          "link": "https://x.com/louis030195/status/2056360011631313167",
+          "snippet": "@screenpipe got into YC S26. screenpipe is your AI that already knows what you're working on. You no longer need to manually explain your work to AI agents.",
+          "date": "May 18, 2026",
+          "position": 9
+        },
+        {
+          "title": "Gabriel Jarrosson on X: \"3/ Your YC S26 answer needs 7 lines",
+          "link": "https://x.com/GJarrosson/status/2057582968617435406",
+          "snippet": "3/ Your YC S26 answer needs 7 lines: - Today we do X manually - Doing X generates [data/code/distribution] - That makes the next X 2x cheaper - Compounded ...",
+          "date": "May 21, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "x",
+      "query": "site:x.com (\"YC X26\" OR \"Y Combinator X26\")",
+      "results": [
+        {
+          "title": "Jason Freedman on X: \"https://t.co/aKor1GwDOO\" / X",
+          "link": "https://x.com/jasonfreedman/status/2024186340808757453",
+          "snippet": "I applied for YC X26 and was wondering if you'd be open to making me a recommendation if it's not too much to ask. If I'm getting these, so are many others ...",
+          "date": "Feb 18, 2026",
+          "position": 1
+        },
+        {
+          "title": "Say hello to TesterArmy (YC X26)! Our mission is to change how AI ...",
+          "link": "https://x.com/TesterArmy/status/2031426098181857564",
+          "snippet": "Say hello to TesterArmy (YC X26)! Our mission is to change how AI-native teams tests their apps. \u2192 Tests every Pull Request \u2192 One-click integration with ...",
+          "date": "Mar 10, 2026",
+          "position": 2
+        },
+        {
+          "title": "just got into YC X26 and looking for an apartment to live in SF? DM ...",
+          "link": "https://x.com/paulodoestech/status/2028611774493458544",
+          "snippet": "just got into YC X26 and looking for an apartment to live in SF? DM me, i'm moving out of Dogpatch and transferring my lease.",
+          "date": "Mar 2, 2026",
+          "position": 3
+        },
+        {
+          "title": "Szymon Rybczak on X",
+          "link": "https://x.com/SzymonRybczak/status/2031427134946976129",
+          "snippet": "Say hello to TesterArmy (YC X26)! Our mission is to change how AI-native teams tests their apps. \u2192 Tests every Pull Request \u2192 One-click integration with ...",
+          "date": "Mar 10, 2026",
+          "position": 4
+        },
+        {
+          "title": "Garry Tan on X: \"Don't forget to click like and subscribe, fam\" / X",
+          "link": "https://x.com/garrytan/status/2025362139335274736",
+          "snippet": "... this shit asap Garry. 4 \u00b7 1.5K \u00b7 @cameronharrisx \u00b7 Cam Harris \u00b7 @cameronharrisx \u00b7 Feb 22. YC X26 applicants watching this content without a response yet. GIF. 4.",
+          "date": "Feb 21, 2026",
+          "position": 5
+        },
+        {
+          "title": "Vikram \u0639\u0644\u0649 X",
+          "link": "https://x.com/vchennai2/status/2038667747639660758?lang=ar",
+          "snippet": "... (YC X26) @ycombinator, @cornell. \u0627\u0644\u0645\u062a\u062f\u0627\u0648\u064e\u0644 \u0627\u0644\u0622\u0646. \u0631\u064a\u0627\u0636\u0629 \u00b7 \u0645\u062a\u062f\u0627\u0648\u0644. #AEWAllIn \u00b7 \u0631\u064a\u0627\u0636\u0629 \u00b7 \u0645\u062a\u062f\u0627\u0648\u0644. Rams \u00b7 \u0631\u064a\u0627\u0636\u0629 \u00b7 \u0645\u062a\u062f\u0627\u0648\u0644. #NXTHeatwave \u00b7 \u0631\u064a\u0627\u0636\u0629 \u00b7 \u0645\u062a\u062f\u0627\u0648\u0644. Nigel.",
+          "date": "Mar 30, 2026",
+          "position": 6
+        },
+        {
+          "title": "Vikram \u0639\u0644\u0649 X: \"So this is how I'm supposed to access my repo when ...",
+          "link": "https://x.com/vchennai2/status/2072818884357587421?lang=ar",
+          "snippet": "... (YC X26) @ycombinator, @cornell. \u0627\u0644\u0645\u062a\u062f\u0627\u0648\u064e\u0644 \u0627\u0644\u0622\u0646. \u0627\u0644\u0645\u062a\u062f\u0627\u0648\u0644 \u0641\u064a \u0627\u0644\u0648\u0644\u0627\u064a\u0627\u062a \u0627\u0644\u0645\u062a\u062d\u062f\u0629. LA D1 \u00b7 \u0639\u0627\u0644\u0645 \u0627\u0644\u062a\u0631\u0641\u064a\u0647 \u00b7 \u0645\u062a\u062f\u0627\u0648\u0644. Tyler Robinson \u00b7 \u0627\u0644\u0645\u0648\u0633\u064a\u0642\u0649 \u00b7 \u0645\u062a\u062f\u0627\u0648\u0644. MAGIC SHOP.",
+          "date": "Jul 2, 2026",
+          "position": 7
+        },
+        {
+          "title": "Vikram \u0639\u0644\u0649 X: \"Let it be known the guys @modal did not attempt to ...",
+          "link": "https://x.com/vchennai2/status/2075019090591404214?lang=ar",
+          "snippet": "... (YC X26) @ycombinator, @cornell. \u0627\u0644\u0645\u062a\u062f\u0627\u0648\u064e\u0644 \u0627\u0644\u0622\u0646. \u0627\u0644\u0627\u0642\u062a\u0635\u0627\u062f \u0648 \u0627\u0644\u0623\u0639\u0645\u0627\u0644 \u00b7 \u0645\u062a\u062f\u0627\u0648\u0644. $GPRO \u00b7 \u0627\u0644\u0645\u062a\u062f\u0627\u0648\u0644 \u0641\u064a \u0627\u0644\u0648\u0644\u0627\u064a\u0627\u062a \u0627\u0644\u0645\u062a\u062d\u062f\u0629. Deme \u00b7 \u0627\u0644\u0645\u062a\u062f\u0627\u0648\u0644 \u0641\u064a \u0627\u0644\u0648\u0644\u0627\u064a\u0627\u062a \u0627\u0644\u0645\u062a\u062d\u062f\u0629. Markey.",
+          "date": "Jul 8, 2026",
+          "position": 8
+        },
+        {
+          "title": "Vikram on X: \"Jeff Dean leaves @Google and suddenly my google ...",
+          "link": "https://x.com/vchennai2/status/2085574261583073672",
+          "snippet": "... (YC X26) @ycombinator, @cornell. Trending now. Politics \u00b7 Trending. Thailand \u00b7 Only on X \u00b7 Trending. #TwinDEX \u00b7 Business and finance \u00b7 Trending. Napster.",
+          "date": "Aug 6, 2026",
+          "position": 9
+        },
+        {
+          "title": "Vikram on X: \"Hey @github Please stop\" / X",
+          "link": "https://x.com/vchennai2/status/2085423472738779643",
+          "snippet": "... (YC X26) @ycombinator, @cornell. Trending now. Sports \u00b7 Trending. Austin Wells \u00b7 Sports \u00b7 Trending. Soriano \u00b7 Sports \u00b7 Trending. #AEWDynamite \u00b7 Ryan Reynolds \u00b7 ...",
+          "date": "Aug 6, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "x",
+      "query": "site:x.com (\"YC W26\" OR \"Y Combinator W26\")",
+      "results": [
+        {
+          "title": "Chris Lu on X: \"the most reliable startup formula in YC W26",
+          "link": "https://x.com/chris__lu/status/2035793475287884055",
+          "snippet": "I just analyzed all the companies in YC's W26 batch: every pitch, every sector, every founding team. 85% are AI-first. a third are building agents. and 3 ...",
+          "date": "Mar 22, 2026",
+          "position": 1
+        },
+        {
+          "title": "Raphael Schaad on X: \"If you apply to the YC W26 batch, this email ...",
+          "link": "https://x.com/raphaelschaad/status/1983954923290235010",
+          "snippet": "If you apply to the YC W26 batch, this email could be waiting in your inbox soon \u2026 Sit down and put your mind to it. Writing the idea out is very clarifying ...",
+          "date": "Oct 30, 2025",
+          "position": 2
+        },
+        {
+          "title": "Justin Rhee on X: \"YC W26 Demo Day is six weeks away, and we're ...",
+          "link": "https://x.com/rheejust/status/2021926022795370970",
+          "snippet": "YC W26 Demo Day is six weeks away, and we're halfway through the batch. As a previous YC S20 founder, I wanted to give my shoutout to the 132+ founders ...",
+          "date": "Feb 12, 2026",
+          "position": 3
+        },
+        {
+          "title": "I analyzed all YC W26 companies: Here's what it tells us about the ...",
+          "link": "https://x.com/chris__lu/status/2035789607824929033",
+          "snippet": "I just analyzed all the companies in YC's W26 batch: every pitch, every sector, every founding team. 85% are AI-first. a third are building agents. and 3 ...",
+          "date": "Mar 22, 2026",
+          "position": 4
+        },
+        {
+          "title": "3 hours left to apply for the YC W26 batch. Will be a fun story to tell in ...",
+          "link": "https://x.com/aaron_epstein/status/1988049832938996013",
+          "snippet": "3 hours left to apply for the YC W26 batch. Will be a fun story to tell in 10 years after you get in. Y Combinator profile. Y Combinator. \u2713. ycombinator. Nov ...",
+          "date": "Nov 11, 2025",
+          "position": 5
+        },
+        {
+          "title": "Alberto Rosas on X",
+          "link": "https://x.com/albertorosasg/status/2090134525758345377",
+          "snippet": "One of the fastest-growing YC companies ever. I had dinner with @gabrieldymowski on day one of YC W26, when they were literally just getting started. 7 months ...",
+          "date": "Aug 19, 2026",
+          "position": 6
+        },
+        {
+          "title": "What I Learnt From 199 Pitches at the YC W26 Demo Day",
+          "link": "https://x.com/ShahRathin/status/2049370858603618788",
+          "snippet": "What I Learnt From 199 Pitches at the YC W26 Demo Day. I attended YC's Winter 2026 Demo Day. 199 companies. Here's everything I took away: the data, the ...",
+          "date": "Apr 28, 2026",
+          "position": 7
+        },
+        {
+          "title": "Landon on X: \"There are 24 founders from Illinois universities in the ...",
+          "link": "https://x.com/landon20s/status/2036497668025786645",
+          "snippet": "I just analyzed all the companies in YC's W26 batch: every pitch, every sector, every founding team. 85% are AI-first. a third are building agents. and 3 ...",
+          "date": "Mar 24, 2026",
+          "position": 8
+        },
+        {
+          "title": "Gabriel Jarrosson on X: \"   YC W26 is HERE, and I just published the ...",
+          "link": "https://x.com/GJarrosson/status/2032151164016607260",
+          "snippet": "YC W26 is HERE, and I just published the full breakdown you've been waiting for. After weeks of 1:1s with founders and deep dives into the batch, I pulled ...",
+          "date": "Mar 12, 2026",
+          "position": 9
+        },
+        {
+          "title": "Vivian Midha Shen on X",
+          "link": "https://x.com/vivianmshen/status/2038345314630021210",
+          "snippet": "Vivian Midha Shen on X: \"so inspired by the founders in this YC W26 batch. it's an incredible time to start a company and i can't wait to see what this next ...",
+          "date": "Mar 29, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "x",
+      "query": "site:x.com (\"accepted into Y Combinator\" OR \"we got into YC\" OR \"joining Y Combinator\")",
+      "results": [
+        {
+          "title": "I invested early into a startup that was recently accepted into Y ...",
+          "link": "https://x.com/brycent/status/2044875346697199912",
+          "snippet": "Brycent (@brycent). 195 likes 15 replies. I invested early into a startup that was recently accepted into Y Combinator. Here's why I did:",
+          "date": "Apr 16, 2026",
+          "position": 1
+        },
+        {
+          "title": "Tanay Kothari on X: \"we got into YC. then we rejected them. here's ...",
+          "link": "https://x.com/tankots/status/1990475270344593419",
+          "snippet": "we got into YC. then we rejected them. here's why walking away was the best decision i ever made (and might be for you too): i was 21, nine months into ...",
+          "date": "Nov 17, 2025",
+          "position": 2
+        },
+        {
+          "title": "Shreyans Jain on X: \"We are joining Y Combinator! 4 years ago, just ...",
+          "link": "https://x.com/shreyansj/status/2033567338063417649",
+          "snippet": "We are joining Y Combinator! 4 years ago, just weeks after meeting in school, Naman and I recorded our first YC founder intro on Google Meet from our ...",
+          "date": "Mar 16, 2026",
+          "position": 3
+        },
+        {
+          "title": "dr: we got into YC W26!!!! We're building Cardboard (agentic video ...",
+          "link": "https://x.com/sxmawl/status/2004755463355662810",
+          "snippet": "Tl;dr: we got into YC W26!!!! We're building Cardboard (agentic video editor) A few months ago, I shut down my last startup and booked a flight to SF (didn ...",
+          "date": "Dec 26, 2025",
+          "position": 4
+        },
+        {
+          "title": "Toni Lopez on X: \"I got accepted into Y Combinator One month ago ...",
+          "link": "https://x.com/tonilopezmr/status/1975111958497284346",
+          "snippet": "I got accepted into Y Combinator One month ago, I quit my job and lost my U.S. visa to build a big company. I was unemployed and without a home.",
+          "date": "Oct 6, 2025",
+          "position": 5
+        },
+        {
+          "title": "We got into YC! This raises @getstructuredai funding to $1m letting ...",
+          "link": "https://x.com/brandonstarxel/status/1973802170417127727",
+          "snippet": "We got into YC! This raises @getstructuredai funding to $1m letting us bring our vision to life! Y Combinator is the birthplace of category-defining ...",
+          "date": "Oct 2, 2025",
+          "position": 6
+        },
+        {
+          "title": "Morning Brew \u2615\ufe0f on X: \"Meek Mill has been accepted into Y ...",
+          "link": "https://x.com/MorningBrew/status/1963749605331411285",
+          "snippet": "Meek Mill has been accepted into Y Combinator.",
+          "date": "Sep 4, 2025",
+          "position": 7
+        },
+        {
+          "title": "herdr on X",
+          "link": "https://x.com/herdrdev/status/2085432378822963431",
+          "snippet": "big update: herdr is joining Y Combinator, F26 batch. herdr has been a solo project from day one. in four months it reached a place i couldn't have imagined ...",
+          "date": "Aug 6, 2026",
+          "position": 8
+        },
+        {
+          "title": "Tsenta (YC S26) on X",
+          "link": "https://x.com/TsentaAi/status/2085459177653272962",
+          "snippet": "we got into yc s26 why? because we're solving a problem millions of people face. job applications have gotten completely out of hand. people spend more time ...",
+          "date": "Aug 6, 2026",
+          "position": 9
+        },
+        {
+          "title": "Lance Yan on X",
+          "link": "https://x.com/lanceyyan/status/2011077547849887778",
+          "snippet": "We got accepted into Y Combinator. 4 months ago we were moving in for our 1st year @uwaterloo 2 months ago we said screw it and stopped going to lectures ...",
+          "date": "Jan 13, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "x",
+      "query": "site:x.com (\"accepted into a16z Speedrun\" OR \"joining a16z Speedrun\")",
+      "results": [
+        {
+          "title": "Jason Zhao on X: \"excited to announce that Space is joining @a16z ...",
+          "link": "https://x.com/byjasonz/status/2081811040065712378",
+          "snippet": "excited to announce that Space is joining @a16z @speedrun in SF this summer to bring infinite space to every machine. for the last decade i've filmed and ...",
+          "date": "Jul 27, 2026",
+          "position": 1
+        },
+        {
+          "title": "One of the best decisions I've made, joining a16z @speedrun. If ...",
+          "link": "https://x.com/TaylorOffer/status/1964090808266871241",
+          "snippet": "One of the best decisions I've made, joining a16z @speedrun. If have a company or thinking about starting a company, let me know and I'm happy to help you ...",
+          "date": "Sep 5, 2025",
+          "position": 2
+        },
+        {
+          "title": "Jason Zhao on X: \"since joining a16z @speedrun in sf two weeks ...",
+          "link": "https://x.com/byjasonz/status/2085774924455743696",
+          "snippet": "since joining a16z @speedrun in sf two weeks ago we've: - shipped 229 updates based on live feedback from our growing list of users - rolled out a launch ...",
+          "date": "Aug 7, 2026",
+          "position": 3
+        },
+        {
+          "title": "Jason Zhao on X",
+          "link": "https://x.com/byjasonz/status/2081811040065712378/photo/1",
+          "snippet": "excited to announce that Space is joining @a16z @speedrun in SF this summer to bring infinite space to every machine. for the last decade i've filmed and ...",
+          "date": "Jul 27, 2026",
+          "position": 4
+        },
+        {
+          "title": "Dima on X: \"Excited to announce that @GlebSidora and I are ...",
+          "link": "https://x.com/dimakhanarin/status/2085018034788556957",
+          "snippet": "Excited to announce that @GlebSidora and I are starting @codos_ai and joining a16z @speedrun SR007. Our vision is to enable self-evolving organizations.",
+          "date": "Aug 5, 2026",
+          "position": 5
+        },
+        {
+          "title": "Fareed Mosavat on X: \"Space is exciting",
+          "link": "https://x.com/far33d/status/2081812870946529785",
+          "snippet": "excited to announce that Space is joining @a16z @speedrun in SF this summer to bring infinite space to every machine. for the last decade i've filmed and ...",
+          "date": "Jul 27, 2026",
+          "position": 6
+        },
+        {
+          "title": "Kevin Simback on X: \"This will be an applied AI team to keep eyes ...",
+          "link": "https://x.com/KSimback/status/2085065436823966020",
+          "snippet": "Excited to announce that @GlebSidora and I are starting @codos_ai and joining a16z @speedrun SR007. Our vision is to enable self-evolving organizations.",
+          "date": "Aug 5, 2026",
+          "position": 7
+        },
+        {
+          "title": "X-\u098f Ben Vinegar: \"incredibly not an AI product\" / X",
+          "link": "https://x.com/bentlegen/status/2081854334816465299?lang=bn",
+          "snippet": "excited to announce that Space is joining @a16z @speedrun in SF this summer to bring infinite space to every machine. for the last decade i've filmed and ...",
+          "date": "Jul 27, 2026",
+          "position": 8
+        },
+        {
+          "title": "Space (@getspaceso) / X",
+          "link": "https://x.com/getspaceso",
+          "snippet": "excited to announce that Space is joining @a16z @speedrun in SF this summer to bring infinite space to every machine. for the last decade i've filmed and ...",
+          "date": "Jul 27, 2026",
+          "position": 9
+        },
+        {
+          "title": "LyKhoris (@LyKhoris) / Posts / X - Twitter",
+          "link": "https://x.com/LyKhoris",
+          "snippet": "excited to announce that Space is joining @a16z @speedrun in SF this summer to bring infinite space to every machine. for the last decade i've filmed and ...",
+          "date": "Jul 27, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/posts (\"YC F26\" OR \"Y Combinator F26\")",
+      "results": [
+        {
+          "title": "Jonathan Li's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/12lijonathan_as-y-combinators-f26-batch-gets-closer-activity-7500908161315565568-FHZi",
+          "snippet": "As Y Combinator's F26 batch gets closer, I've found myself reflecting more on my career journey thus far (as a likely still naive 26 year old\u2026 hopefully not ...",
+          "date": "1 day ago",
+          "position": 1
+        },
+        {
+          "title": "YC F26 Application Deadline in 7 Days: Don't Miss Your Chance",
+          "link": "https://www.linkedin.com/posts/maxkolysh_the-yc-f26-application-deadline-is-in-7-days-activity-7485111947609157632-wtQ-",
+          "snippet": "The YC F26 application deadline is in 7 days. One thing I noticed this past batch: startups entered the batch at very different stages.",
+          "date": "Jul 20, 2026",
+          "position": 2
+        },
+        {
+          "title": "Yesterday was Y Combinator F26 Demo Day These were my top 10 ...",
+          "link": "https://www.linkedin.com/posts/guillermoflor_yesterday-was-y-combinator-f26-demo-day-activity-7402625290033930240-DVgP",
+          "snippet": "Yesterday was Y Combinator F26 Demo Day These were my top 10 companies (not in order): 1. Karumi (YC F25) with Pablo Omenaca Muro and Toni Lopez 2.",
+          "date": "Dec 5, 2025",
+          "position": 3
+        },
+        {
+          "title": "Y Combinator's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/y-combinator_the-deadline-to-apply-for-yc-f26-is-tonight-activity-7487645454369726464-jU7f",
+          "snippet": "The deadline to apply for YC F26 is tonight at 8pm PT! If you're an earnest builder working on something people want, we'd love to hear from you: ...",
+          "date": "Jul 27, 2026",
+          "position": 4
+        },
+        {
+          "title": "Rence (YC F26) is now backed by Y Combinator! Anyone ... - LinkedIn",
+          "link": "https://www.linkedin.com/posts/fengjesse_rence-yc-f26-is-now-backed-by-y-combinator-activity-7493920610482356224-TBkL",
+          "snippet": "That's why we built Rence (YC F26), the AI platform for in-person & field sales (I truly wish I had). Rence records every conversation, updates the CRM and ...",
+          "date": "Aug 13, 2026",
+          "position": 5
+        },
+        {
+          "title": "Aly Moursy's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/alymoursy_super-proud-and-honored-to-announce-that-activity-7494963581126586368-IXTX",
+          "snippet": "Super proud and honored to announce that Veeza AI (YC F26) is joining Y Combinator's Fall 2026 batch. The first time I applied to YC was in 2015.",
+          "date": "Aug 16, 2026",
+          "position": 6
+        },
+        {
+          "title": "Some personal news: I got into YC F26! Third application ... - LinkedIn",
+          "link": "https://www.linkedin.com/posts/romerogers_some-personal-news-i-got-into-yc-f26-third-activity-7488976518178750464-QbQI",
+          "snippet": "Some personal news: I got into YC F26! Third application. They said the first two ideas weren't risky enough. The last four months have felt like four years ...",
+          "date": "Jul 31, 2026",
+          "position": 7
+        },
+        {
+          "title": "Lantern AI (YC F26)'s Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/ai-lantern_were-taking-the-y-combinator-f26-batch-out-activity-7500243577361522691-D1a6",
+          "snippet": "Lantern AI (YC F26)'s Post ... We're taking the Y Combinator F26 batch out for dim sum Spots filled up fast, so we opened a few more. Come meet the people you' ...",
+          "date": "3 days ago",
+          "position": 8
+        },
+        {
+          "title": "Lantern AI (YC F26)'s Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/ai-lantern_lantern-ai-yc-f26-is-listed-on-the-top-activity-7498937410895036416-jyQ_",
+          "snippet": "... Y Combinator F26 batch, listed among YC's top recruiting startups, a ... Marketing @ Lantern (YC F26) | Bringing AI Hiring Manager to founders & HR leaders.",
+          "date": "7 days ago",
+          "position": 9
+        },
+        {
+          "title": "Lakshmi Narayana's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/lakshmi-narayana-ln_evo-hq-yc-f26-got-into-y-combinator-and-activity-7500206752949276672-4ibC",
+          "snippet": "EVO HQ (YC F26) got into Y Combinator!! and I have my last YC interview rejection to thank for it. One thing I really appreciate about YC is that they give ...",
+          "date": "3 days ago",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/company (\"YC F26\" OR \"Y Combinator F26\")",
+      "results": [
+        {
+          "title": "Capveon (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/capveon",
+          "snippet": "Website: www.capveon.ai. External link for Capveon (YC F26) ; Industry: Software Development ; Company size: 2-10 employees ; Type: Privately Held ...",
+          "date": "7 days ago",
+          "position": 1
+        },
+        {
+          "title": "Simulithic (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/simulithic",
+          "snippet": "Simulithic (YC F26). Technology, Information and Internet. Simulate how any product change will perform before shipping.",
+          "date": "Aug 18, 2026",
+          "position": 2
+        },
+        {
+          "title": "Rence (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/rence-ai",
+          "snippet": "Rence (YC F26) is now backed by Y Combinator! Anyone who's done face-to-face sales knows the feeling: you close a deal and you're on top of the world, then you ...",
+          "date": "May 12, 2026",
+          "position": 3
+        },
+        {
+          "title": "Lightfield (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/trylightfield",
+          "snippet": "Lightfield (YC F26) | 333 followers on LinkedIn. AI that works for in-house legal teams | Lightfield connects to a company's email, chat, and business ...",
+          "date": "Aug 25, 2026",
+          "position": 4
+        },
+        {
+          "title": "Wingman Law (YC F26) | LinkedIn",
+          "link": "https://www.linkedin.com/company/wingman-law",
+          "snippet": "Today, Sunwoo Lee and I are opening Wingman Law (YC F26), an AI-native personal injury law firm joining Y Combinator's F26 batch. At Wingman, we are building ...",
+          "date": "Aug 20, 2026",
+          "position": 5
+        },
+        {
+          "title": "Sentient OS (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/sentient-os",
+          "snippet": "Sentient OS raised ~$1 million at a $9 million valuation, and we're part of YC F26. Website: https://sentient-os.ai/.",
+          "date": "Jun 20, 2026",
+          "position": 6
+        },
+        {
+          "title": "Lark (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/trylarkai",
+          "snippet": "Lark (YC F26) | 10 followers on LinkedIn. AI Agents for Wholesale Distributors. Backed by Y Combinator. | Specialized AI agents to help automate workflows ...",
+          "date": "7 days ago",
+          "position": 7
+        },
+        {
+          "title": "Reconero (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/reconero",
+          "snippet": "The next generation of police software is here. Reconero (YC F26) is joining Y Combinator's Fall 2026 batch. Law enforcement agencies operate on decade-old ...",
+          "date": "Aug 22, 2026",
+          "position": 8
+        },
+        {
+          "title": "Hemlock (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/hemlock-info",
+          "snippet": "Hemlock (YC F26). Computers and Electronics Manufacturing. Embedding a sense of touch in robotic AI foundation models through next generation data collection ...",
+          "date": "Aug 15, 2026",
+          "position": 9
+        },
+        {
+          "title": "Peregrine (YC F26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/peregrinelabsinc",
+          "snippet": "Website: https://peregrinelabs.co. External link for Peregrine (YC F26) ; Industry: Software Development ; Company size: 2-10 employees ; Type: Privately Held.",
+          "date": "6 days ago",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/posts (\"YC S26\" OR \"Y Combinator S26\")",
+      "results": [
+        {
+          "title": "Philip Meng's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/philip-meng_i-got-into-yc-s26-as-a-high-school-senior-activity-7459360482747965440-ZhhN",
+          "snippet": "I got into YC S26 as a high school senior, receiving $500k in funding to build my dreams instead of attending Stanford or Harvard. I first learned what it ...",
+          "date": "May 10, 2026",
+          "position": 1
+        },
+        {
+          "title": "I built screenpipe | Louis Beaumont - LinkedIn",
+          "link": "https://www.linkedin.com/posts/louis030195_i-built-screenpipe-yc-s26-on-a-weekend-activity-7462849679895134208-s7E3",
+          "snippet": "I built screenpipe | YC S26 on a weekend in Thailand. It was never supposed to be a company. Today it's in Y Combinator S26. Here's how that happened.",
+          "date": "May 20, 2026",
+          "position": 2
+        },
+        {
+          "title": "I got into Y Combinator S26! The past 6 months have felt like 2 years:",
+          "link": "https://www.linkedin.com/posts/mzxzhou_i-got-into-y-combinator-s26-the-past-6-activity-7464365183025717248-QEeY",
+          "snippet": "I got into Y Combinator S26! The past 6 months have felt like 2 ... Massive congratulations on YC S26 Wishing you and Codag a legendary journey ahead...",
+          "date": "May 24, 2026",
+          "position": 3
+        },
+        {
+          "title": "Pulkit Gupta's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/pulkitgupta712_tsenta-yc-s26-is-now-backed-by-y-combinator-activity-7424474186670088192-4a25",
+          "snippet": "Tsenta (YC S26) is now backed by Y Combinator This isn't a \u201cwe made it\u201d post. It's more like a checkpoint and a reminder of the loop that's shaped my life ...",
+          "date": "Feb 3, 2026",
+          "position": 4
+        },
+        {
+          "title": "Dasha Shunina's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/dashashunina_y-combinator-s26-demo-day-is-already-next-activity-7501308283396206592-N_Zg",
+          "snippet": "Y Combinator S26 Demo Day is already next week. I spent the last couple of ... so cool to see GutGutGoose (YC S26) amongst some of the best startups this YC batch ...",
+          "date": "6 hours ago",
+          "position": 5
+        },
+        {
+          "title": "Y Combinator S26: AI for Product Management - LinkedIn",
+          "link": "https://www.linkedin.com/posts/charithlanka_y-combinator-just-released-their-s26-request-activity-7456054088565424128-29GJ",
+          "snippet": "Y Combinator S26: AI for Product Management ... Y Combinator just released their S26 request for startups. The two that stand out to me are \"Company Brain\" and \" ...",
+          "date": "May 1, 2026",
+          "position": 6
+        },
+        {
+          "title": "Illume Labs (YC S26) is building one home for your health ... - LinkedIn",
+          "link": "https://www.linkedin.com/posts/y-combinator_illume-labs-yc-s26-is-building-one-home-activity-7485018188485718016-CXnR",
+          "snippet": "Illume Labs (YC S26) is building one home for your health. Today, we have the ability to track more about our bodies than anybody in history - our nutrition ...",
+          "date": "Jul 20, 2026",
+          "position": 7
+        },
+        {
+          "title": "Studio (YC S26) allows brands to engineer how their market will ...",
+          "link": "https://www.linkedin.com/posts/y-combinator_studio-yc-s26-allows-brands-to-engineer-activity-7496627202218733568-sy3N",
+          "snippet": "Studio (YC S26) allows brands to engineer how their market will respond to a new decision. Every launch is a bet on human behavior.",
+          "date": "Aug 21, 2026",
+          "position": 8
+        },
+        {
+          "title": "Excited to share that I've been accepted into the Y Combinator S26 ...",
+          "link": "https://www.linkedin.com/posts/barnabymalet_excited-to-share-that-ive-been-accepted-activity-7470031192965246977-D9a1",
+          "snippet": "... (YC S26) was born. The original idea was to make it easy to run untrusted ... Excited to share that I've been accepted into the Y Combinator S26 batch as a solo ...",
+          "date": "Jun 9, 2026",
+          "position": 9
+        },
+        {
+          "title": "Tsenta (YC S26) matches you with jobs, rewrites your resume, and ...",
+          "link": "https://www.linkedin.com/posts/y-combinator_tsenta-yc-s26-matches-you-with-jobs-rewrites-activity-7488998169154887680-QuKr",
+          "snippet": "Tsenta (YC S26) matches you with jobs, rewrites your resume, and submits job applications on your behalf. 45000+ people use it today, and over 70% of their ...",
+          "date": "Jul 31, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/company (\"YC S26\" OR \"Y Combinator S26\")",
+      "results": [
+        {
+          "title": "Studio (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/trystudioai",
+          "snippet": "Studio (YC S26) allows brands to engineer how their market will respond to a new decision. Every launch is a bet on human behavior.",
+          "date": "Jun 18, 2026",
+          "position": 1
+        },
+        {
+          "title": "Definite (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/usedefinite",
+          "snippet": "Backed by Y Combinator (S26). Website: https://www.usedefinite.com. External link for Definite (YC S26). Industry: Software Development. Company size: 2-10 ...",
+          "date": "Apr 18, 2026",
+          "position": 2
+        },
+        {
+          "title": "Spaceflow (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/spaceflow-yc-s26",
+          "snippet": "Spaceflow (YC S26) is now part of Y Combinator! We think we're building the last piece of enterprise software a company will ever buy. For decades enterprises ...",
+          "date": "Jun 29, 2026",
+          "position": 3
+        },
+        {
+          "title": "Dream (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/pingdream",
+          "snippet": "Dream (YC S26) | 518 followers on LinkedIn. Pocket-sized AI cameras that catch ... Excited to be part of Y Combinator's S26 batch! More to come. View ...",
+          "date": "Jan 25, 2026",
+          "position": 4
+        },
+        {
+          "title": "Bullet (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/trybullet",
+          "snippet": "Bullet (YC S26) started in a senior year dorm room at Yale. That year, Bullet was an AI hedge fund, a browser-use agent, a mobile IDE, and a bunch of other ...",
+          "date": "6 days ago",
+          "position": 5
+        },
+        {
+          "title": "Marble (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/joinmarble",
+          "snippet": "Marble (YC S26) has been growing 25% week over week for nearly three months. What we've learned is that the most successful operators are moving with extreme ...",
+          "date": "Jun 26, 2026",
+          "position": 6
+        },
+        {
+          "title": "Erinys (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/erinysai",
+          "snippet": "Backed by Y Combinator (S26). Website: https://erinys.ai. External link for Erinys (YC S26). Industry: Business Intelligence Platforms. Company size: 2-10 ...",
+          "date": "Jul 13, 2026",
+          "position": 7
+        },
+        {
+          "title": "Locke (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/lockeinc",
+          "snippet": "Locke (YC S26). Artificial Intelligence. Locke is changing the way companies and governments work together. See jobs Follow.",
+          "date": "Jul 5, 2026",
+          "position": 8
+        },
+        {
+          "title": "Shielded (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/shieldedglobal",
+          "snippet": "Shielded (YC S26). Data Infrastructure and Analytics. Shielded helps finance and procurement teams automate supply chain and financial risk management. Follow.",
+          "date": "Aug 2, 2026",
+          "position": 9
+        },
+        {
+          "title": "Prized (YC S26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/useprized",
+          "snippet": "Backed by Y Combinator S26. Try it at https://prized.dev/. Website: https://prized.dev/. External link for Prized (YC S26). Industry: Software Development.",
+          "date": "Jul 6, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/posts (\"YC X26\" OR \"Y Combinator X26\")",
+      "results": [
+        {
+          "title": "YC Application Tips: Expert Review for YC X26 - LinkedIn",
+          "link": "https://www.linkedin.com/posts/vishnu-acharya-322a78100_y-combinator-season-is-back-hard-truth-for-activity-7421842843536744448-Cb-a",
+          "snippet": "... insights & and YC alumni feedback. If you are a founder applying for YC X26, get an expert level review here: https://lnkd.in/g7rK-Gyc.",
+          "date": "Jan 27, 2026",
+          "position": 1
+        },
+        {
+          "title": "Andrew Chung's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/aschung01_y-combinator-x26-applications-close-today-activity-7426775920914604032-axFt",
+          "snippet": "Y Combinator X26 applications close TODAY. (And 90% of you will make the same mistakes that get instant rejections) Only 1.5% of founders get accepted every ...",
+          "date": "Feb 9, 2026",
+          "position": 2
+        },
+        {
+          "title": "Saheed Akinbile's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/saheed-akinbile_some-news-im-deeply-grateful-to-share-activity-7435814713696862208--6mj",
+          "snippet": "Some news I'm deeply grateful to share: Minicor (YC X26), formerly Laminar, has been accepted into Y Combinator's Spring 2026 batch.",
+          "date": "Mar 6, 2026",
+          "position": 3
+        },
+        {
+          "title": "Sanskar Jain's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/sanskarjain_yc-x26-deadline-to-apply-is-february-9-activity-7422828434822840321-cB1d",
+          "snippet": "YC X26 deadline to apply is February 9. Since some people reach out for tips on how to prepare a YC application, sharing my 2 cents here.",
+          "date": "Jan 29, 2026",
+          "position": 4
+        },
+        {
+          "title": "Yuvan Sundrani's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/yuvan-sundrani_yc-x26-is-closing-applications-in-5-days-activity-7424499599756845056-M_5R",
+          "snippet": "YC X26 is closing applications in 5 days YC changed my life and im pretty confident it would change yours too Always happy to help out and review any apps ...",
+          "date": "Feb 3, 2026",
+          "position": 5
+        },
+        {
+          "title": "Faizaan Chishtie's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/fchishtie_so-so-incredibly-grateful-to-share-that-minicor-activity-7435755691446788096-k6fw",
+          "snippet": "So so incredibly grateful to share that Minicor (YC X26) (formerly Laminar) has been accepted into Y Combinator's upcoming Spring 2026 batch working with ...",
+          "date": "Mar 6, 2026",
+          "position": 6
+        },
+        {
+          "title": "Mern Singh's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/mrinalsingh2_interview-invites-for-y-combinator-x26-are-activity-7432497131418157056-8Kfa",
+          "snippet": "Interview invites for Y Combinator X26 are still going out! If you got an interview, feel free to DM me and we can set up a mock.",
+          "date": "Feb 25, 2026",
+          "position": 7
+        },
+        {
+          "title": "Phillip Li's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/phillip-li-a28a84217_happy-to-share-that-arga-labs-yc-x26-is-activity-7431916382705057792-5rvf",
+          "snippet": "Happy to share that Arga Labs (YC X26) is now backed by Y Combinator! Big up my guy Akira Tong. We're an applied product and research lab building the ...",
+          "date": "Feb 23, 2026",
+          "position": 8
+        },
+        {
+          "title": "YC X26 Report: American Companies, Global Talent - LinkedIn",
+          "link": "https://www.linkedin.com/posts/start-up-founders-club_yc-vc-startups-activity-7487079619808935936-fkyo",
+          "snippet": "Who's in YC X26? Extruct recently compiled statistics on the X26 batch and produced a great report on the topic. 1/ Thesis one: the companies themselves are ...",
+          "date": "Jul 26, 2026",
+          "position": 9
+        },
+        {
+          "title": "Kimpton AI Joins YC X26 with AI-Powered Trading Tools - LinkedIn",
+          "link": "https://www.linkedin.com/posts/jack-zumwalt_i-am-excited-to-share-that-kimpton-ai-yc-activity-7434972177294290944-oQm3",
+          "snippet": "I am excited to share that Kimpton AI (YC X26) will be a part of the Y Combinator X26 batch. A little bit of backstory. Mauricio Ortiz and I met 7 years ago ...",
+          "date": "Mar 4, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/company (\"YC X26\" OR \"Y Combinator X26\")",
+      "results": [
+        {
+          "title": "BitBoard (YC P25) - LinkedIn",
+          "link": "https://www.linkedin.com/company/bitboardhq",
+          "snippet": "Ardent (YC X26). Information Services. New York, NY \u00b7 Galen AI (YC X25). Health and Human Services \u00b7 Oddpool (YC P26). Software Development \u00b7 Prototyping.io (YC ...",
+          "date": "Jan 5, 2026",
+          "position": 1
+        },
+        {
+          "title": "Archivara | LinkedIn",
+          "link": "https://www.linkedin.com/company/archivara",
+          "snippet": "Archivara | 22 followers on LinkedIn. Where Knowledge Organizes Itself | YC X26 | A research hub for AI-accelerated science.",
+          "date": "Jul 12, 2026",
+          "position": 2
+        },
+        {
+          "title": "The Young VC's Handbook - LinkedIn",
+          "link": "https://www.linkedin.com/company/youngvchandbook",
+          "snippet": "CS & GTM @ Minicor (YC X26) | Build\u2026 See all employees. Similar pages. Gallery Ventures. Venture Capital and Private Equity Principals. New York, NY. The ...",
+          "date": "May 30, 2026",
+          "position": 3
+        },
+        {
+          "title": "Edgelight Investments | LinkedIn",
+          "link": "https://www.linkedin.com/company/edgelight-investments",
+          "snippet": "Ardent (YC X26). Information Services. New York, NY. Show more similar pages. Show fewer similar pages. LinkedIn \u00a9 2026; About \u00b7 Accessibility \u00b7 User Agreement ...",
+          "date": "Jan 31, 2026",
+          "position": 4
+        },
+        {
+          "title": "Tutor Swan | LinkedIn",
+          "link": "https://www.linkedin.com/company/tutor-swan",
+          "snippet": "Ardent (YC X26). Information Services. New York, NY \u00b7 Bessemer Venture Partners India. Venture Capital and Private Equity Principals. Show more similar pages",
+          "date": "Aug 5, 2026",
+          "position": 5
+        },
+        {
+          "title": "Huitaca Dynamics | LinkedIn",
+          "link": "https://co.linkedin.com/company/huitaca-ai",
+          "snippet": "Ardent (YC X26). Servicios de informaci\u00f3n. New York, NY. DataExpert.io. Educaci\u00f3n. San Francisco, California. OpenEvidence. Desarrollo de software. Miami, ...",
+          "date": "Aug 13, 2026",
+          "position": 6
+        },
+        {
+          "title": "Tetrel Health Inc. - LinkedIn",
+          "link": "https://www.linkedin.com/company/tetrel-health-inc",
+          "snippet": "Ardent (YC X26). Information Services. New York, NY. Show more similar pages. Show fewer similar pages. LinkedIn \u00a9 2026; About \u00b7 Accessibility \u00b7 User Agreement ...",
+          "date": "May 18, 2026",
+          "position": 7
+        },
+        {
+          "title": "Deta | LinkedIn",
+          "link": "https://il.linkedin.com/company/detahq%3Ftrk%3Dsimilar-pages_result-card_full-click",
+          "snippet": "Ardent (YC X26). Information Services. \u200fNew York\u200f, \u200fNY\u200f. \u05d4\u05e6\u05d2 \u05e2\u05d5\u05d3 \u05d3\u05e4\u05d9\u05dd \u05d3\u05d5\u05de\u05d9\u05dd \u05d4\u05e6\u05d2 \u05e4\u05d7\u05d5\u05ea \u05d3\u05e4\u05d9\u05dd \u05d3\u05d5\u05de\u05d9\u05dd. \u200fLinkedIn \u200f\u00a9 \u200f2026\u200f; \u05e2\u05dc \u05d0\u05d5\u05d3\u05d5\u05ea \u00b7 \u05e0\u05d2\u05d9\u05e9\u05d5\u05ea \u00b7 \u05d4\u05e1\u05db\u05dd \u05d4\u05de\u05e9\u05ea\u05de\u05e9 \u00b7 \u05de\u05d3\u05d9\u05e0\u05d9\u05d5\u05ea ...",
+          "date": "Oct 22, 2025",
+          "position": 8
+        },
+        {
+          "title": "Quantweave Intelligence Inc. | LinkedIn",
+          "link": "https://ca.linkedin.com/company/quantweave-intelligence",
+          "snippet": "Similar pages. Xylo. Technology, Information and Internet. Ardent (YC X26). Information Services. New York, NY. Fuund.org. Computer Networking Products. Maslak ...",
+          "date": "5 days ago",
+          "position": 9
+        },
+        {
+          "title": "Ardent - LinkedIn",
+          "link": "https://www.linkedin.com/company/ardent-mc",
+          "snippet": "Ardent (YC X26). Information Services. New York, NY \u00b7 Ardent Networks Inc. Information Technology & Services. Pasig , Metro Manila. Show more similar pages",
+          "date": "Feb 2, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/posts (\"YC W26\" OR \"Y Combinator W26\")",
+      "results": [
+        {
+          "title": "Y Combinator W26 Batch: 180+ Startups, 64% B2B, 35% Top 20 ...",
+          "link": "https://www.linkedin.com/posts/yrebryk_180-startups-joined-y-combinators-w26-batch-activity-7437482492011577344-v2h-",
+          "snippet": "Y Combinator W26 Batch: 180+ Startups, 64% B2B, 35% Top 20% Companies ... yc-w26-batch - https://jaredheyman.medium.com/on-the-freakishly-strong-yc ...",
+          "date": "Mar 11, 2026",
+          "position": 1
+        },
+        {
+          "title": "New year, new country, new adventures. Y Combinator W26 - LinkedIn",
+          "link": "https://www.linkedin.com/posts/cwnkong_new-year-new-country-new-adventures-y-activity-7414229264230830080-9b0f",
+          "snippet": "Y Combinator W26 - let's gooo! Sarah AI (YC W26) is officially now part of YC's Winter 2026 batch and I couldn't be more excited! But it's also meant ...",
+          "date": "Jan 6, 2026",
+          "position": 2
+        },
+        {
+          "title": "Selin Kocalar - YC W26 Survival Guide: Tips for Founders - LinkedIn",
+          "link": "https://www.linkedin.com/posts/selin-kocalar_since-the-deadline-to-apply-for-yc-w26-was-activity-7394086402524786688-azdY",
+          "snippet": "Since the deadline to apply for YC W26 was yesterday, here is the survival guide I wish I had going through the batch. Going through YC is a whirlwind.",
+          "date": "Nov 11, 2025",
+          "position": 3
+        },
+        {
+          "title": "Strongest Batch in Years with 35% in Top 20% of All YC Startups",
+          "link": "https://www.linkedin.com/posts/keshavlohia_y-combinator-w26-completed-its-demo-day-last-activity-7445465062883991554-2KP-",
+          "snippet": "Y Combinator W26 completed its demo day last week. This maybe the strongest ... Some of my favorites were Polymath, LegalOS (YC W26), and RamAIn (YC W26).",
+          "date": "Apr 2, 2026",
+          "position": 4
+        },
+        {
+          "title": "Robert Huynh's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/huynhrobert_48-hours-until-yc-w26-when-i-applied-strangers-activity-7392826639295942656-eG9G",
+          "snippet": "48 hours until YC W26 When I applied, strangers gave me blunt feedback that saved me from 3 bad answers So this weekend I'm opening my calendar for future Y ...",
+          "date": "Nov 7, 2025",
+          "position": 5
+        },
+        {
+          "title": "YC W26 Panel: Startup Advice from the Other Side - LinkedIn",
+          "link": "https://www.linkedin.com/posts/pablo-hansen_i-just-got-to-speak-on-a-panel-for-the-yc-activity-7417237445026533376-kO2b",
+          "snippet": "YC W26 just dropped the full batch \u2014 105 startups. Here's the quick snapshot by sector: \u2022 16 Industrials \u2022 12 B2B Infrastructure \u2022 11 B2B Engineering, Product & ...",
+          "date": "Jan 14, 2026",
+          "position": 6
+        },
+        {
+          "title": "Owen Botkin's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/owen-botkin_thrilled-to-announce-that-forum-yc-w26-activity-7419059524776558592-iLxK",
+          "snippet": "Thrilled to announce that Forum (YC W26) is now backed by Y Combinator! Attention is the defining commodity of the digital age.",
+          "date": "Jan 19, 2026",
+          "position": 7
+        },
+        {
+          "title": "Grats to the new Y Combinator W26 class! | Matt Pru - LinkedIn",
+          "link": "https://www.linkedin.com/posts/mattpru_grats-to-the-new-y-combinator-w26-class-activity-7406346379595440129-Zoek",
+          "snippet": "Grats to the new Y Combinator W26 class! I quickly did an analysis of ... YC W26 Trends: Medical, Finance, AI, and Dev Tools Dominate. View profile for ...",
+          "date": "Dec 15, 2025",
+          "position": 8
+        },
+        {
+          "title": "Y Combinator W26 Batch: 180+ Startups, Trends & Notable Founders",
+          "link": "https://www.linkedin.com/posts/ollieforsyth_meet-y-combinators-latest-batch-w26-activity-7436068898426404864-MqQg",
+          "snippet": "... (YC W26) - See every bug your users experience. Founded by Alisa Rae ... Y Combinator W26 Batch: 180+ Startups, Trends & Notable Founders. View profile ...",
+          "date": "Mar 7, 2026",
+          "position": 9
+        },
+        {
+          "title": "Mitch Radhuber's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/mitchellradhuber_today-marks-1-month-since-the-y-combinator-activity-7425612013877370899-rkSj",
+          "snippet": "Today marks 1 month since the Y Combinator W26 batch kickoff. Quick recap ... (YC W26). Which is helping us move 100x faster than we ever have. Met the ...",
+          "date": "Feb 6, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/company (\"YC W26\" OR \"Y Combinator W26\")",
+      "results": [
+        {
+          "title": "Corelayer (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/corelayerai",
+          "snippet": "Corelayer (YC W26). Software Development. San Francisco, CA 660 followers. Automating production software support for the world's most complex environments.",
+          "date": "Mar 27, 2026",
+          "position": 1
+        },
+        {
+          "title": "Proximitty (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/proximitty-ai",
+          "snippet": "Proximitty (YC W26). Financial Services. Autonomous servicing and collections. Backed by Y Combinator (W26). Follow.",
+          "date": "Jan 31, 2026",
+          "position": 2
+        },
+        {
+          "title": "Burt (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/burt-ai",
+          "snippet": "Burt (YC W26). Technology, Information and Internet. AI teammates for logistics. Follow.",
+          "date": "Feb 3, 2026",
+          "position": 3
+        },
+        {
+          "title": "Fenrock AI (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/fenrock-ai",
+          "snippet": "Website: https://fenrock.ai/. External link for Fenrock AI (YC W26) ; Industry: Financial Services ; Company size: 2-10 employees ; Headquarters: San Francisco, CA.",
+          "date": "Jan 26, 2026",
+          "position": 4
+        },
+        {
+          "title": "Mirabelle (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/meetmirabelle",
+          "snippet": "Backed by Y Combinator (W26). Website: https://meetmirabelle.com. External link for Mirabelle (YC W26). Industry: Robotics Engineering. Company size: 2-10 ...",
+          "date": "Nov 21, 2025",
+          "position": 5
+        },
+        {
+          "title": "Turnstone (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/turnstone-ai",
+          "snippet": "Today we're launching Turnstone (YC W26), the AI workspace where your agents already know you. ... Jai Bhatia Founder, Crow, Y Combinator W26. Products are ...",
+          "date": "Dec 11, 2025",
+          "position": 6
+        },
+        {
+          "title": "Palus Finance (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/palus-finance",
+          "snippet": "Palus Finance (YC W26). Financial Services. Optimized yield strategies for your company's idle cash. Backed by Y Combinator (W26).",
+          "date": "May 2, 2026",
+          "position": 7
+        },
+        {
+          "title": "REV1 (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/rev1-inc",
+          "snippet": "REV1 (YC W26) | 1286 followers on LinkedIn. Engineering drawings in minutes, not hours | REV1 is the AI-native drafting layer for mechanical engineering.",
+          "date": "Feb 3, 2026",
+          "position": 8
+        },
+        {
+          "title": "Wayco (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/waycoai",
+          "snippet": "About us ; Website: https://wayco.ai/. External link for Wayco (YC W26) ; Industry: Software Development ; Company size: 2-10 employees ; Headquarters: New York, NY.",
+          "date": "May 18, 2026",
+          "position": 9
+        },
+        {
+          "title": "Tepali (YC W26) - LinkedIn",
+          "link": "https://www.linkedin.com/company/tepali",
+          "snippet": "Tepali (YC W26) | 467 followers on LinkedIn. AI operating system for modern medspas | Tepali is the AI-native operating system for medspas.",
+          "date": "Jan 6, 2026",
+          "position": 10
+        }
+      ]
+    },
+    {
+      "source": "linkedin",
+      "query": "site:linkedin.com/posts (\"accepted into Y Combinator\" OR \"we got into YC\" OR \"joining Y Combinator\")",
+      "results": [
+        {
+          "title": "Joe (Beiqiao) Hu's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/hubeiqiao_excited-to-share-that-i-got-accepted-into-activity-7470194874907156483-g_ll",
+          "snippet": "Excited to share that I got accepted into Y Combinator's AI Startup School 2026. I'll be back in San Francisco next month. Last year was my first real trip ...",
+          "date": "Jun 9, 2026",
+          "position": 1
+        },
+        {
+          "title": "Ayush Garg's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/ayush4921_weve-been-accepted-into-y-combinators-fall-activity-7378573726608461824-kJwo",
+          "snippet": "We've been accepted into Y Combinator's Fall 2025 batch. From the outside YC seemed like an unachievable dream for me. But every update, every all-nighter ...",
+          "date": "Sep 29, 2025",
+          "position": 2
+        },
+        {
+          "title": "Toni Lopez's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/tonilopezmr_i-got-accepted-into-y-combinator-one-month-activity-7380864556677554176-zdL0",
+          "snippet": "I got accepted into Y Combinator One month ago, I quit my job and lost my U.S. visa to build a big company. I was unemployed and without a home.",
+          "date": "Oct 6, 2025",
+          "position": 3
+        },
+        {
+          "title": "Alex Mehregan's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/alex-mehregan_big-news-we-are-joining-y-combinators-w26-activity-7403837016569999360-C6FN",
+          "snippet": "We are joining Y Combinator's W26 batch!! One year ago, we interviewed for W25 and were flatly rejected. This really sucked, because we felt how badly we ...",
+          "date": "Dec 8, 2025",
+          "position": 4
+        },
+        {
+          "title": "2015: We applied to Y Combinator and got rejected | Harsh Pokharna",
+          "link": "https://www.linkedin.com/posts/harsh-pokharna_2015-we-applied-to-y-combinator-and-got-activity-7373216764035428352-f0fp",
+          "snippet": "How to get accepted into Y Combinator: A guide ... Love this. What stands out most is the persistence, three rejections would've stopped most people, but you ...",
+          "date": "Sep 14, 2025",
+          "position": 5
+        },
+        {
+          "title": "Tung Nguyen's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/tunggdnguyen_im-delighted-to-share-that-ive-been-accepted-activity-7487552421817118720-O6Bt",
+          "snippet": "I'm delighted to share that I've been accepted into Y Combinator's Startup School, one of the 5% selected out of 30,000 applicants.",
+          "date": "Jul 27, 2026",
+          "position": 6
+        },
+        {
+          "title": "Aboud Jardaneh posted this - LinkedIn",
+          "link": "https://www.linkedin.com/posts/aboud-jardaneh-9751b9a_in-2014-we-got-into-yc-with-an-app-to-exchange-activity-7485000380813094913-lhqc",
+          "snippet": "In 2014 we got into YC with an app to exchange parking spots for $5. The City Attorney of San Francisco threatened to shut us down, we pivoted twice, ...",
+          "date": "Jul 20, 2026",
+          "position": 7
+        },
+        {
+          "title": "teams investing in GEO/AEO were\u2026 | Anand-Arnaud Pajaniradjane",
+          "link": "https://www.linkedin.com/posts/anand-arnaud-pajaniradjane_im-joining-y-combinator-p26-as-a-solo-founder-activity-7445519929191280640-PLuf",
+          "snippet": "I'm joining Y Combinator P26 as a solo founder :) A few months ago, I left my founding engineer role at a GEO company after hearing the same problem from ...",
+          "date": "Apr 2, 2026",
+          "position": 8
+        },
+        {
+          "title": "David S. Roberts' Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/davidstephenroberts_i-am-humbled-and-thrilled-to-share-that-i-activity-7416886762570014721-MSJh",
+          "snippet": "I am humbled and thrilled to share that I have been accepted into Y Combinator's Winter 2026 (W26) batch. Y Combinator (YC) is the world's leading startup ...",
+          "date": "Jan 13, 2026",
+          "position": 9
+        },
+        {
+          "title": "Ines Boutemadja's Post - LinkedIn",
+          "link": "https://www.linkedin.com/posts/ines-boutemadja_were-joining-y-combinator-with-klaimee-activity-7446836678964711424-lUnd",
+          "snippet": "We're joining Y Combinator with Klaimee (YC P26)! I'm incredibly proud to be the first Algerian woman founder to be part of YC .",
+          "date": "Apr 6, 2026",
+          "position": 10
+        }
+      ]
+    }
+  ]
+}

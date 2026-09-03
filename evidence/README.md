@@ -59,6 +59,51 @@ During the same session the Fall 2026 roster went from 30 companies to 31. FSign
 the addition and raised a **NEW YC COMPANY** alert for `OnePatch` — the second alert type the
 task brief asks for, from live data, in the same run that produced the EARLY signal above.
 
+## How much lead does this actually buy? — `raw/lead-time-backtest.json`
+
+The live monitor can only answer that after a company it flagged is later listed,
+which takes as long as it takes. `scripts/backtest_lead_time.py` answers it now, from
+two timestamps that both belong to somebody else: the founder's post date per the
+search index, and YC's own published `launched_at`. Neither is our clock, so the
+figure cannot be flattered by how often we poll.
+
+**This is a backtest. None of it was delivered to Slack.** It measures what the
+approach would have caught, using the same queries, extraction and matching the live
+monitor uses.
+
+Across Fall 2026, Summer 2026, Spring 2026 and Winter 2026:
+
+| | |
+|---|---|
+| Companies resolved to the directory | 17 |
+| Announced publicly **before** YC listed them | **10** |
+| …by a week or more | 5 |
+| …by two weeks or more | 4 |
+| Median lead | 4.4 days |
+| Longest lead | 50.0 days (`screenpipe`) |
+
+The median is small because most founders announce the same day the directory
+publishes. The value is the tail that does not: `screenpipe` 50 days, `RightNow`
+45.8, `Agnost AI` 30.1, `Kimpton` 16.9. Each row in the JSON carries the post URL and
+both dates, so any of them can be checked.
+
+Three limits, stated in the artifact itself:
+
+- The index reports a post's date to the day, so each lead is ±1 day.
+- Only companies YC has **since** listed can be measured. A company still unlisted —
+  Adalat AI, as of writing — has a lead of "at least N days and counting", and those
+  are excluded from the average rather than folded in.
+- Search ranking, not exhaustive retrieval: a sample of the posts that existed.
+
+The first run of this reported a 200-day median. That was wrong: it measured LinkedIn
+**company pages**, whose indexed date is when the page was created or crawled, not
+when anyone announced anything. Only dated posts are measured now, and
+`tests/test_backtest.py` holds that line.
+
+The raw searches are saved inside the JSON, so
+`python scripts/backtest_lead_time.py --replay evidence/raw/lead-time-backtest.json`
+re-derives every figure with no API key.
+
 ## What the same runs rejected
 
 The large majority of candidates were suppressed with a recorded reason — already-listed

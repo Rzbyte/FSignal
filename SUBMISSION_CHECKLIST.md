@@ -8,7 +8,7 @@ to it. Unticked boxes state what is actually blocking them.
 - [x] Public repository with complete runnable source — <https://github.com/Rzbyte/FSignal>
 - [x] `.env` never committed — `git log --all --full-history -- .env` is empty
 - [x] `.env` and `.venv` excluded from the Docker build context — `.dockerignore`
-- [x] Test suite green — `pytest -q` (208 tests), with no credentials configured
+- [x] Test suite green — `pytest -q` (224 tests), with no credentials configured
 - [x] Precision enforced in CI, not just asserted — `pytest tests/test_precision.py`
 - [x] Setup a non-technical operator can complete — `docs/INSTALL.md`, with prerequisites,
       the Slack click path, Windows and macOS, permanent hosting, and a troubleshooting
@@ -81,6 +81,13 @@ to it. Unticked boxes state what is actually blocking them.
 - [x] **The deployment has delivered real Slack alerts** — `alerts.sent: 3`: one EARLY
       signal for `Adalat AI (YC F26)` found on X, plus two corroborations in its thread.
       Ledger alongside them: 19 already-listed, 19 possible, 34 suppressed with reason codes.
+- [x] **Lead time is measured, not asserted** — against YC's own published
+      `launched_at` rather than our polling, so the number cannot drift with the scan
+      interval. `scripts/backtest_lead_time.py` quantifies it across four batches:
+      10 of 17 measurable companies were publicly announced before YC listed them,
+      4 by two weeks or more, the longest by 50 days. Labelled as a backtest
+      everywhere; the raw searches ship inside the JSON so the figures re-derive with
+      `--replay` and no API key.
 - [x] Machine-capturable evidence captured **from the deployment** —
       `python scripts/capture_evidence.py` wrote `evidence/raw/`: served state, per-signal
       timelines, and a directory crawl run independently of the deployment confirming
