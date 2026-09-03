@@ -23,7 +23,15 @@ decision recorded."*
 Rescan again: still no new alert. If a second source has corroborated a company, show that
 it landed in the original thread rather than as a new alert.
 
-**1:30–1:50 — The receipt.** A **CONFIRMED** alert with a real measured lead time, then
+**1:30–1:50 — How much lead this buys.** If no genuine Ghost -> Confirmed has
+happened yet, this is the beat that answers the buyer's real question. Open
+`evidence/raw/lead-time-backtest.json` and **say the word backtest on camera**: *"Not
+alerts we sent — this measures the founder's post date against YC's own published
+listing time. Across four batches, 10 of 17 companies were announced publicly before
+YC listed them, 4 of them by more than two weeks, the longest by 50 days."* Then show
+one row and its post URL so the viewer knows it is checkable.
+
+**1:30–1:50 (alternative) — The receipt.** A **CONFIRMED** alert with a real measured lead time, then
 `/signals/{id}/timeline` showing detection → classification → alert → confirmation with
 real timestamps. If no genuine confirmation has happened yet, show the ghost inventory and
 pending reconciliation instead — **and say so on camera.**
