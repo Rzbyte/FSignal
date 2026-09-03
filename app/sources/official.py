@@ -60,6 +60,23 @@ _RAW_DROP_FIELDS = frozenset(
 )
 
 
+def _launch_timestamp(value) -> str | None:
+    """YC's own publication time for a company, as ISO-8601.
+
+    The directory carries `launched_at` per company, and a batch fills over
+    months rather than all at once -- Fall 2026 went up between April and
+    September, one company at a time. That timestamp is what an early-detection
+    claim should be measured against: it belongs to YC, not to us, so a lead time
+    computed from it does not quietly depend on how often we happen to poll.
+    """
+    try:
+        moment = datetime.fromtimestamp(float(value), timezone.utc)
+    except (TypeError, ValueError, OSError, OverflowError):
+        return None
+    # A directory that has not published a company yet reports 0 or nothing.
+    return moment.isoformat() if moment.year > 2000 else None
+
+
 class YCDirectorySource:
     """Monitor the official YC company directory.
 
@@ -305,6 +322,7 @@ class YCDirectorySource:
                 batch=hit.get("batch", ""),
                 description=hit.get("one_liner", ""),
                 domain=hit.get("website", ""),
+                listed_at=_launch_timestamp(hit.get("launched_at")),
                 raw={k: v for k, v in hit.items() if k not in _RAW_DROP_FIELDS},
             )
         return list(companies.values())

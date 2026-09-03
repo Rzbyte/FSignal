@@ -111,6 +111,32 @@ CHECK = "\U0001f50e"      # independent verification against the official source
 STATE = "\u26a1"          # the one-line status assertion
 
 
+#: How the listing moment was established, said plainly under the lead figure.
+_LISTING_SOURCE = {
+    "directory": "Measured against the directory's own published listing time.",
+    "observed": (
+        "Measured against when this monitor first saw the listing; the directory "
+        "publishes no timestamp for it, so the real lead is at least this."
+    ),
+}
+
+
+def official_listing_moment(signal: dict, company: dict) -> tuple[str, str]:
+    """When the company was officially listed, and on whose clock.
+
+    The directory publishes its own `launched_at`. Preferring it means the lead
+    figure does not quietly depend on how often we poll -- on a four-hour cadence,
+    measuring against our own observation would silently inflate every number by
+    up to four hours. When the directory offers no timestamp we fall back to our
+    observation and say so, because that reading understates the lead rather than
+    overstating it.
+    """
+    listed_at = (company or {}).get("listed_at")
+    if listed_at:
+        return listed_at, _LISTING_SOURCE["directory"]
+    return signal["confirmed_at"], _LISTING_SOURCE["observed"]
+
+
 def _lead_time(detected, confirmed) -> str:
     """"47h 18m" / "3d 4h" -- only ever from real persisted timestamps."""
     seconds = max(0, (confirmed - detected).total_seconds())
@@ -297,8 +323,9 @@ class SlackNotifier:
     async def send_confirmed(self, signal: dict, company: dict):
         """The receipt for the whole thesis: we saw it first, by this much."""
         detected = datetime.fromisoformat(signal["detected_at"])
-        confirmed = datetime.fromisoformat(signal["confirmed_at"])
-        lead = _lead_time(detected, confirmed)
+        listed_at, listing_source = official_listing_moment(signal, company)
+        listed = datetime.fromisoformat(listed_at)
+        lead = _lead_time(detected, listed)
 
         company_name = company.get("name") or signal.get("company_name") or "Unknown"
         label = program_label(signal)
@@ -324,7 +351,7 @@ class SlackNotifier:
                     ("Program", label),
                     ("Batch", batch_label or "Unknown"),
                     ("Early detected", _pacific(signal.get("detected_at"))),
-                    ("Officially listed", _pacific(signal.get("confirmed_at"))),
+                    ("Officially listed", _pacific(listed_at)),
                 ]
             ),
             self._context(source_badge(signal)),
@@ -335,7 +362,8 @@ class SlackNotifier:
                     "type": "mrkdwn",
                     "text": (
                         f"*EARLY DETECTED  →  OFFICIALLY CONFIRMED*\n"
-                        f"Early detection lead: *{lead}* before official listing"
+                        f"Early detection lead: *{lead}* before official listing\n"
+                        f"_{listing_source}_"
                     ),
                 },
             },

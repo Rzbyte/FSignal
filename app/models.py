@@ -13,6 +13,11 @@ class Company:
     batch: str | None = None
     domain: str | None = None
     description: str | None = None
+    # When the directory itself says it published this company, when it says so.
+    # Not when we noticed -- that depends on our polling interval, and a lead
+    # time measured against our own clock is a weaker number than one measured
+    # against theirs.
+    listed_at: str | None = None
     raw: dict[str, Any] = field(default_factory=dict)
 
 @dataclass

@@ -15,6 +15,7 @@ import pytest
 
 import app.slack as slack_module
 from app.config import settings as base_settings
+from app.slack import official_listing_moment
 from app.presenter import (
     company_display,
     display_evidence,
@@ -447,3 +448,52 @@ def test_batch_label_maps_to_what_the_directory_displays():
     assert official_batch_label("X26") == "Spring 2026"
     assert official_batch_label("P26") == "Spring 2026"
     assert official_batch_label("SR007") is None
+
+
+# --------------------------------------------------------------------------- #
+# Whose clock the lead time is measured on                                     #
+# --------------------------------------------------------------------------- #
+
+
+CONFIRMED_SIGNAL_TIMED = dict(
+    LARK,
+    detected_at="2026-08-19T09:14:00+00:00",
+    # What our own polling saw. On a four-hour cadence this is up to four hours
+    # later than the moment the directory actually published.
+    confirmed_at="2026-09-08T14:02:00+00:00",
+)
+LISTED_COMPANY = dict(
+    CONFIRMED_COMPANY, listed_at="2026-09-08T11:33:22+00:00"
+)
+
+
+def test_the_lead_is_measured_against_the_directorys_own_clock():
+    """Otherwise the headline number depends on our polling interval.
+
+    YC publishes `launched_at` per company. Measuring against our own
+    observation instead would silently add up to one polling interval to every
+    lead time we report -- inflating the one figure the whole product is judged
+    on, in our own favour.
+    """
+    moment, note = official_listing_moment(CONFIRMED_SIGNAL_TIMED, LISTED_COMPANY)
+    assert moment == "2026-09-08T11:33:22+00:00"
+    assert "directory's own" in note
+
+
+def test_without_a_published_timestamp_we_say_which_clock_we_used():
+    """The fallback understates the lead, so it is safe -- but not silent."""
+    moment, note = official_listing_moment(
+        CONFIRMED_SIGNAL_TIMED, dict(CONFIRMED_COMPANY, listed_at=None)
+    )
+    assert moment == CONFIRMED_SIGNAL_TIMED["confirmed_at"]
+    assert "at least this" in note
+
+
+def test_the_confirmed_alert_shows_the_directorys_moment_and_says_so():
+    payload = render(
+        lambda n: n.send_confirmed(CONFIRMED_SIGNAL_TIMED, LISTED_COMPANY)
+    )
+    body = all_text(payload)
+    assert "20d 2h" in body            # YC's clock
+    assert "20d 4h" not in body        # not ours, which is 2h28m later
+    assert "directory's own published listing time" in body

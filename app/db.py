@@ -29,6 +29,9 @@ CREATE TABLE IF NOT EXISTS official_companies(
     description TEXT,
     first_seen_at TEXT NOT NULL,
     last_seen_at TEXT NOT NULL,
+    -- When the directory says it published this company, when it says so. Our
+    -- own first_seen_at only records when we looked.
+    listed_at TEXT,
     raw_json TEXT,
     UNIQUE(source, external_id)
 );
@@ -204,6 +207,9 @@ class Database:
             self._add_missing_columns(connection, "alert_outbox", {"dead_at": "TEXT"})
             self._add_missing_columns(connection, "source_runs", {"mode": "TEXT"})
             self._add_missing_columns(
+                connection, "official_companies", {"listed_at": "TEXT"}
+            )
+            self._add_missing_columns(
                 connection, "candidate_ledger", {"signal_id": "INTEGER"}
             )
             self._add_missing_columns(
@@ -283,8 +289,9 @@ class Database:
                     """
                     INSERT INTO official_companies(
                         source, external_id, name, normalized_name, batch, domain,
-                        url, description, first_seen_at, last_seen_at, raw_json
-                    ) VALUES(?,?,?,?,?,?,?,?,?,?,?)
+                        url, description, first_seen_at, last_seen_at, listed_at,
+                        raw_json
+                    ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)
                     ON CONFLICT(source,external_id) DO UPDATE SET
                         name=excluded.name,
                         normalized_name=excluded.normalized_name,
@@ -293,6 +300,7 @@ class Database:
                         url=excluded.url,
                         description=excluded.description,
                         last_seen_at=excluded.last_seen_at,
+                        listed_at=excluded.listed_at,
                         raw_json=excluded.raw_json
                     """,
                     (
@@ -306,6 +314,7 @@ class Database:
                         company.description,
                         now,
                         now,
+                        getattr(company, "listed_at", None),
                         json.dumps(company.raw),
                     ),
                 )
@@ -616,11 +625,17 @@ class Database:
             def count(sql: str) -> int:
                 return connection.execute(sql).fetchone()[0]
 
+            # Against the directory's own listing time where it publishes one,
+            # so the average does not drift with our polling interval.
             avg_lead = connection.execute(
                 """
-                SELECT AVG((julianday(confirmed_at)-julianday(detected_at))*24.0)
-                FROM social_signals
-                WHERE status='confirmed' AND confirmed_at IS NOT NULL
+                SELECT AVG(
+                    (julianday(COALESCE(o.listed_at, s.confirmed_at))
+                     - julianday(s.detected_at)) * 24.0
+                )
+                FROM social_signals s
+                LEFT JOIN official_companies o ON o.id = s.official_company_id
+                WHERE s.status='confirmed' AND s.confirmed_at IS NOT NULL
                 """
             ).fetchone()[0]
             return {
