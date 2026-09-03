@@ -110,6 +110,11 @@ than scraping authenticated pages. Create a key and set `SERPER_API_KEY`; the fr
 enough. Results cap at 10 per query, which is why the bot issues one query per active
 batch rather than one combined query.
 
+*Want it faster than the shipped 4-hour social cadence?* The directories already run
+hourly; the founder-post half is limited by the search index, not by the polling. The
+three tiers that close that gap — and the one that is impossible — are set out in
+[`docs/ROADMAP.md`](docs/ROADMAP.md#getting-to-real-time).
+
 ### X (optional — improves the X source, does not enable it)
 
 X's own recent search carries metadata indexed search cannot: author bio, profile URL, and

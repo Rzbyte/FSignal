@@ -32,6 +32,68 @@ FSignal is designed as a persistent monitoring service, not a one-off scraper. *
 - Pond idempotency persistence
 - Docker deployment and CI tests
 
+## Getting to real time
+
+The brief asks for "real-time alerts" and then allows a cadence of up to eight hours.
+The shipped configuration sits between them, and this is exactly what it would take to
+close the gap — no redesign in any of it.
+
+### Where the latency actually is today
+
+| Source | Interval | What sets it |
+|---|---|---|
+| YC Directory | 60 min | Nothing. It is free to poll. A newly listed company is caught within the hour. |
+| Speedrun | 120 min | Same. |
+| X | 240 min | Search credits, and the refresh rate of the index behind them. |
+| LinkedIn | 240 min | Same. |
+
+So half the system is already near real time. The founder-post half is not, and the
+reason is worth being precise about, because it decides which upgrades are worth buying.
+
+### Tier 1 — Lower the interval. Free, and largely pointless.
+
+`X_SCAN_INTERVAL_MINUTES` and `LINKEDIN_SCAN_INTERVAL_MINUTES` are environment
+variables. No code changes.
+
+But against a search index this buys very little. **The slow component is the index, not
+the polling.** Adalat AI's post went up on 19 August and was still surfacing as a fresh
+result more than two weeks later; two scans twelve minutes apart returned zero new items
+between them. Polling every fifteen minutes would spend sixteen times the credits to
+re-read the same ten results.
+
+Worth doing only alongside Tier 2.
+
+### Tier 2 — The native X API. ~$200/month, and the code is already written.
+
+This is the real path to near real time, and nothing needs building for it.
+
+`XSource.collect_native` already implements `since_id` watermarking: it asks X only for
+posts newer than the last one it processed, and persists that cursor per query. That
+makes a tight interval *cheap* rather than wasteful — the opposite of the indexed path.
+
+Set `X_BEARER_TOKEN` to a key on a paid plan and lower `X_SCAN_INTERVAL_MINUTES`. The
+source switches from `indexed_fallback` to `native` on its own, `/health` reports the
+change, and the Slack badge stops saying "indexed search". A minute or two of latency on
+X becomes affordable.
+
+### Tier 3 — Streaming. Sub-second on X; impossible on LinkedIn.
+
+X's filtered stream would push posts as they are written. The source-adapter boundary
+already supports it: a source needs only a `name` and an `async collect()`, and a
+streaming adapter can buffer into the same shape. Ghost → Confirmed semantics, dedup,
+Slack delivery and Pond handling would not change.
+
+**LinkedIn has no public equivalent and will not get one.** There is no post-firehose
+outside approved partner access, so indexed public search is the ceiling for that source
+short of a LinkedIn partnership. An honest roadmap says so rather than implying parity.
+
+### What this means for the claim
+
+The product's lead is measured in days — a median of 4.4 and a tail past 50 in the
+backtest. A four-hour detection interval is 0.17 days against that. Real time is worth
+buying when the competition is other monitors; it is close to irrelevant when the
+competition is the directory.
+
 ## V1.1 — Cross-source signal quality
 
 Goal: improve precision and corroboration while preserving the same external behavior.

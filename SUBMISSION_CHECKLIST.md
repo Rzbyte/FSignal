@@ -17,7 +17,7 @@ minute. Seven are met and verifiable right now; the eighth needs a person at a s
 | 5 | Slack: company, source, description, link | **met** | All four in every alert, plus the founder and a `Reach out` line. Rendered payloads in [`docs/DEMO.md`](docs/DEMO.md) |
 | 6 | Pond agent integration | **met** | Anonymous `GET /manifest` → `marketplace-agent` `1.0`, four actions. `POST /runs` without a token → `401`; with one → `200` and a real result, and a byte-identical resend under the same `Idempotency-Key` returns the *persisted* result rather than re-running. Captured in [`evidence/raw/pond-runs.json`](evidence/raw/pond-runs.json) |
 | 7 | **Proof: screenshot or recording of a real Slack alert** | **outstanding** | Needs a person at a screen. Shot list in [`docs/DEMO.md`](docs/DEMO.md) |
-| 8 | Future upgradability; runs on Pond infrastructure | **met** | A new platform needs only `name` + `async collect()`. Pond V1 is served by the same always-on process that does the monitoring |
+| 8 | Future upgradability; runs on Pond infrastructure | **met** | A new platform needs only `name` + `async collect()`. Pond V1 is served by the same always-on process that does the monitoring. The path to real time is costed and written down, including the tier that is impossible — [`docs/ROADMAP.md`](docs/ROADMAP.md#getting-to-real-time) |
 
 **Not a one-shot script.** One asyncio task per source, independent intervals, adaptive
 backoff, failure isolation, and a persistent outbox with retry and dead-lettering.
