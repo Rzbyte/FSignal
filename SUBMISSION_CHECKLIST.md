@@ -103,9 +103,11 @@ backoff, failure isolation, and a persistent outbox with retry and dead-letterin
       authenticated `POST /runs` and a byte-identical resend under the same
       `Idempotency-Key`, with `identical_response: true`. Pond retries; an agent that
       re-executed on a retry would double-count, which is why the run store exists.
-- [x] Polling paced to survive review — the two metered social sources run every 4 hours
-      (the brief allows 8); the free directory sources stay tight so new listings and
-      Ghost -> Confirmed reconciliation are not delayed. ~70 search credits/day.
+- [x] Polling paced to survive review — the free directory sources stay tight, so a newly
+      listed company is caught within the hour. The two metered social sources run every
+      4 hours: 8 hours is the slowest the brief accepts and the same brief asks for
+      "real-time alerts", so 4 is the compromise a free search plan can sustain for about
+      a month. ~90 credits/day; raise to 480 if the balance runs low.
 - [x] Deploys from GitHub — the service was pinned to an uploaded snapshot, so pushes
       changed nothing and **Redeploy** rebuilt the same old code. Now connected to
       `Rzbyte/FSignal` on `main`.

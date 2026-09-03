@@ -82,16 +82,26 @@ class Settings:
     # Per-source polling intervals (minutes). Each source runs independently.
     #
     # The two social sources are metered and the two directories are not, so they
-    # are not paced alike. Every social scan spends roughly one search credit per
-    # query and issues one query per active batch; at a ten-minute interval that
-    # is over a thousand credits a day, which exhausts a free search plan in
-    # about two days and takes the bot down with it. The brief this was built
-    # against asks for an eight-hour cadence, so four hours is already twice as
-    # attentive as required and costs about seventy credits a day.
+    # are not paced alike.
     #
-    # The directories cost nothing to poll, and both the NEW OFFICIAL alert and
-    # Ghost -> Confirmed reconciliation are only as timely as they are, so they
-    # stay tight.
+    # The brief this was built against pulls both ways: it asks for a monitor
+    # that runs continuously and fires "real-time alerts", and then says the
+    # cadence "can be every 8 hours". Eight hours is therefore the slowest that
+    # is still acceptable, not the target -- and anything approaching real time
+    # is what the headline actually asks for.
+    #
+    # What decides it is money. Every social scan spends about one search credit
+    # per query and issues one query per active batch, so a ten-minute interval
+    # burns over a thousand credits a day and exhausts a free search plan in two
+    # days, taking the bot down with it. Four hours costs about ninety a day and
+    # lasts roughly a month, which is what a submission has to survive. An
+    # operator on a paid plan should lower these; the ceiling is 8 hours, past
+    # which this stops being the monitor the brief describes.
+    #
+    # The directories are free to poll, so they stay tight -- which means a
+    # newly listed company is caught within the hour, and Ghost -> Confirmed
+    # reconciliation is never the thing holding a lead time back. It is only
+    # the founder-post half that trades latency for budget.
     x_scan_interval_minutes: float = float(os.getenv("X_SCAN_INTERVAL_MINUTES", "240"))
     linkedin_scan_interval_minutes: float = float(os.getenv("LINKEDIN_SCAN_INTERVAL_MINUTES", "240"))
     yc_scan_interval_minutes: float = float(os.getenv("YC_SCAN_INTERVAL_MINUTES", "60"))

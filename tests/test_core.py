@@ -790,8 +790,9 @@ def test_metered_sources_are_paced_slower_than_free_ones():
         settings.yc_scan_interval_minutes, settings.speedrun_scan_interval_minutes
     )
     assert metered >= free
-    # The brief allows an eight-hour cadence; going slower than that stops being
-    # the continuous monitor it asks for.
+    # Eight hours is the slowest the brief accepts, not the target it sets --
+    # the same brief asks for a monitor that fires "real-time alerts". Going
+    # past this ceiling stops being the thing it describes.
     assert metered <= 8 * 60
     # Reconciliation is local work against an already-fetched snapshot, so it has
     # no reason to lag the directory that feeds it.
