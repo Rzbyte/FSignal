@@ -616,3 +616,56 @@ def test_an_unknown_post_date_shows_no_field_and_no_note():
     unknown = dict(STALE, posted_at=None)
     assert post_age_note(unknown) is None
     assert "Posted" not in _field_labels(render(lambda n: n.send_ghost(unknown)))
+
+
+#: The real stored text behind the Adalat AI alert. A search result is a title
+#: and a snippet glued together, and they overlap: the title carries a truncated
+#: opening, the snippet the fuller one.
+_OVERLAPPING_RESULT = {
+    "company_name": "Adalat AI",
+    "batch": "F26",
+    "source": "x",
+    "text": (
+        '"1/ Adalat AI is now backed by Y Combinator. We\'re the first nonprofit ... '
+        'Adalat AI (YC F26) on X: "1/ Adalat AI is now backed by Y Combinator. '
+        "We're the first nonprofit YC has backed in nearly five years — and the "
+        "first Indian- ..."
+    ),
+}
+
+
+def test_the_quote_never_says_the_same_thing_twice():
+    """This shipped: the delivered alert quoted the founder's opening line, then
+    quoted it again with the index's byline wedged between. On a message whose
+    argument is that it can be trusted, that reads as a bug in the evidence."""
+    quote = excerpt(_OVERLAPPING_RESULT)
+    assert quote.count("is now backed by Y Combinator") == 1
+
+
+def test_the_quote_keeps_the_fuller_telling():
+    """Deduplication must not settle for the title's ellipsis when the snippet
+    carries the whole sentence -- "the first nonprofit YC has backed in nearly
+    five years" is the part a GTM reader acts on."""
+    quote = excerpt(_OVERLAPPING_RESULT)
+    assert "nearly five years" in quote
+    assert "on X:" not in quote, "the index's attribution is not the founder's words"
+
+
+def test_a_localised_attribution_is_stripped_too():
+    """The provider serves whatever locale it ranked the result in; a live run
+    returned the Arabic connector."""
+    quote = excerpt(
+        {
+            "company_name": "Adalat AI",
+            "batch": "F26",
+            "source": "x",
+            "text": 'Adalat AI (YC F26) على X: "5/ With YC behind us, we are taking this further.',
+        }
+    )
+    assert quote.startswith('"5/') or quote.startswith("5/"), quote
+
+
+def test_a_single_clean_sentence_is_left_alone():
+    """The guard against over-eager deduplication eating an ordinary post."""
+    text = "Our company Polaris AI has been accepted into Y Combinator F26!"
+    assert excerpt({"company_name": "Polaris AI", "batch": "F26", "text": text}) == text

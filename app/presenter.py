@@ -242,6 +242,60 @@ def source_badge(signal: dict) -> str:
 # --------------------------------------------------------------------------- #
 
 
+#: `Adalat AI (YC F26) on X: ` in front of a sentence -- the index repeating who
+#: is speaking partway through the text, not part of what they said. The
+#: connector is matched as any short word rather than the literal "on", because
+#: the provider serves whatever locale it ranked the result in and a live run
+#: returned `Adalat AI (YC F26) على X: "…`.
+_INLINE_ATTRIBUTION = re.compile(
+    r'^.{0,60}?\s\S{1,10}\s+X\s*:\s*(?=["“\w])', re.IGNORECASE
+)
+
+
+def _squash(sentence: str) -> str:
+    return "".join(ch for ch in sentence.lower() if ch.isalnum())
+
+
+def _without_repeats(sentences: list[str]) -> list[str]:
+    """Collapse the same sentence appearing twice in one search result.
+
+    A result is a title and a snippet glued together, and they overlap: the
+    title carries a truncated opening, the snippet carries the fuller one. Left
+    alone the quote reads
+
+        "1/ Adalat AI is now backed by Y Combinator. Adalat AI (YC F26) on X:
+         "1/ Adalat AI is now backed by Y Combinator.
+
+    which is the founder saying the same thing twice in an alert arguing it can
+    be trusted. Where one sentence's content is contained in another's, the
+    longer survives -- that is the snippet's fuller version rather than the
+    title's ellipsis. Attribution the index inserted mid-text is stripped first,
+    so a repeat wearing a "... on X:" prefix is still recognised as a repeat.
+    """
+    kept: list[str] = []
+    for sentence in sentences:
+        cleaned = _INLINE_ATTRIBUTION.sub("", sentence).strip()
+        if not cleaned:
+            continue
+        squashed = _squash(cleaned)
+        if not squashed:
+            continue
+
+        replaced = False
+        for index, existing in enumerate(kept):
+            current = _squash(existing)
+            if squashed in current:          # nothing new to say
+                replaced = True
+                break
+            if current in squashed:          # the fuller telling of it
+                kept[index] = cleaned
+                replaced = True
+                break
+        if not replaced:
+            kept.append(cleaned)
+    return kept
+
+
 def excerpt(signal: dict, limit: int = 260) -> str:
     """The shortest run of the founder's own words that carries the claim."""
     text = (signal.get("text") or "").strip()
@@ -250,7 +304,9 @@ def excerpt(signal: dict, limit: int = 260) -> str:
     text = _CHROME_PREFIX.sub("", text)
     text = _CHROME_TAIL.sub("", text).strip()
 
-    sentences = [part.strip() for part in re.split(r"(?<=[.!?])\s+", text) if part.strip()]
+    sentences = _without_repeats(
+        [part.strip() for part in re.split(r"(?<=[.!?])\s+", text) if part.strip()]
+    )
     company = (signal.get("company_name") or "").lower()
     batch = (signal.get("batch") or "").lower()
 
@@ -261,8 +317,14 @@ def excerpt(signal: dict, limit: int = 260) -> str:
         for sentence in sentences
         if (company and company in sentence.lower()) or (batch and batch in sentence.lower())
     ]
+    # Strong sentences first, then whatever followed them in the post. Stopping
+    # at the strong ones truncates an announcement mid-thought when only its
+    # opening happens to name the company: "Adalat AI is now backed by Y
+    # Combinator." is the claim, and "We're the first nonprofit YC has backed in
+    # nearly five years" is why a GTM reader cares.
+    ordered = strong + [s for s in sentences if s not in strong] if strong else sentences
     chosen, total = [], 0
-    for sentence in strong or sentences:
+    for sentence in ordered:
         if chosen and total + len(sentence) > limit:
             break
         chosen.append(sentence)
