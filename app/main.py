@@ -66,9 +66,8 @@ def health():
     """
     sources = per_source_scheduler.health()
     monitoring_sources = [s for s in sources if s["source"] != "ghost_reconciliation"]
-    production_ready = (
-        not settings.demo_mode
-        and all(s["health"] == "healthy" for s in monitoring_sources)
+    production_ready = not settings.demo_mode and all(
+        s["health"] == "healthy" for s in monitoring_sources
     )
     return {
         "ok": True,
@@ -120,20 +119,23 @@ def _source_label(signal: dict) -> str:
 def home():
     stats = db.stats()
     sched_sources = per_source_scheduler.health()
-    rows = "".join(
-        "<tr>"
-        f"<td>{html.escape(item['source'])}</td>"
-        f"<td>{html.escape(item.get('health') or 'unknown')}</td>"
-        # Which path answered. An indexed result must never read as a native one,
-        # and this page is where most people look first.
-        f"<td>{html.escape(_MODE_LABELS.get(item.get('mode'), '—'))}</td>"
-        f"<td>{html.escape(str(item.get('interval_minutes') or '—'))}</td>"
-        f"<td>{html.escape(item.get('last_run') or '—')}</td>"
-        f"<td>{html.escape(item.get('next_run') or '—')}</td>"
-        f"<td>{item.get('consecutive_failures', 0)}</td>"
-        "</tr>"
-        for item in sched_sources
-    ) or '<tr><td colspan="7">Scheduler not started.</td></tr>'
+    rows = (
+        "".join(
+            "<tr>"
+            f"<td>{html.escape(item['source'])}</td>"
+            f"<td>{html.escape(item.get('health') or 'unknown')}</td>"
+            # Which path answered. An indexed result must never read as a native one,
+            # and this page is where most people look first.
+            f"<td>{html.escape(_MODE_LABELS.get(item.get('mode'), '—'))}</td>"
+            f"<td>{html.escape(str(item.get('interval_minutes') or '—'))}</td>"
+            f"<td>{html.escape(item.get('last_run') or '—')}</td>"
+            f"<td>{html.escape(item.get('next_run') or '—')}</td>"
+            f"<td>{item.get('consecutive_failures', 0)}</td>"
+            "</tr>"
+            for item in sched_sources
+        )
+        or '<tr><td colspan="7">Scheduler not started.</td></tr>'
+    )
 
     # The actual findings, not just counts. Someone landing here should see what
     # the bot found before they see how it is configured.
@@ -150,29 +152,34 @@ def home():
     for candidate in db.list_ghosts(50):
         key = candidate.get("company_key") or f"id:{candidate['id']}"
         held = by_company.get(key)
-        if held is None or (
-            _is_handle_name(held) and not _is_handle_name(candidate)
-        ):
+        if held is None or (_is_handle_name(held) and not _is_handle_name(candidate)):
             by_company[key] = candidate
     ghosts = list(by_company.values())[:10]
-    ghost_rows = "".join(
-        "<tr>"
-        f"<td><b>{html.escape(g.get('company_name') or 'Unknown')}</b></td>"
-        f"<td>{html.escape(g.get('batch') or '—')}</td>"
-        f"<td>{html.escape((g.get('program') or '').upper())}</td>"
-        f"<td>{html.escape(_source_label(g))}</td>"
-        f"<td>{g.get('confidence') or 0}%</td>"
-        f'<td><a href="{html.escape(g.get("url") or "#")}">post</a> · '
-        f'<a href="/signals/{g["id"]}/timeline">timeline</a></td>'
-        "</tr>"
-        for g in ghosts
-    ) or '<tr><td colspan="6">No open early signals right now.</td></tr>'
+    ghost_rows = (
+        "".join(
+            "<tr>"
+            f"<td><b>{html.escape(g.get('company_name') or 'Unknown')}</b></td>"
+            f"<td>{html.escape(g.get('batch') or '—')}</td>"
+            f"<td>{html.escape((g.get('program') or '').upper())}</td>"
+            f"<td>{html.escape(_source_label(g))}</td>"
+            f"<td>{g.get('confidence') or 0}%</td>"
+            f'<td><a href="{html.escape(g.get("url") or "#")}">post</a> · '
+            f'<a href="/signals/{g["id"]}/timeline">timeline</a></td>'
+            "</tr>"
+            for g in ghosts
+        )
+        or '<tr><td colspan="6">No open early signals right now.</td></tr>'
+    )
 
     ledger = db.ledger_summary()
-    ledger_rows = "".join(
-        f"<tr><td>{html.escape(str(label))}</td><td>{count}</td></tr>"
-        for label, count in list(ledger["verdicts"].items()) + list(ledger["reasons"].items())
-    ) or '<tr><td colspan="2">Nothing evaluated yet.</td></tr>'
+    ledger_rows = (
+        "".join(
+            f"<tr><td>{html.escape(str(label))}</td><td>{count}</td></tr>"
+            for label, count in list(ledger["verdicts"].items())
+            + list(ledger["reasons"].items())
+        )
+        or '<tr><td colspan="2">Nothing evaluated yet.</td></tr>'
+    )
 
     return f"""<!doctype html>
 <meta charset="utf-8">
@@ -232,17 +239,20 @@ def demo_slack():
         body = html.escape("\n".join(chunks)).replace("*", "").replace("\n", "<br>")
         cards.append(
             '<div class="m"><div class="a">G</div><div>'
-            '<b>FSignal</b> <small>APP</small>'
+            "<b>FSignal</b> <small>APP</small>"
             f"<h3>{html.escape(item.get('text', 'Alert'))}</h3>{body}</div></div>"
         )
 
     return (
         '<!doctype html><meta charset="utf-8"><style>'
-        'body{font-family:Inter,system-ui;margin:0}header{background:#3f0e40;color:white;padding:16px 28px}'
-        'main{max-width:900px;margin:auto}.m{display:grid;grid-template-columns:46px 1fr;gap:10px;padding:20px;border-bottom:1px solid #eee}'
-        '.a{width:38px;height:38px;background:#111;color:white;border-radius:8px;display:grid;place-items:center;font-weight:800}'
-        'small{background:#eee;padding:2px 4px}</style><header># fsignal</header><main>'
-        + ("".join(cards) or "<p>No demo alerts. Run python scripts/replay_corpus.py</p>")
+        "body{font-family:Inter,system-ui;margin:0}header{background:#3f0e40;color:white;padding:16px 28px}"
+        "main{max-width:900px;margin:auto}.m{display:grid;grid-template-columns:46px 1fr;gap:10px;padding:20px;border-bottom:1px solid #eee}"
+        ".a{width:38px;height:38px;background:#111;color:white;border-radius:8px;display:grid;place-items:center;font-weight:800}"
+        "small{background:#eee;padding:2px 4px}</style><header># fsignal</header><main>"
+        + (
+            "".join(cards)
+            or "<p>No demo alerts. Run python scripts/replay_corpus.py</p>"
+        )
         + "</main>"
     )
 
@@ -297,7 +307,6 @@ def get_task(task_id: str):
     )
 
 
-
 @app.post("/runs")
 async def runs(
     request: Request,
@@ -320,14 +329,20 @@ async def runs(
 
         raw_body = await request.body()
         if len(raw_body) > manifest()["limits"]["max_request_bytes"]:
-            raise PondProtocolError(400, "invalid_request", "The request exceeds the configured size limit.")
+            raise PondProtocolError(
+                400, "invalid_request", "The request exceeds the configured size limit."
+            )
 
         try:
             body = json.loads(raw_body)
         except (json.JSONDecodeError, UnicodeDecodeError):
-            raise PondProtocolError(400, "invalid_request", "The request body must be valid JSON.")
+            raise PondProtocolError(
+                400, "invalid_request", "The request body must be valid JSON."
+            )
         if not isinstance(body, dict):
-            raise PondProtocolError(400, "invalid_request", "The request body must be a JSON object.")
+            raise PondProtocolError(
+                400, "invalid_request", "The request body must be a JSON object."
+            )
 
         # Validate the complete prepared-request envelope, not just action parameters.
         try:
@@ -397,23 +412,31 @@ async def runs(
                     )
                 elif run.action_id == "list_ghosts":
                     ghosts = db.list_ghosts(parameters["limit"])
-                    text = "\n".join(
-                        f"- #{ghost['id']} {ghost.get('company_name') or ghost.get('company_domain')} — "
-                        f"{ghost.get('source')} — confidence {ghost.get('confidence') or 0}% — "
-                        f"GTM {ghost.get('gtm_score') or 0}/100 ({ghost.get('gtm_priority') or 'standard'}) — "
-                        f"{ghost.get('url')}"
-                        for ghost in ghosts
-                    ) or "No current ghost signals."
+                    text = (
+                        "\n".join(
+                            f"- #{ghost['id']} {ghost.get('company_name') or ghost.get('company_domain')} — "
+                            f"{ghost.get('source')} — confidence {ghost.get('confidence') or 0}% — "
+                            f"GTM {ghost.get('gtm_score') or 0}/100 ({ghost.get('gtm_priority') or 'standard'}) — "
+                            f"{ghost.get('url')}"
+                            for ghost in ghosts
+                        )
+                        or "No current ghost signals."
+                    )
                     result = terminal(run_id, text)
                 else:  # get_timeline
                     signal = db.get_signal(parameters["signal_id"])
                     if not signal:
-                        raise PondProtocolError(422, "invalid_input", "signal_id was not found.")
+                        raise PondProtocolError(
+                            422, "invalid_input", "signal_id was not found."
+                        )
                     result = terminal(
                         run_id,
                         "```json\n"
                         + json.dumps(
-                            {"signal": signal, "timeline": db.timeline(parameters["signal_id"])},
+                            {
+                                "signal": signal,
+                                "timeline": db.timeline(parameters["signal_id"]),
+                            },
                             indent=2,
                         )
                         + "\n```",
