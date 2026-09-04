@@ -257,6 +257,13 @@ The limits below are the shape of that decision, not oversights in it.
 - **Nothing watches the watcher.** `/health` reports source health, retry state and
   snapshot age, but nothing pages anyone when the process dies. Point an uptime check at
   it if the alerts matter.
+- **The Serper allowance runs out, and both social sources go dark when it does.**
+  At the shipped cadence the two of them issue about 90 queries a day (15 per run, six
+  runs each), and the free allowance is a one-time grant rather than a monthly one — so
+  it lasts on the order of a month, then X and LinkedIn start failing. The failure is
+  loud: `/health` turns the source unhealthy and the scheduler backs off. Top the key up,
+  or widen `X_SCAN_INTERVAL_MINUTES` and `LINKEDIN_SCAN_INTERVAL_MINUTES`, or drop
+  `ACTIVE_BATCH_COUNT` to 1 — query volume scales with the number of batches hunted.
 - **Polling, not push.** Latency is bounded by the polling interval; there is no webhook.
 - **LinkedIn is index-limited.** Discovery depends on Google having indexed the post, so
   the true lead time is worse than X's would be. Serper's free tier returns 10 results per
