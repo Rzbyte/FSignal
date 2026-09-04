@@ -111,6 +111,30 @@ One key powers both LinkedIn discovery and the X fallback.
    For a DM instead of a channel, open the DM, click the person's name → the ID starts
    with `D`.
 
+### 3b-ii. Stop the warning on your alerts — `SLACK_SIGNING_SECRET`
+
+Every alert ends in two buttons: the founder's post, and the directory search that proves
+the company is not listed yet. They work without this step. But until Slack has somewhere
+to report a click to, it stamps the message *"This app is not configured to handle
+interactive responses"* — a warning triangle sitting on the alert you most want believed.
+
+This step needs the bot reachable on a public HTTPS address, so do it **after** section 5
+if you are deploying. Skip it entirely if you only ever run on your own machine; Slack
+will not accept a `localhost` URL.
+
+1. In your Slack app, open **Interactivity & Shortcuts** and turn **Interactivity** on.
+2. In **Request URL**, enter your deployment's address followed by
+   `/slack/interactions`, for example:
+   ```
+   https://your-app.up.railway.app/slack/interactions
+   ```
+   → **Save Changes**. Slack calls it once to check it answers.
+3. Open **Basic Information** → **App Credentials** → **Signing Secret** → **Show** →
+   copy it after `SLACK_SIGNING_SECRET=` in `.env`, then restart the bot.
+
+To confirm: open `/health` and look for `"slack_interactions_configured": true`. Then
+click a button on any alert — the link opens and no warning appears.
+
 ### 3c. Optional extras
 
 Everything below is genuinely optional. Skip the lot and the bot still monitors all four
@@ -202,6 +226,9 @@ Matched on the exact text you will see.
 | `Slack API error: channel_not_found` | `SLACK_CHANNEL_ID` is wrong. Re-copy it from the bottom of the channel's **About** tab. |
 | `Slack API error: invalid_auth` | `SLACK_BOT_TOKEN` is wrong. Re-copy the **Bot User OAuth Token** (`xoxb-…`). |
 | `Slack API error: missing_scope` | Add `chat:write` under **OAuth & Permissions**, then **Reinstall to Workspace**. A scope added without reinstalling does nothing. |
+| Alerts carry a ⚠️ "not configured to handle interactive responses" | Interactivity is off, or its Request URL is wrong. See section 3b-ii. The buttons still work; only the warning is new. |
+| Slack rejects your Request URL | It must be public HTTPS and answer within three seconds. `localhost` and `http://` are both refused. Check the URL ends in `/slack/interactions`. |
+| Buttons work but `/health` says `slack_interactions_configured: false` | `SLACK_SIGNING_SECRET` is empty or the service was not restarted after setting it. |
 | `not_configured: SERPER_API_KEY is missing` | The key is not in `.env`, or you edited `.env.example` by mistake. |
 | `billing_blocked: X API credits are depleted` | Expected without a paid X plan. The X source falls back to indexed search on its own; nothing to fix. |
 | `waiting: no active accelerator batch known yet` | Normal for the first minute. The social sources wait for the first directory snapshot. |

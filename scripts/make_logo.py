@@ -12,7 +12,7 @@ from PIL import Image, ImageChops, ImageDraw, ImageFilter
 
 S, SS = 512, 4
 W = S * SS
-def u(v): return int(round(v * SS))
+def u(v): return round(v * SS)
 
 INK     = (236, 243, 255)
 INK_DIM = (96, 122, 170)

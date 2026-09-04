@@ -160,6 +160,30 @@ Or `docker compose up -d`, which mounts `./data` so state survives restarts.
 4. Copy the channel ID (right-click the channel → View channel details) and the bot token
    (`xoxb-…`) into `SLACK_CHANNEL_ID` and `SLACK_BOT_TOKEN`.
 
+### Slack interactivity (one minute, worth doing)
+
+Every alert ends in two navigation buttons — the founder's post, and the directory search
+that backs the claim. They open their links either way, but until Slack has somewhere to
+acknowledge the click it stamps the message *"This app is not configured to handle
+interactive responses"*, which is a warning triangle on the one message built to be
+trusted.
+
+1. **Interactivity & Shortcuts** → toggle **Interactivity** on.
+2. **Request URL**: `https://<your public base>/slack/interactions` — for the reference
+   deployment that is `https://fsignal-production.up.railway.app/slack/interactions`.
+   It must be public HTTPS; Slack will not accept `localhost`.
+3. **Basic Information → App Credentials → Signing Secret** → copy into
+   `SLACK_SIGNING_SECRET`, then restart.
+
+The endpoint runs no business logic. It verifies Slack's HMAC signature in constant time,
+refuses anything older than five minutes so a captured request cannot be replayed, and
+answers `200`. With no secret configured it answers `503` rather than trusting an unsigned
+caller. `/health` reports `slack_interactions_configured` so you can see which state a
+deployment is in.
+
+The manifest deliberately does not declare this: Slack requires a Request URL alongside
+it, and that URL is your deployment, not one that belongs in a public repo.
+
 ### Search provider (required)
 
 Neither X nor LinkedIn offers unrestricted public post search on a free plan, so both
@@ -249,11 +273,15 @@ The limits below are the shape of that decision, not oversights in it.
 
 ## Known limitations
 
-- **The dashboard is unauthenticated.** `/`, `/health`, `/ledger` and the timeline
-  endpoints are open to anyone with the URL, which on a public deployment means your lead
-  list is too. Left open on purpose so the evidence in this repo can be checked against
-  the live service; close it before the deployment carries signals you rely on being alone
-  in having.
+- **The lead endpoints ship open, and closing them is one variable.** The dashboard,
+  `/ledger` and `/signals/{id}/timeline` carry the companies themselves, so on a public
+  deployment they carry your pipeline. Setting `DASHBOARD_TOKEN` closes all three behind
+  `Authorization: Bearer …` (or `?token=…`, since these are pages a person opens in a
+  browser). It ships empty on purpose, because the evidence in this repo is only
+  checkable while a reader can open the deployment it came from — `/health` reports
+  `lead_endpoints_protected` either way. `/health` itself and the Pond endpoints are
+  never gated: the first carries counts rather than companies, and the second is how Pond
+  health-checks the agent.
 - **Nothing watches the watcher.** `/health` reports source health, retry state and
   snapshot age, but nothing pages anyone when the process dies. Point an uptime check at
   it if the alerts matter.

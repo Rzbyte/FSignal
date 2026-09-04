@@ -9,8 +9,26 @@ features:
 oauth_config:
   scopes:
     bot:
+      # The only scope requested. Enough to post an alert, not enough to read
+      # anything: FSignal never sees a message in your workspace.
       - chat:write
 settings:
   org_deploy_enabled: false
   socket_mode_enabled: false
   token_rotation_enabled: false
+  # Interactivity is deliberately NOT declared here, because Slack requires a
+  # request_url alongside it and that URL is your deployment, not ours. A
+  # hostname committed to a public repo would be either wrong for you or a
+  # pointer at somebody else's server.
+  #
+  # Turn it on by hand once, after deploying. It takes about a minute:
+  #
+  #   1. Slack app -> Interactivity & Shortcuts -> toggle Interactivity on
+  #   2. Request URL:  https://<your public base>/slack/interactions
+  #   3. Save Changes
+  #   4. Basic Information -> App Credentials -> Signing Secret
+  #      -> copy into SLACK_SIGNING_SECRET and restart the service
+  #
+  # Skipping this does not break the alert buttons; they still open their links.
+  # It leaves Slack's "not configured to handle interactive responses" warning
+  # on the message, which is a bad look on an alert built to be trusted.

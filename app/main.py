@@ -3,13 +3,15 @@
 from __future__ import annotations
 
 import asyncio
+import hmac
 import html
 import json
+import logging
 from collections import defaultdict
 from contextlib import asynccontextmanager
 from pathlib import Path
 
-from fastapi import FastAPI, Header, Request
+from fastapi import FastAPI, Header, Request, Response
 from fastapi.responses import HTMLResponse, JSONResponse
 from pydantic import ValidationError
 
@@ -28,6 +30,14 @@ from .pond import (
 )
 from .scanner import Scanner
 from .scheduler import PerSourceScheduler
+from .slack_interactions import (
+    InteractionError,
+    describe,
+    parse_payload,
+    verify_signature,
+)
+
+logger = logging.getLogger(__name__)
 
 db = Database(settings.database_path)
 scanner = Scanner(db)
@@ -73,6 +83,11 @@ def health():
         "ok": True,
         "production_ready": production_ready,
         "demo_mode": settings.demo_mode,
+        # Whether the lead-carrying endpoints (dashboard, ledger, timelines)
+        # require DASHBOARD_TOKEN. Reported rather than assumed, because "who
+        # can read my pipeline" should not need a source dive to answer.
+        "lead_endpoints_protected": bool(settings.dashboard_token),
+        "slack_interactions_configured": bool(settings.slack_signing_secret),
         # What each EARLY verdict was adjudicated against, and what the bot
         # decided about everything it looked at.
         "snapshots": db.snapshots(),
@@ -88,6 +103,31 @@ def health():
         "alerts": db.outbox_stats(),
         "sources": sources,
     }
+
+
+def _lead_access_denied(request: Request) -> JSONResponse | None:
+    """Refuse a lead-carrying endpoint unless the caller holds DASHBOARD_TOKEN.
+
+    Returns the refusal rather than raising, so each route decides where in its
+    own body the check belongs and no route acquires a decorator that is easy to
+    forget on the next one.
+
+    With no token configured this is a no-op and the endpoints stay open. That
+    is deliberate and documented: the evidence in this repo is only checkable
+    while a reader can open the deployment it was captured from. The posture is
+    reported in /health so it is never a surprise.
+    """
+    if not settings.dashboard_token:
+        return None
+
+    header = request.headers.get("Authorization") or ""
+    supplied = header[7:] if header.startswith("Bearer ") else (
+        request.query_params.get("token") or ""
+    )
+    # Constant-time, and never echoes what was supplied.
+    if hmac.compare_digest(supplied, settings.dashboard_token):
+        return None
+    return JSONResponse(status_code=401, content={"error": "unauthorized"})
 
 
 #: How a collection path reads on the dashboard.
@@ -116,7 +156,11 @@ def _source_label(signal: dict) -> str:
 
 
 @app.get("/", response_class=HTMLResponse)
-def home():
+def home(request: Request):
+    denied = _lead_access_denied(request)
+    if denied:
+        return denied
+
     stats = db.stats()
     sched_sources = per_source_scheduler.health()
     rows = (
@@ -364,13 +408,17 @@ def demo_slack():
 
 
 @app.get("/ledger")
-def ledger(limit: int = 100):
+def ledger(request: Request, limit: int = 100):
     """Every candidate evaluated, with the reason it was or was not alerted.
 
     This is what makes the precision claim checkable rather than asserted: a
     reviewer can see the candidates that were rejected next to the ones that
     produced an alert.
     """
+    denied = _lead_access_denied(request)
+    if denied:
+        return denied
+
     return {
         "summary": db.ledger_summary(),
         "candidates": db.recent_candidates(min(max(limit, 1), 500)),
@@ -378,12 +426,46 @@ def ledger(limit: int = 100):
 
 
 @app.get("/signals/{signal_id}/timeline")
-def signal_timeline(signal_id: int):
+def signal_timeline(request: Request, signal_id: int):
     """Auditable lifecycle for one social discovery."""
+    denied = _lead_access_denied(request)
+    if denied:
+        return denied
+
     signal = db.get_signal(signal_id)
     if not signal:
         return JSONResponse(status_code=404, content={"error": "signal_not_found"})
     return {"signal": signal, "timeline": db.timeline(signal_id)}
+
+
+@app.post("/slack/interactions")
+async def slack_interactions(request: Request):
+    """Acknowledge a click on an alert button.
+
+    The buttons are navigation links, so there is nothing to execute here. What
+    this endpoint buys is the absence of Slack's "not configured to handle
+    interactive responses" warning, which otherwise sits on the alert whose
+    entire purpose is to be believed.
+
+    Slack retries anything that is slow or non-2xx, so the answer is immediate
+    and empty. Nothing is written and nothing is fetched.
+    """
+    body = await request.body()
+    try:
+        verify_signature(
+            body,
+            request.headers.get("X-Slack-Request-Timestamp"),
+            request.headers.get("X-Slack-Signature"),
+        )
+        payload = parse_payload(body)
+    except InteractionError as exc:
+        # `reason` is a fixed code by construction, so this cannot print any part
+        # of the signature, the secret, or the body.
+        logger.warning("Rejected Slack interaction: %s", exc.reason)
+        return JSONResponse(status_code=exc.status, content={"error": exc.reason})
+
+    logger.info("Slack interaction: %s", describe(payload))
+    return Response(status_code=200)
 
 
 @app.get("/manifest")

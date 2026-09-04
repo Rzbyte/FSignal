@@ -111,6 +111,27 @@ class Settings:
     # Slack destination can be a channel ID (C...) or DM/conversation ID (D...).
     slack_bot_token: str = os.getenv("SLACK_BOT_TOKEN", "")
     slack_channel_id: str = os.getenv("SLACK_CHANNEL_ID", "")
+    # Slack signs every interaction payload with this. Without it the alert
+    # buttons still navigate, but Slack shows a warning on the message because
+    # nothing acknowledges the click. See docs/INSTALL.md.
+    slack_signing_secret: str = os.getenv("SLACK_SIGNING_SECRET", "")
+    # How far out of date a Slack interaction may be before it is refused. Slack
+    # recommends five minutes; the window is what makes a captured request
+    # useless to replay.
+    slack_interaction_max_age_seconds: int = int(
+        os.getenv("SLACK_INTERACTION_MAX_AGE_SECONDS", "300")
+    )
+
+    # Gates the endpoints that carry the leads themselves -- the dashboard, the
+    # ledger and the per-signal timelines. Left empty the service behaves as it
+    # always has and those pages are open, which is what lets the evidence in
+    # this repo be checked against the running deployment. Set it on a
+    # deployment whose signals you rely on being alone in having.
+    #
+    # /health and the Pond endpoints are never gated by it: the first carries
+    # counts rather than companies, and the second is how Pond health-checks the
+    # agent.
+    dashboard_token: str = os.getenv("DASHBOARD_TOKEN", "")
 
     # Pond Protocol V1
     pond_access_key: str = os.getenv("POND_ACCESS_KEY", "")
