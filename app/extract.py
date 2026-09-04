@@ -92,6 +92,12 @@ _PROGRAM_HANDLES = frozenset(
 #: of the company's name, and it reached the alert as `1/ Adalat AI`.
 _THREAD_MARKER = re.compile(r"^\s*\(?\d{1,2}\s*[/)\.]\s*(?:\d{1,2}\s*[)\.]?)?\s*")
 
+#: A run of non-ASCII letters immediately followed by an ASCII one, which is a
+#: localised verb the index put in front of the name ("查看Adalat AI"), never the
+#: name itself. A company actually written in another script keeps its name,
+#: because nothing Latin follows for the lookahead to find.
+_LOCALE_VERB_PREFIX = re.compile(r"^[^\W\dA-Za-z_]+(?=[A-Za-z])", re.UNICODE)
+
 #: Longest plausible company name, in tokens.
 _MAX_NAME_TOKENS = 5
 
@@ -157,6 +163,13 @@ def clean_company_name(candidate: str) -> str:
     # A thread counter is not part of anybody's name. "1/ Adalat AI is now
     # backed by Y Combinator" reached the alert as the company `1/ Adalat AI`.
     name = _THREAD_MARKER.sub("", name)
+    # The provider serves whatever locale it ranked the result in, and the verb
+    # it prefixes is not part of the company. A live run returned the LinkedIn
+    # title `\u67e5\u770bAdalat AI` -- "view Adalat AI" -- and alerted on it as a company
+    # of that name, which is a second identity for a company already found and
+    # so a second alert for it. The X title regex already handles the same thing
+    # for its own locales; this is the equivalent for a bare title.
+    name = _LOCALE_VERB_PREFIX.sub("", name)
     return name.strip(_EDGES)
 
 
@@ -404,6 +417,36 @@ def _claim_text(low: str) -> str:
     return low
 
 
+_LINKEDIN_COMPANY_URL = re.compile(
+    r"linkedin\.com/company/([A-Za-z0-9\-_%.]+)", re.IGNORECASE
+)
+
+
+def _linkedin_company_slug(url: str | None) -> str | None:
+    """The company a LinkedIn company-page URL is the page *for*."""
+    match = _LINKEDIN_COMPANY_URL.search(url or "")
+    return match.group(1) if match else None
+
+
+def _squash(value: str) -> str:
+    return "".join(ch for ch in (value or "").lower() if ch.isalnum())
+
+
+def _identity_fits_slug(slug: str, name: str) -> bool:
+    """Does an extracted name plausibly belong to this company page?
+
+    Containment either way, because a page slug and a company's written name
+    disagree in both directions routinely -- `adalat-ai` against "Adalat AI",
+    but also `adalat-ai-official` against the same name, and `adalat-ai`
+    against "Adalat AI India". What it will not accept is a name with nothing
+    in common with the page it was read from.
+    """
+    a, b = _squash(slug), _squash(clean_company_name(name))
+    if len(a) < 3 or len(b) < 3:
+        return True          # too short to disagree meaningfully; other gates apply
+    return a in b or b in a
+
+
 def extract(text: str, url: str = "") -> Extraction:
     """Resolve a post into a company identity plus the reason if that failed."""
     result = Extraction()
@@ -455,6 +498,20 @@ def extract(text: str, url: str = "") -> Extraction:
 
     if not result.company_name and not result.company_domain:
         result.reason = "no_company_identity"
+        return result
+
+    # On a LinkedIn company page the company *is* the page, and a company page
+    # is the one shape of candidate that skips the acceptance-claim gate below.
+    # So an identity contradicting the page's own slug has to be caught here or
+    # not at all: a live run alerted on
+    # `cn.linkedin.com/company/mozilla-corporation` as the company Adalat AI,
+    # having read a name out of a rail listing other pages. That is neither
+    # Mozilla announcing anything nor Adalat AI's page.
+    page_slug = _linkedin_company_slug(url)
+    if page_slug and result.company_name and not _identity_fits_slug(
+        page_slug, result.company_name
+    ):
+        result.reason = "identity_contradicts_page"
         return result
 
     if result.company_name:

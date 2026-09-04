@@ -299,3 +299,62 @@ async def test_linkedin_post_without_a_company_is_not_actionable():
     assert signals[0].company_name is None
     assert not signals[0].extraction.is_usable
     assert signals[0].extraction.reason == "no_company_identity"
+
+
+@pytest.mark.anyio
+async def test_localised_index_title_is_not_a_second_company():
+    """`查看Adalat AI` is "view Adalat AI", not a company of that name.
+
+    Production alerted on it as a distinct company. Because the identity
+    differs, so does the company key, so the per-company dedup that is supposed
+    to hold at one alert per company let a second one through for a company
+    already found -- the exact failure the X title regex handles for its own
+    locales.
+    """
+    payload = {
+        "organic": [{
+            "title": "查看Adalat AI (YC F26)",
+            "snippet": "Adalat AI is now backed by Y Combinator.",
+            "link": "https://www.linkedin.com/posts/adalat-activity-7500964549022523392-abcd",
+        }]
+    }
+    signal = LinkedInSource.parse_response(payload)[0]
+    assert signal.company_name == "Adalat AI"
+
+
+@pytest.mark.anyio
+async def test_company_page_identity_must_match_the_page():
+    """A name read off a company page must be that page's company.
+
+    Production alerted on `cn.linkedin.com/company/mozilla-corporation` as the
+    company Adalat AI, having taken the name from a rail listing other pages.
+    A company page is also the one candidate shape that skips the
+    acceptance-claim gate, so nothing downstream would have caught it.
+    """
+    payload = {
+        "organic": [{
+            "title": "查看Adalat AI (YC F26)",
+            "snippet": "Adalat AI is now backed by Y Combinator.",
+            "link": "https://cn.linkedin.com/company/mozilla-corporation",
+        }]
+    }
+    signal = LinkedInSource.parse_response(payload)[0]
+    assert not signal.extraction.is_usable
+    assert signal.extraction.reason == "identity_contradicts_page"
+
+
+@pytest.mark.anyio
+async def test_a_companys_own_page_still_qualifies():
+    """The guard rejects a contradiction, not company pages themselves -- the
+    brief asks for new company page creations to be monitored."""
+    payload = {
+        "organic": [{
+            "title": "Adalat AI (YC F26)",
+            "snippet": "Adalat AI is now backed by Y Combinator.",
+            "link": "https://www.linkedin.com/company/adalat-ai",
+        }]
+    }
+    signal = LinkedInSource.parse_response(payload)[0]
+    assert signal.company_name == "Adalat AI"
+    assert signal.extraction.reason != "identity_contradicts_page"
+    assert signal.extraction.is_usable
