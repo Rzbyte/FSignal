@@ -128,8 +128,8 @@ def home():
             # and this page is where most people look first.
             f"<td>{html.escape(_MODE_LABELS.get(item.get('mode'), '—'))}</td>"
             f"<td>{html.escape(str(item.get('interval_minutes') or '—'))}</td>"
-            f"<td>{html.escape(item.get('last_run') or '—')}</td>"
-            f"<td>{html.escape(item.get('next_run') or '—')}</td>"
+            f"<td>{html.escape((item.get('last_run') or '—')[:16].replace('T', ' '))}</td>"
+            f"<td>{html.escape((item.get('next_run') or '—')[:16].replace('T', ' '))}</td>"
             f"<td>{item.get('consecutive_failures', 0)}</td>"
             "</tr>"
             for item in sched_sources
