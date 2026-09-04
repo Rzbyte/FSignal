@@ -1,5 +1,8 @@
 # FSignal
 
+**[🚀 VIEW LIVE DASHBOARD (FSignal Radar)](https://fsignal-production.up.railway.app)**
+
+
 A persistent Slack monitor that finds Y Combinator and a16z Speedrun founders **before
 the official directory lists them** — and proves the claim on every alert.
 
