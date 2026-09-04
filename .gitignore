@@ -8,3 +8,8 @@ data/*.jsonl
 data/*.sqlite*
 *.log
 tests/.pytest-scratch/
+
+# Internal Docs
+docs/DEMO.md
+docs/SUBMISSION.md
+SUBMISSION_CHECKLIST.md
