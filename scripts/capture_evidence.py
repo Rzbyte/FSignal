@@ -311,17 +311,33 @@ async def main() -> int:
 
     await capture_directory_check(health)
 
-    print("\nCaptured. Still needs a person at a screen, per docs/EVIDENCE.md:")
-    for name, shot in (
-        ("01-slack-early.png", "the delivered EARLY alert in Slack"),
-        ("02-directory-absent.png", "ycombinator.com/companies searched for it, empty"),
-        ("03-ledger.png", f"{base}/ledger"),
-        ("04-health.png", f"{base}/health"),
-        ("06-restart-silence.png", "restart, rescan, no new alert"),
-        ("08-pond.png", "Pond showing the agent connected"),
-        ("demo-recording-url.txt", "the 2-minute recording"),
-    ):
-        print(f"  {name:26s} {shot}")
+    # Which shots are outstanding is a fact on disk, not a list to keep in sync
+    # by hand -- a checklist that asks for something already captured sends
+    # somebody to redo work that is done.
+    shots = (
+        ("01-slack-early.png", "the delivered EARLY alert in Slack",
+         ("docs/proof/slack_evidence_1.png", "docs/proof/slack_evidence_2.png")),
+        ("02-directory-absent.png", "ycombinator.com/companies searched for it, empty",
+         ("docs/proof/yc_directory_proof.png",)),
+        ("03-ledger.png", f"{base}/ledger", ()),
+        ("04-health.png", f"{base}/health", ()),
+        ("06-restart-silence.png", "restart, rescan, no new alert", ()),
+        ("08-pond.png", "Pond showing the agent connected", ()),
+        ("demo-recording-url.txt", "the 2-minute recording", ()),
+    )
+    done = [(n, s, have) for n, s, have in shots
+            if have and all(Path(p).exists() for p in have)]
+    todo = [(n, s) for n, s, have in shots
+            if not (have and all(Path(p).exists() for p in have))]
+
+    if done:
+        print("\nAlready captured:")
+        for name, _shot, have in done:
+            print(f"  {name:26s} {', '.join(have)}")
+    if todo:
+        print("\nStill needs a person at a screen, per docs/EVIDENCE.md:")
+        for name, shot in todo:
+            print(f"  {name:26s} {shot}")
     return 0
 
 
