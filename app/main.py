@@ -123,7 +123,7 @@ def home():
         "".join(
             "<tr>"
             f"<td>{html.escape(item['source'])}</td>"
-            f"<td>{html.escape(item.get('health') or 'unknown')}</td>"
+            f"""<td><span class="badge {'healthy' if item.get('health') == 'healthy' else 'error'}">{html.escape(item.get('health') or 'unknown')}</span></td>"""
             # Which path answered. An indexed result must never read as a native one,
             # and this page is where most people look first.
             f"<td>{html.escape(_MODE_LABELS.get(item.get('mode'), '—'))}</td>"
@@ -182,64 +182,139 @@ def home():
     )
 
     return f"""<!doctype html>
+<html lang="en">
+<head>
 <meta charset="utf-8">
-<title>FSignal</title>
+<title>FSignal - Premium Radar</title>
+<script src="https://unpkg.com/@phosphor-icons/web"></script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500&display=swap');
+:root {{
+    --bg-main: #09090b; --bg-card: rgba(255, 255, 255, 0.03); --bg-card-hover: rgba(255, 255, 255, 0.06);
+    --border: rgba(255, 255, 255, 0.08); --border-hover: rgba(249, 115, 22, 0.4);
+    --text-primary: #f8fafc; --text-secondary: #94a3b8;
+    --brand: #f97316; --brand-grad: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+}}
+* {{ box-sizing: border-box; }}
 body {{
-    font-family: 'Inter', system-ui, sans-serif;
-    background: radial-gradient(circle at top, #141723 0%, #0a0c10 100%);
-    color: #e2e8f0; padding: 40px; margin: 0; min-height: 100vh; line-height: 1.6;
+    font-family: 'Inter', sans-serif; background: var(--bg-main);
+    color: var(--text-primary); margin: 0; min-height: 100vh; line-height: 1.6;
+    background-image: radial-gradient(circle at 50% 0%, rgba(249, 115, 22, 0.08) 0%, transparent 50%);
 }}
-main {{ max-width: 1100px; margin: auto; }}
-h1 {{
-    font-size: 52px; font-weight: 800; margin-bottom: 8px;
-    background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    letter-spacing: -1px;
+nav {{
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 40px; border-bottom: 1px solid var(--border);
+    background: rgba(9, 9, 11, 0.7); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    position: sticky; top: 0; z-index: 10;
 }}
-p {{ color: #94a3b8; font-size: 16px; margin-bottom: 32px; }}
-h2 {{ font-size: 24px; font-weight: 600; margin-top: 56px; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; }}
-.cards {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }}
+.brand {{ font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; display: flex; align-items: center; gap: 8px; }}
+.brand i {{ color: var(--brand); font-size: 28px; }}
+.nav-links a {{ color: var(--text-secondary); text-decoration: none; margin-left: 24px; font-size: 14px; font-weight: 500; transition: color 0.2s; }}
+.nav-links a:hover {{ color: var(--text-primary); }}
+main {{ max-width: 1200px; margin: 0 auto; padding: 48px 24px; }}
+.hero {{ margin-bottom: 48px; }}
+h1 {{ font-family: 'Outfit', sans-serif; font-size: 48px; font-weight: 800; margin: 0 0 16px; letter-spacing: -1px; }}
+.hero p {{ color: var(--text-secondary); font-size: 18px; margin: 0; max-width: 600px; }}
+.cards {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 56px; }}
 .c {{
-    background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 24px;
-    box-shadow: 0 4px 24px -4px rgba(0,0,0,0.3); transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; padding: 24px;
+    transition: all 0.2s ease; position: relative; overflow: hidden;
 }}
-.c:hover {{
-    transform: translateY(-4px); background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 142, 83, 0.4);
-}}
-.n {{ font-size: 42px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 4px; }}
-table {{ width: 100%; margin-top: 24px; border-collapse: separate; border-spacing: 0; }}
-th {{ padding: 16px; text-align: left; font-weight: 600; color: #64748b; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.08); }}
-td {{ padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; }}
+.c:hover {{ transform: translateY(-4px); background: var(--bg-card-hover); border-color: var(--border-hover); box-shadow: 0 8px 30px rgba(0,0,0,0.5); }}
+.c-icon {{ font-size: 24px; color: var(--brand); margin-bottom: 16px; display: block; }}
+.n {{ font-family: 'Outfit', sans-serif; font-size: 42px; font-weight: 800; line-height: 1; margin-bottom: 8px; }}
+.c-label {{ color: var(--text-secondary); font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }}
+.section-header {{ display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; margin-top: 64px; }}
+h2 {{ font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 600; margin: 0; display: flex; align-items: center; gap: 8px; }}
+.table-container {{ background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }}
+table {{ width: 100%; border-collapse: collapse; text-align: left; }}
+th {{ padding: 16px 24px; font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid var(--border); background: rgba(0,0,0,0.2); }}
+td {{ padding: 16px 24px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.03); }}
+tr:last-child td {{ border-bottom: none; }}
 tr {{ transition: background 0.15s ease; }}
 tr:hover td {{ background: rgba(255,255,255,0.02); }}
-a {{ color: #60a5fa; text-decoration: none; transition: color 0.15s, text-shadow 0.15s; }}
-a:hover {{ color: #93c5fd; text-shadow: 0 0 12px rgba(96, 165, 250, 0.4); }}
-b {{ color: #f8fafc; }}
+.badge {{ display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; background: rgba(255,255,255,0.1); }}
+.badge.healthy {{ background: rgba(34, 197, 94, 0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }}
+.badge.healthy::before {{ content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: #4ade80; box-shadow: 0 0 8px #4ade80; }}
+.badge.error {{ background: rgba(239, 68, 68, 0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }}
+a {{ color: #60a5fa; text-decoration: none; transition: all 0.2s; }}
+a:hover {{ color: #93c5fd; text-decoration: underline; }}
+.action-link {{ font-size: 14px; color: var(--brand); font-weight: 500; display: flex; align-items: center; gap: 4px; }}
+.action-link:hover {{ color: #ef4444; text-decoration: none; }}
 </style>
+</head>
+<body>
+<nav>
+    <div class="brand"><i class="ph-fill ph-radar"></i> FSignal</div>
+    <div class="nav-links">
+        <a href="/ledger"><i class="ph ph-book-open"></i> Ledger</a>
+        <a href="/demo/slack"><i class="ph ph-slack-logo"></i> Slack Demo</a>
+        <a href="/manifest"><i class="ph ph-file-code"></i> Pond</a>
+        <a href="/health"><i class="ph ph-heartbeat"></i> Health</a>
+    </div>
+</nav>
 <main>
-<h1>FSignal</h1>
-<p>Founder-announced signals before official directory confirmation.</p>
-<div class="cards">
-<div class="c"><div class="n">{stats['ghosts']}</div>Ghosts</div>
-<div class="c"><div class="n">{stats['confirmed']}</div>Confirmed</div>
-<div class="c"><div class="n">{stats['signals']}</div>Signals</div>
-<div class="c"><div class="n">{stats['high_priority_ghosts']}</div>High priority</div>
-</div>
-<h2>Open early signals</h2>
-<p>Announced by a founder, not yet listed in the official directory. Every one links to
-the post it came from and to its full history.</p>
-<table><tr><th>Company</th><th>Batch</th><th>Program</th><th>Source</th><th>Confidence</th><th>Evidence</th></tr>{ghost_rows}</table>
-<h2>Source health &amp; scheduler</h2>
-<table><tr><th>Source</th><th>Health</th><th>Path</th><th>Interval (min)</th><th>Last run</th><th>Next run</th><th>Failures</th></tr>{rows}</table>
-<p>Average proven early lead: <b>{stats['average_early_lead_hours'] if stats['average_early_lead_hours'] is not None else '—'} hours</b></p>
-<h2>Suppression ledger</h2>
-<p>Every candidate evaluated, and why it did or did not become an alert.</p>
-<table><tr><th>Verdict / reason</th><th>Count</th></tr>{ledger_rows}</table>
-<p><a href="/ledger">Full ledger</a> · <a href="/demo/slack">Demo Slack feed</a> · <a href="/manifest">Pond manifest</a> · <a href="/health">JSON health</a></p>
-</main>"""
+    <div class="hero">
+        <h1>Early Signal Radar</h1>
+        <p>Founder-announced signals detected and verified before official directory confirmation.</p>
+    </div>
+    
+    <div class="cards">
+        <div class="c">
+            <i class="ph ph-ghost c-icon"></i>
+            <div class="n">{stats['ghosts']}</div>
+            <div class="c-label">Open Ghosts</div>
+        </div>
+        <div class="c">
+            <i class="ph ph-check-circle c-icon"></i>
+            <div class="n">{stats['confirmed']}</div>
+            <div class="c-label">Confirmed</div>
+        </div>
+        <div class="c">
+            <i class="ph ph-broadcast c-icon"></i>
+            <div class="n">{stats['signals']}</div>
+            <div class="c-label">Total Signals</div>
+        </div>
+        <div class="c">
+            <i class="ph ph-flame c-icon"></i>
+            <div class="n">{stats['high_priority_ghosts']}</div>
+            <div class="c-label">High Priority</div>
+        </div>
+    </div>
+
+    <div class="section-header">
+        <h2><i class="ph ph-magnifying-glass"></i> Open Early Signals</h2>
+        <span class="action-link">Avg. lead time: {stats['average_early_lead_hours'] if stats['average_early_lead_hours'] is not None else '—'}h</span>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead><tr><th>Company</th><th>Batch</th><th>Program</th><th>Source</th><th>Confidence</th><th>Evidence</th></tr></thead>
+            <tbody>{ghost_rows}</tbody>
+        </table>
+    </div>
+
+    <div class="section-header">
+        <h2><i class="ph ph-activity"></i> Source Health & Scheduler</h2>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead><tr><th>Source</th><th>Status</th><th>Path</th><th>Interval (min)</th><th>Last Run</th><th>Next Run</th><th>Failures</th></tr></thead>
+            <tbody>{rows}</tbody>
+        </table>
+    </div>
+
+    <div class="section-header">
+        <h2><i class="ph ph-archive"></i> Suppression Ledger</h2>
+    </div>
+    <div class="table-container">
+        <table>
+            <thead><tr><th>Verdict / Reason</th><th>Count</th></tr></thead>
+            <tbody>{ledger_rows}</tbody>
+        </table>
+    </div>
+</main>
+</body>
+</html>"""
 
 
 @app.get("/demo/slack", response_class=HTMLResponse)
