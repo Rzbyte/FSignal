@@ -10,6 +10,7 @@ import asyncio
 from datetime import datetime, timedelta, timezone
 
 from .config import settings
+from .extract import extract
 from .intelligence import assess_signal
 from .matcher import company_key, match_official, resolve_official
 
@@ -293,6 +294,23 @@ class RadarEngine:
         confirmed_count = 0
 
         for ghost in self.db.list_ghosts(500):
+            # An identity rule that has since improved should not leave its
+            # mistakes standing as live findings. A ghost admitted under the old
+            # rules is re-read under the current ones, and retired if it would
+            # no longer be admitted -- the ledger keeps the record, the open list
+            # stops showing it. This is what makes an extraction fix retroactive
+            # rather than only forward-looking.
+            if not extract(ghost.get("text") or "", ghost.get("url") or "").is_usable:
+                self.db.retire_signal(ghost["id"])
+                self.db.record_timeline(
+                    f"signal:{ghost['source']}:{ghost['external_id']}:retired",
+                    "retired_on_rule_change",
+                    signal_id=ghost["id"],
+                    source=ghost.get("source"),
+                    metadata={"company_name": ghost.get("company_name")},
+                )
+                continue
+
             match = match_official(
                 ghost.get("company_name"),
                 ghost.get("company_domain"),

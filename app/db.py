@@ -493,6 +493,19 @@ class Database:
                 (datetime.now(timezone.utc).isoformat(), signal_id),
             )
 
+    def retire_signal(self, signal_id: int) -> None:
+        """Take a signal out of the open ghost list without deleting its record.
+
+        Used when a rule that has since improved would no longer have admitted
+        it. The row stays, so the ledger still shows what was decided and when;
+        it just stops being presented as a live finding.
+        """
+        with self.connect() as connection:
+            connection.execute(
+                "UPDATE social_signals SET status='suppressed' WHERE id=?",
+                (signal_id,),
+            )
+
     def confirm_signal(self, signal_id: int, official_id: int) -> str:
         confirmed_at = datetime.now(timezone.utc).isoformat()
         with self.connect() as connection:

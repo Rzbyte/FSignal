@@ -273,3 +273,40 @@ async def test_early_alert_block_kit_is_well_formed(tmp_path, monkeypatch):
         if b["type"] == "section" and isinstance(b.get("text"), dict)
     ]
     assert any("OFFICIAL CHECK" in t and "6,199 YC records" in t for t in sections)
+
+
+@pytest.mark.anyio
+async def test_reconciliation_retires_a_ghost_the_current_rules_would_reject(tmp_path):
+    """An identity rule that improves has to clean up after the old one.
+
+    Production alerted on a LinkedIn company page for Mozilla under the name
+    Adalat AI. Fixing extraction stopped new ones, but the ghost already stored
+    stayed on the dashboard as a live finding, so the fix was only half a fix.
+    """
+    database, recorder, engine = radar(tmp_path, "retire.db")
+
+    good = signal("x", "keep-1", ANNOUNCEMENT)
+    await engine.ingest_social([good])
+    assert len(database.list_ghosts(50)) == 1
+
+    # A row admitted under rules that no longer stand: the identity contradicts
+    # the company page it was read from.
+    database.insert_signal(
+        SocialSignal(
+            "linkedin",
+            "stale-1",
+            "https://cn.linkedin.com/company/mozilla-corporation",
+            "查看Polaris AI (YC F26) is backed by Y Combinator",
+            company_name="查看Polaris AI",
+            batch="F26",
+            program="yc",
+        ),
+        "ghost",
+    )
+    assert len(database.list_ghosts(50)) == 2
+
+    await engine.reconcile_ghosts()
+
+    remaining = database.list_ghosts(50)
+    assert len(remaining) == 1, "the rejected identity should no longer be a live finding"
+    assert remaining[0]["external_id"] == "keep-1", "the genuine ghost must survive"
