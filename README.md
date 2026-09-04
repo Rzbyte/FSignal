@@ -16,6 +16,20 @@ knowing which of them are genuinely early. So every EARLY alert carries a receip
 Every alert links straight to the directory search that proves it, so you can check it yourself in about ten seconds. Everything the bot rejects
 is recorded too, with a reason — see `/ledger`.
 
+
+## Proof of Functionality
+
+FSignal successfully intercepts real Ghost Signals before they are listed in the official directory.
+
+![Slack Alert Evidence](docs/proof/slack_evidence_1.png)
+*A real-time Slack alert from FSignal catching an early founder announcement.*
+
+![Slack Alert Details](docs/proof/slack_evidence_2.png)
+*FSignal details the pre-directory timing advantage and provides direct evidence links.*
+
+![YC Directory Evidence](docs/proof/yc_directory_proof.png)
+*Simultaneous search on the official YC Directory confirms the company is not yet listed, validating the Early Signal detection.*
+
 ## How it works
 
 ```text
