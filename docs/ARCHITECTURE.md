@@ -33,7 +33,7 @@ path rather than scraping rendered HTML.
 
 A single Algolia query cannot return more than 1,000 hits (`paginationLimitedTo`), so a
 **full** crawl enumerates the `batch` facet and issues one filtered query per batch — 50
-queries, 6,199 companies, about 8 seconds. Between full crawls a **hot** refresh runs one
+queries, every company in the directory (6,200 at the time of writing), about 8 seconds. Between full crawls a **hot** refresh runs one
 recent-window query against the launch-date replica, which is enough to catch new
 listings. If the facet totals stop matching the index, the crawl raises rather than
 persisting a partial snapshot, because a partial snapshot silently poisons every EARLY

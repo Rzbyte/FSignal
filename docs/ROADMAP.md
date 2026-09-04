@@ -6,7 +6,8 @@ FSignal is designed as a persistent monitoring service, not a one-off scraper. *
 
 **Status: shipped.**
 
-- YC Directory monitoring: complete facet-sliced snapshot (6,199/6,199 companies)
+- YC Directory monitoring: complete facet-sliced snapshot, every company the
+  directory lists (6,200 of 6,200 at the time of writing)
 - Speedrun monitoring through a16z's own first-party API, with a labelled fallback
 - X founder-announcement monitoring, native-first with an indexed-search fallback so
   the source keeps reporting on an account without a paid X plan

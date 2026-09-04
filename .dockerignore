@@ -17,4 +17,8 @@ evidence/
 __pycache__/
 *.pyc
 .pytest_cache/
+.ruff_cache/
+# Scratch state a local test run leaves behind. It was being baked into the
+# image: a stale SQLite file and a demo Slack feed, shipped to production.
+tests/.pytest-scratch/
 *.log

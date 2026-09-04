@@ -13,7 +13,7 @@ knowing which of them are genuinely early. So every EARLY alert carries a receip
 
 > 🔎 **OFFICIAL CHECK**
 > **Not found in YC Fall 2026**
-> 6,199 YC records checked · snapshot 17:14 UTC
+> 6,200 YC records checked · snapshot 21:18 UTC
 > *No match on exact name, shortened name within the batch*
 
 Every alert links straight to the directory search that proves it, so you can check it yourself in about ten seconds. Everything the bot rejects
@@ -133,6 +133,28 @@ On 139 real captured Serper results for public LinkedIn posts
 `tests/test_precision.py` enforces precision ≥ 90% and a noise budget of at most one
 non-actionable alert per twenty, in CI, against that fixture.
 
+## Status at a glance
+
+What is running, what is merely written, and what is running in a reduced mode. The
+distinction matters more than the tick marks: *implemented* and *verified live* are not
+the same claim, and a reader should not have to work out which one they are reading.
+
+| | Status | |
+|---|---|---|
+| YC Directory monitoring | **verified live** | Full facet-sliced crawl, `mode: full` at `/health` |
+| Speedrun monitoring | **verified live** | a16z first-party API, `mode: canonical` |
+| LinkedIn monitoring | **verified live** | Indexed public posts |
+| X monitoring | **fallback active** | Native path implemented; the reference deployment runs `indexed_fallback` because its account has no paid X plan |
+| Persistent stateful monitoring | **verified live** | SQLite on a mounted volume, dedup enforced by DB constraint |
+| Early detection | **verified live** | A real EARLY alert delivered, with the directory search that backs it |
+| Slack delivery | **verified live** | Durable outbox, bounded retry, dead-letter |
+| Slack interactivity | **implemented** | Endpoint ships and is tested; enabling it is a manual step in your own Slack app |
+| Pond Protocol V1 | **deployed** | Manifest, authenticated runs and idempotency, exercised against the live URL |
+| Ghost → Confirmed lead time | **backtested** | Measured against YC's published launch times; no live confirmation has occurred yet on this deployment |
+| Lead-endpoint auth | **implemented, off** | `DASHBOARD_TOKEN` gate ships empty so the evidence stays checkable |
+| Multi-tenancy | **not applicable** | Single-workspace personal bot, as the brief specifies |
+| Real-time delivery | **limitation** | Polling, not push. Latency is bounded by the interval |
+
 ## Setup
 
 > **New to Python or the terminal? Read [`docs/INSTALL.md`](docs/INSTALL.md) instead.**
@@ -211,6 +233,14 @@ fallback. An indexed result is never presented as a native one.
 
 Set `X_BEARER_TOKEN` if you have a paid plan. Leave it empty otherwise — the source works
 either way.
+
+**What the reference deployment is actually running:** the indexed fallback,
+`mode: "indexed_fallback"` in [`/health`](https://fsignal-production.up.railway.app/health),
+because the account behind it has no paid X plan. The native path is implemented and
+preferred, and it is not what you are looking at. Alerts from that deployment say
+`Source: X (indexed search)` for the same reason. The practical difference is metadata and
+latency, not coverage: indexed results carry a post's date to the day rather than the
+hour, which is why the lead-time figures above are ±1 day.
 
 ### Pond (optional)
 
