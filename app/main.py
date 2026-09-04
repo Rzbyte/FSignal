@@ -186,38 +186,38 @@ def home():
 <title>FSignal</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap');
-body {
+body {{
     font-family: 'Inter', system-ui, sans-serif;
     background: radial-gradient(circle at top, #141723 0%, #0a0c10 100%);
     color: #e2e8f0; padding: 40px; margin: 0; min-height: 100vh; line-height: 1.6;
-}
-main { max-width: 1100px; margin: auto; }
-h1 {
+}}
+main {{ max-width: 1100px; margin: auto; }}
+h1 {{
     font-size: 52px; font-weight: 800; margin-bottom: 8px;
     background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
     letter-spacing: -1px;
-}
-p { color: #94a3b8; font-size: 16px; margin-bottom: 32px; }
-h2 { font-size: 24px; font-weight: 600; margin-top: 56px; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; }
-.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-.c {
+}}
+p {{ color: #94a3b8; font-size: 16px; margin-bottom: 32px; }}
+h2 {{ font-size: 24px; font-weight: 600; margin-top: 56px; color: #f8fafc; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; }}
+.cards {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }}
+.c {{
     background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; padding: 24px;
     box-shadow: 0 4px 24px -4px rgba(0,0,0,0.3); transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
-}
-.c:hover {
+}}
+.c:hover {{
     transform: translateY(-4px); background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 142, 83, 0.4);
-}
-.n { font-size: 42px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 4px; }
-table { width: 100%; margin-top: 24px; border-collapse: separate; border-spacing: 0; }
-th { padding: 16px; text-align: left; font-weight: 600; color: #64748b; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.08); }
-td { padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; }
-tr { transition: background 0.15s ease; }
-tr:hover td { background: rgba(255,255,255,0.02); }
-a { color: #60a5fa; text-decoration: none; transition: color 0.15s, text-shadow 0.15s; }
-a:hover { color: #93c5fd; text-shadow: 0 0 12px rgba(96, 165, 250, 0.4); }
-b { color: #f8fafc; }
+}}
+.n {{ font-size: 42px; font-weight: 800; color: #fff; line-height: 1.1; margin-bottom: 4px; }}
+table {{ width: 100%; margin-top: 24px; border-collapse: separate; border-spacing: 0; }}
+th {{ padding: 16px; text-align: left; font-weight: 600; color: #64748b; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; border-bottom: 1px solid rgba(255,255,255,0.08); }}
+td {{ padding: 16px; border-bottom: 1px solid rgba(255,255,255,0.04); color: #cbd5e1; }}
+tr {{ transition: background 0.15s ease; }}
+tr:hover td {{ background: rgba(255,255,255,0.02); }}
+a {{ color: #60a5fa; text-decoration: none; transition: color 0.15s, text-shadow 0.15s; }}
+a:hover {{ color: #93c5fd; text-shadow: 0 0 12px rgba(96, 165, 250, 0.4); }}
+b {{ color: #f8fafc; }}
 </style>
 <main>
 <h1>FSignal</h1>
