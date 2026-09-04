@@ -121,12 +121,21 @@ companies, posts with no resolvable company, hiring and demo-day chatter — and
 filed as `possible` because their confidence fell below the alert threshold. All of it is in
 `raw/ledger.json` and served live at `/ledger`.
 
+## Captured
+
+The claim the whole product rests on is proven in
+[`../docs/proof/`](../docs/proof/): a real EARLY alert in Slack
+(`slack_evidence_1.png`, `slack_evidence_2.png`) beside the YC directory
+search that returns nothing for that company in that batch
+(`yc_directory_proof.png`).
+
 ## Still to capture
 
 These need a person at a screen and cannot be generated:
 
-- `01-slack-early.png`, `02-directory-absent.png`, `03-ledger.png`, `04-health.png`
-- `06-restart-silence.png`, `08-pond.png`
+- `03-ledger.png`, `04-health.png`, `06-restart-silence.png`
+- `08-pond.png` — Pond showing the agent connected and healthy
+- `07-slack-confirmed.png`, only if a CONFIRMED occurs before submission
 - `demo-recording-url.txt`
 
-The shot list above is in recording order.
+The shot list in [`../docs/EVIDENCE.md`](../docs/EVIDENCE.md) is in recording order.

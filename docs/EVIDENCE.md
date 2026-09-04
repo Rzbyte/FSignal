@@ -36,8 +36,8 @@ the Fall 2026 signal.
 
 | File | What it must show |
 |---|---|
-| `01-slack-early.png` | A real EARLY alert: company, founder, batch, source, excerpt, the official-check receipt, working links |
-| `02-directory-absent.png` | `ycombinator.com/companies` filtered to that batch and searched for that company, returning nothing |
+| ✅ `01-slack-early.png` | A real EARLY alert: company, founder, batch, source, excerpt, the official-check receipt, working links — **captured**: [`proof/slack_evidence_1.png`](proof/slack_evidence_1.png), [`proof/slack_evidence_2.png`](proof/slack_evidence_2.png) |
+| ✅ `02-directory-absent.png` | `ycombinator.com/companies` filtered to that batch and searched for that company, returning nothing — **captured**: [`proof/yc_directory_proof.png`](proof/yc_directory_proof.png) |
 | `03-ledger.png` | `/ledger` for the same run: suppressions with reasons beside the alert |
 | `04-health.png` | `/health` with source states, modes, and the snapshot size each verdict was checked against |
 | `06-restart-silence.png` | Container restart followed by a rescan producing no new alert |
