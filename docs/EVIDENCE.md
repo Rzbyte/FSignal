@@ -45,7 +45,7 @@ the Fall 2026 signal.
 | `08-pond.png` | Pond showing the agent connected and healthy |
 | `demo-recording-url.txt` | Link to the 2-minute recording |
 
-`docs/DEMO.md` has the shot list in recording order.
+The shot list above is in recording order.
 
 ## Before recording
 

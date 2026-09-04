@@ -154,6 +154,10 @@ def home():
         held = by_company.get(key)
         if held is None or (_is_handle_name(held) and not _is_handle_name(candidate)):
             by_company[key] = candidate
+    # The card above the table counts companies, because the table lists companies.
+    # `stats['ghosts']` counts signals, and a company with corroborating posts has
+    # several -- a "3" sitting over a single row reads as a missing row.
+    open_ghost_companies = len(by_company)
     ghosts = list(by_company.values())[:10]
     ghost_rows = (
         "".join(
@@ -262,8 +266,8 @@ a:hover {{ color: #93c5fd; text-decoration: underline; }}
     <div class="cards">
         <div class="c">
             <i class="ph ph-ghost c-icon"></i>
-            <div class="n">{stats['ghosts']}</div>
-            <div class="c-label">Open Ghosts</div>
+            <div class="n">{open_ghost_companies}</div>
+            <div class="c-label">Open Ghosts{f" · {stats['ghosts']} signals" if stats['ghosts'] != open_ghost_companies else ""}</div>
         </div>
         <div class="c">
             <i class="ph ph-check-circle c-icon"></i>
@@ -284,7 +288,7 @@ a:hover {{ color: #93c5fd; text-decoration: underline; }}
 
     <div class="section-header">
         <h2><i class="ph ph-magnifying-glass"></i> Open Early Signals</h2>
-        <span class="action-link" title="Lead time is calculated once a ghost signal is officially confirmed by the directory.">Avg. lead time: {f"{stats['average_early_lead_hours']}h" if stats['average_early_lead_hours'] is not None else 'Pending Confirmation'}</span>
+        <span class="action-link" title="Live lead time is measured only once a ghost this deployment found is later listed by the directory. Until then the figure shown is the committed backtest (evidence/raw/lead-time-backtest.json), which replays the same queries, extraction and matching against YC's own published launch times.">Avg. lead time: {f"{stats['average_early_lead_hours']}h (live)" if stats['average_early_lead_hours'] is not None else 'backtested median 4.4 d · live pending confirmation'}</span>
     </div>
     <div class="table-container">
         <table>

@@ -53,6 +53,12 @@ one slice per batch — **6,200 of 6,200 companies in about 8 seconds**. Between
 crawls, one recent-window query against the launch-date index catches new listings.
 Speedrun uses a16z's own first-party API, the one `speedrun.a16z.com` calls itself.
 
+> **On "YC Speedrun".** The brief names a *YC* Speedrun page. There is no such program:
+> the public, distinct Speedrun company directory is **a16z Speedrun**, and that is what
+> FSignal monitors — as a separate source, on its own schedule, with its own
+> `SPEEDRUN` badge on every alert, exactly as the brief asks. It is tagged a16z rather
+> than YC because that is who runs it, not because a source was substituted.
+
 **Targeting.** Search terms are derived from whichever batches the directory reports as
 currently filling, not hardcoded. A batch that is fully published cannot produce an early
 signal, so hunting one is worse than not hunting. When Winter 2027 opens, the queries
@@ -77,6 +83,29 @@ cohorts. If the snapshot is stale, the verdict is `possible`, never `early`.
 company replies in the original Slack thread as corroboration.
 
 ## Measured behaviour
+
+### How early is "early"?
+
+The product is judged on lead time, so it is measured rather than asserted. A backtest
+replays the live queries, extraction and matching against YC's *own published*
+`launched_at`, for the batches the monitor is currently hunting
+([`evidence/raw/lead-time-backtest.json`](evidence/raw/lead-time-backtest.json)):
+
+| | |
+|---|---|
+| Companies resolved to a published listing time | 17 |
+| Founder posted **before** YC listed them | 10 |
+| Median lead | **4.4 days** |
+| Mean lead | 15.3 days |
+| Longest lead | **50 days** (screenpipe) |
+| Ahead by a week or more | 5 |
+
+The other 7 posted *after* YC listed them; they are reported, not averaged away. The
+search index dates posts to the day, so each figure is ±1 day, and ranking means this is
+a sample of the posts that existed rather than all of them. Both caveats are recorded in
+the artifact itself.
+
+### Precision
 
 On 139 real captured Serper results for public LinkedIn posts
 (`tests/fixtures/linkedin_corpus.json`, replayable offline):

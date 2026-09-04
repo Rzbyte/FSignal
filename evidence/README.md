@@ -129,4 +129,4 @@ These need a person at a screen and cannot be generated:
 - `06-restart-silence.png`, `08-pond.png`
 - `demo-recording-url.txt`
 
-`../docs/DEMO.md` has the shot list in recording order.
+The shot list above is in recording order.
