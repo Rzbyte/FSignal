@@ -159,7 +159,7 @@ the same claim, and a reader should not have to work out which one they are read
 | Persistent stateful monitoring | **verified live** | SQLite on a mounted volume, dedup enforced by DB constraint |
 | Early detection | **verified live** | A real EARLY alert delivered, with the directory search that backs it |
 | Slack delivery | **verified live** | Durable outbox, bounded retry, dead-letter |
-| Slack interactivity | **implemented** | Endpoint ships and is tested; enabling it is a manual step in your own Slack app |
+| Slack interactivity | **verified live** | Signed requests accepted, replays and forgeries refused, on the reference deployment. Your own install needs the one manual step in Setup |
 | Pond Protocol V1 | **deployed** | Manifest, authenticated runs and idempotency, exercised against the live URL |
 | Ghost → Confirmed lead time | **backtested** | Measured against YC's published launch times; no live confirmation has occurred yet on this deployment |
 | Lead-endpoint auth | **implemented, off** | `DASHBOARD_TOKEN` gate ships empty so the evidence stays checkable |
