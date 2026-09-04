@@ -1,6 +1,15 @@
 # FSignal
 
-**[🚀 VIEW LIVE DASHBOARD (FSignal Radar)](https://fsignal-production.up.railway.app)**
+**Live:** [`/health`](https://fsignal-production.up.railway.app/health) — source health,
+snapshot sizes, ledger counts and alert state, open to anyone.
+
+The dashboard, `/ledger` and the per-signal timelines sit behind `DASHBOARD_TOKEN` on this
+deployment, because they carry the companies themselves and a public lead list is the one
+thing a launch monitor must not be. What they would have shown is committed instead:
+[the delivered alerts](#proof-of-functionality), the
+[full ledger](evidence/raw/ledger.json) with every candidate and the reason it was or was
+not alerted, and a [replay you can run yourself](#offline-replay--re-derive-the-numbers-yourself)
+that reproduces those numbers offline in one command.
 
 
 A persistent Slack monitor that finds Y Combinator and a16z Speedrun founders **before
@@ -16,8 +25,10 @@ knowing which of them are genuinely early. So every EARLY alert carries a receip
 > 6,200 YC records checked · snapshot 21:18 UTC
 > *No match on exact name, shortened name within the batch*
 
-Every alert links straight to the directory search that proves it, so you can check it yourself in about ten seconds. Everything the bot rejects
-is recorded too, with a reason — see `/ledger`.
+Every alert links straight to the directory search that proves it, so you can check it
+yourself in about ten seconds. Everything the bot rejects is recorded too, with a reason:
+144 candidates, the verdict on each, in
+[`evidence/raw/ledger.json`](evidence/raw/ledger.json).
 
 
 ## Proof of Functionality
@@ -162,7 +173,7 @@ the same claim, and a reader should not have to work out which one they are read
 | Slack interactivity | **verified live** | Signed requests accepted, replays and forgeries refused, on the reference deployment. Your own install needs the one manual step in Setup |
 | Pond Protocol V1 | **deployed** | Manifest, authenticated runs and idempotency, exercised against the live URL |
 | Ghost → Confirmed lead time | **backtested** | Measured against YC's published launch times; no live confirmation has occurred yet on this deployment |
-| Lead-endpoint auth | **implemented, off** | `DASHBOARD_TOKEN` gate ships empty so the evidence stays checkable |
+| Lead-endpoint auth | **verified live** | `DASHBOARD_TOKEN` set on this deployment: dashboard, `/ledger` and timelines answer `401` without it |
 | Multi-tenancy | **not applicable** | Single-workspace personal bot, as the brief specifies |
 | Real-time delivery | **limitation** | Polling, not push. Latency is bounded by the interval |
 
@@ -327,15 +338,16 @@ The limits below are the shape of that decision, not oversights in it.
 
 ## Known limitations
 
-- **The lead endpoints ship open, and closing them is one variable.** The dashboard,
-  `/ledger` and `/signals/{id}/timeline` carry the companies themselves, so on a public
-  deployment they carry your pipeline. Setting `DASHBOARD_TOKEN` closes all three behind
-  `Authorization: Bearer …` (or `?token=…`, since these are pages a person opens in a
-  browser). It ships empty on purpose, because the evidence in this repo is only
-  checkable while a reader can open the deployment it came from — `/health` reports
-  `lead_endpoints_protected` either way. `/health` itself and the Pond endpoints are
-  never gated: the first carries counts rather than companies, and the second is how Pond
-  health-checks the agent.
+- **The lead endpoints are closed here, and open by default.** The dashboard, `/ledger`
+  and `/signals/{id}/timeline` carry the companies themselves, so on a public deployment
+  they carry your pipeline — and a monitor whose whole value is knowing first must not
+  publish what it knows. `DASHBOARD_TOKEN` is set on this deployment, so all three answer
+  `401` without `Authorization: Bearer …` (or `?token=…`, since these are pages a person
+  opens in a browser). A fresh clone ships it empty and those pages are open, which is the
+  right default for someone running it locally; `/health` reports
+  `lead_endpoints_protected` so the posture is never a guess. `/health` itself and the
+  Pond endpoints are never gated: the first carries counts rather than companies, and the
+  second is how Pond health-checks the agent.
 - **Nothing watches the watcher.** `/health` reports source health, retry state and
   snapshot age, but nothing pages anyone when the process dies. Point an uptime check at
   it if the alerts matter.
