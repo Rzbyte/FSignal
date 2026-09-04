@@ -211,8 +211,29 @@ A source needs a `name` and an async `collect()`. Nothing else changes — extra
 scoring, matching, persistence, dedup, Slack and Pond all sit downstream of that boundary.
 See `docs/ARCHITECTURE.md`.
 
+## What this is built for
+
+One person, one workspace, running continuously — which is what the brief asks for, and
+what the design is honest about being. State survives restarts, alerts survive a Slack
+outage, and a failing source degrades to a labelled fallback rather than going dark. That
+is the bar it meets.
+
+It is deliberately **not** a multi-tenant service. There is one database, one Slack
+channel, and one configuration; every caller of `list_ghosts` sees the same operator's
+signals. Serving several buyers their own private pipelines is a different architecture —
+per-tenant isolation and a scheduler that is not process-local — not a patch on this one.
+The limits below are the shape of that decision, not oversights in it.
+
 ## Known limitations
 
+- **The dashboard is unauthenticated.** `/`, `/health`, `/ledger` and the timeline
+  endpoints are open to anyone with the URL, which on a public deployment means your lead
+  list is too. Left open on purpose so the evidence in this repo can be checked against
+  the live service; close it before the deployment carries signals you rely on being alone
+  in having.
+- **Nothing watches the watcher.** `/health` reports source health, retry state and
+  snapshot age, but nothing pages anyone when the process dies. Point an uptime check at
+  it if the alerts matter.
 - **Polling, not push.** Latency is bounded by the polling interval; there is no webhook.
 - **LinkedIn is index-limited.** Discovery depends on Google having indexed the post, so
   the true lead time is worse than X's would be. Serper's free tier returns 10 results per
