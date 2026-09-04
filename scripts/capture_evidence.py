@@ -31,8 +31,8 @@ import httpx
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from app.config import settings  # noqa: E402
-from app.sources.official import YCDirectorySource  # noqa: E402
+from app.config import settings
+from app.sources.official import YCDirectorySource
 
 OUT = ROOT / "evidence" / "raw"
 

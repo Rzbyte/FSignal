@@ -26,12 +26,12 @@ os.environ["DEMO_MODE"] = "true"
 os.environ["DATABASE_PATH"] = "data/demo_ghost_radar.db"
 os.environ["STARTUP_SCAN"] = "false"
 
-from app.config import settings  # noqa: E402
-from app.db import Database  # noqa: E402
-from app.engine import RadarEngine  # noqa: E402
-from app.extract import enrich_signal  # noqa: E402
-from app.models import Company, SocialSignal  # noqa: E402
-from app.slack import SlackNotifier  # noqa: E402
+from app.config import settings
+from app.db import Database
+from app.engine import RadarEngine
+from app.extract import enrich_signal
+from app.models import Company, SocialSignal
+from app.slack import SlackNotifier
 
 FIXTURE = json.loads(
     (ROOT / "tests" / "fixtures" / "linkedin_corpus.json").read_text()

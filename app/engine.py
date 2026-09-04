@@ -5,14 +5,13 @@ keeps alerts idempotent, and allows transient Slack failures to retry safely.
 """
 
 from __future__ import annotations
-import asyncio
 
+import asyncio
 from datetime import datetime, timedelta, timezone
 
 from .config import settings
 from .intelligence import assess_signal
 from .matcher import company_key, match_official, resolve_official
-
 
 #: After this many attempts an alert is retired rather than retried forever.
 MAX_ALERT_ATTEMPTS = 5

@@ -17,7 +17,6 @@ from ..targeting import (
     x_queries,
 )
 
-
 # Sources deliberately do no filtering. Every candidate they see is handed to the
 # engine, which adjudicates it against the official snapshot and records the
 # verdict in the suppression ledger. Filtering here would throw away exactly the

@@ -1,12 +1,14 @@
 from dataclasses import replace
 from urllib.parse import unquote
 
-import pytest
 import httpx
+import pytest
+
+from app.config import settings as app_settings
 from app.sources.official import YCDirectorySource
 from app.sources.social import LinkedInSource
 from app.targeting import SocialTargets
-from app.config import settings as app_settings
+
 
 class _MockResponse:
     def __init__(self, json_data=None, text="", status_code=200):

@@ -41,14 +41,14 @@ import httpx
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from app.config import settings  # noqa: E402
-from app.db import Database, normalize_name  # noqa: E402
-from app.extract import enrich_signal  # noqa: E402
-from app.matcher import resolve_official  # noqa: E402
-from app.models import SocialSignal  # noqa: E402
-from app.sources.official import SpeedrunSource, YCDirectorySource  # noqa: E402
-from app.sources.social import _X_STATUS_URL  # noqa: E402
-from app.targeting import (  # noqa: E402
+from app.config import settings
+from app.db import Database, normalize_name
+from app.extract import enrich_signal
+from app.matcher import resolve_official
+from app.models import SocialSignal
+from app.sources.official import SpeedrunSource, YCDirectorySource
+from app.sources.social import _X_STATUS_URL
+from app.targeting import (
     SocialTargets,
     linkedin_queries,
     x_indexed_queries,

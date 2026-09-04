@@ -15,18 +15,18 @@ import pytest
 
 import app.slack as slack_module
 from app.config import settings as base_settings
-from app.slack import official_listing_moment, post_age_note
 from app.presenter import (
     company_display,
     company_site_url,
-    founder_profile_url,
-    outreach_links,
     display_evidence,
     excerpt,
     founder_display,
+    founder_profile_url,
     official_batch_label,
+    outreach_links,
     verify_url,
 )
+from app.slack import official_listing_moment, post_age_note
 
 # The real signal FSignal delivered on 2026-09-03, as persisted.
 LARK = {
@@ -367,7 +367,6 @@ def test_a_verified_domain_sits_beside_the_company_and_adds_no_button():
 
 def test_no_domain_means_no_domain_shown():
     """An unverified or absent domain is simply not displayed."""
-    from app.presenter import company_display
 
     assert company_display(LARK) == "Lark"
     assert company_display(dict(LARK, company_domain="lark.ai")) == "Lark · lark.ai"

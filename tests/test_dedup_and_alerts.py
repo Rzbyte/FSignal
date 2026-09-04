@@ -218,8 +218,8 @@ def test_receipt_names_the_corpus_and_the_moment():
 async def test_early_alert_block_kit_is_well_formed(tmp_path, monkeypatch):
     from dataclasses import replace
 
-    from app.config import settings as base
     import app.slack as slack_module
+    from app.config import settings as base
 
     monkeypatch.setattr(
         slack_module, "settings", replace(base, demo_mode=True, database_path=str(tmp_path / "d.db"))

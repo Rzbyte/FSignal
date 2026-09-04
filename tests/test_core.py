@@ -363,6 +363,7 @@ def test_pond_run_request_validates_complete_v1_envelope():
 
 def test_pond_run_request_rejects_incompatible_output_mode_and_deadline():
     from pydantic import ValidationError
+
     from app.pond import PondRunRequest
 
     bad_mode = _valid_pond_run()
@@ -384,6 +385,7 @@ def test_pond_run_request_rejects_incompatible_output_mode_and_deadline():
 
 def test_pond_run_request_rejects_attachments_when_manifest_disables_them():
     from pydantic import ValidationError
+
     from app.pond import PondRunRequest
 
     body = _valid_pond_run()

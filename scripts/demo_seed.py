@@ -10,8 +10,8 @@ os.environ["DEMO_MODE"] = "true"
 os.environ["DATABASE_PATH"] = "data/demo_ghost_radar.db"
 os.environ["STARTUP_SCAN"] = "false"
 
-from app.config import settings  # noqa: E402
-from app.db import Database  # noqa: E402
+from app.config import settings
+from app.db import Database
 
 path = Path(settings.database_path)
 if path.exists():

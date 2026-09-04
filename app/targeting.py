@@ -129,7 +129,7 @@ class SocialTargets:
     speedrun_cohorts: tuple[str, ...] = ()
 
     @classmethod
-    def from_db(cls, db) -> "SocialTargets":
+    def from_db(cls, db) -> SocialTargets:
         return cls(
             yc_batches=tuple(db.active_batches("yc_directory")),
             speedrun_cohorts=tuple(db.active_batches("speedrun")),

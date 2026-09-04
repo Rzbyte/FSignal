@@ -8,9 +8,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
-from app.db import Database  # noqa: E402
-from app.config import settings  # noqa: E402
-from app.scanner import Scanner  # noqa: E402
+from app.config import settings
+from app.db import Database
+from app.scanner import Scanner
 
 
 async def main():

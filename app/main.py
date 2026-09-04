@@ -10,8 +10,8 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, Header, Request
-from pydantic import ValidationError
 from fastapi.responses import HTMLResponse, JSONResponse
+from pydantic import ValidationError
 
 from .config import settings
 from .db import Database
@@ -28,7 +28,6 @@ from .pond import (
 )
 from .scanner import Scanner
 from .scheduler import PerSourceScheduler
-
 
 db = Database(settings.database_path)
 scanner = Scanner(db)

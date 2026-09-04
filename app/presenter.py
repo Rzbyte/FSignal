@@ -283,13 +283,13 @@ def excerpt(signal: dict, limit: int = 260) -> str:
 #: dropped -- including the raw claim string and the directory-match line, which
 #: the OFFICIAL CHECK block states far more clearly on its own.
 _EVIDENCE_RULES: tuple[tuple[int, re.Pattern, str], ...] = (
-    (1, re.compile(r"^Batch/cohort identified:", re.I), "batch"),
-    (2, re.compile(r"^Company identity extracted:", re.I), "company"),
-    (3, re.compile(r"first person", re.I), "First-person founder announcement"),
-    (3, re.compile(r"company as the subject", re.I), "Company announced its own acceptance"),
-    (3, re.compile(r"own LinkedIn page", re.I), "Posted from the company's own page"),
-    (4, re.compile(r"^Company domain resolved:\s*(.+)$", re.I), "domain"),
-    (5, re.compile(r"^Public author identity available:\s*(.+)$", re.I), "author"),
+    (1, re.compile(r"^Batch/cohort identified:", re.IGNORECASE), "batch"),
+    (2, re.compile(r"^Company identity extracted:", re.IGNORECASE), "company"),
+    (3, re.compile(r"first person", re.IGNORECASE), "First-person founder announcement"),
+    (3, re.compile(r"company as the subject", re.IGNORECASE), "Company announced its own acceptance"),
+    (3, re.compile(r"own LinkedIn page", re.IGNORECASE), "Posted from the company's own page"),
+    (4, re.compile(r"^Company domain resolved:\s*(.+)$", re.IGNORECASE), "domain"),
+    (5, re.compile(r"^Public author identity available:\s*(.+)$", re.IGNORECASE), "author"),
 )
 
 

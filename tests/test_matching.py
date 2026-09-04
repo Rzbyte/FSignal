@@ -19,7 +19,7 @@ from app.matcher import (
     normalize_batch,
     resolve_official,
 )
-from app.models import Company, SocialSignal
+from app.models import SocialSignal
 
 
 def row(id, name, batch=None, domain=None):

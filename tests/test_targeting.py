@@ -6,9 +6,9 @@ batch string keeps returning results that are all already listed. Every helper
 here exists so no batch label is ever hardcoded in a query.
 """
 
-import pytest
-
 from dataclasses import replace
+
+import pytest
 
 from app.config import settings as app_settings
 from app.db import Database

@@ -7,9 +7,9 @@ from datetime import datetime, timezone
 
 from .engine import RadarEngine
 from .slack import SlackNotifier
-from .targeting import SocialTargets
 from .sources.official import SpeedrunSource, YCDirectorySource
 from .sources.social import LinkedInSource, XSource
+from .targeting import SocialTargets
 
 
 class Scanner:
