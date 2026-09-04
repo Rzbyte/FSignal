@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-09-04T04:29:06.079736+00:00",
+  "captured_at": "2026-09-04T05:07:51.234221+00:00",
   "captured_from": "https://fsignal-production.up.railway.app/health",
   "note": "Source health and mode, the snapshot each verdict was checked against, ledger counts, and alert-delivery state.",
   "body": {
@@ -7,7 +7,7 @@
     "production_ready": true,
     "demo_mode": false,
     "lead_endpoints_protected": false,
-    "slack_interactions_configured": false,
+    "slack_interactions_configured": true,
     "snapshots": [
       {
         "source": "speedrun",
@@ -15,7 +15,7 @@
         "mode": "canonical",
         "index_used": "https://speedrun-api.a16z.com/api/companies/companies/?limit=500",
         "active_batches": "[\"SR007\", \"SR006\"]",
-        "taken_at": "2026-09-04T04:27:57.881112+00:00"
+        "taken_at": "2026-09-04T04:55:34.701109+00:00"
       },
       {
         "source": "yc_directory",
@@ -23,19 +23,19 @@
         "mode": "full",
         "index_used": "YCCompany_By_Launch_Date_production",
         "active_batches": "[\"Fall 2026\", \"Summer 2026\"]",
-        "taken_at": "2026-09-04T04:27:57.605248+00:00"
+        "taken_at": "2026-09-04T04:55:34.590147+00:00"
       }
     ],
     "ledger": {
       "verdicts": {
         "alerted": 2,
-        "already_official": 33,
+        "already_official": 34,
         "possible": 30,
         "suppressed": 78
       },
       "reasons": {
         "no_company_identity": 68,
-        "already_official": 33,
+        "already_official": 34,
         "below_confidence_threshold": 30,
         "identity_contradicts_page": 3,
         "context_demo_day:demo day": 3,
@@ -43,7 +43,7 @@
         "context_hiring:hiring for": 1,
         "context_hiring:hiring a": 1
       },
-      "evaluated": 143
+      "evaluated": 144
     },
     "polling": {
       "x_minutes": 240.0,
@@ -71,10 +71,10 @@
         "health": "healthy",
         "last_status": "ok",
         "interval_minutes": 60.0,
-        "last_run": "2026-09-04T04:27:55.827135+00:00",
-        "last_success": "2026-09-04T04:27:57.639929+00:00",
-        "next_run": "2026-09-04T05:27:57.639938+00:00",
-        "seconds_until_next": 3533,
+        "last_run": "2026-09-04T04:55:32.891578+00:00",
+        "last_success": "2026-09-04T04:55:34.624632+00:00",
+        "next_run": "2026-09-04T05:55:34.624640+00:00",
+        "seconds_until_next": 2864,
         "consecutive_failures": 0,
         "mode": "full"
       },
@@ -83,10 +83,10 @@
         "health": "healthy",
         "last_status": "ok",
         "interval_minutes": 120.0,
-        "last_run": "2026-09-04T04:27:55.865315+00:00",
-        "last_success": "2026-09-04T04:27:57.897331+00:00",
-        "next_run": "2026-09-04T06:27:57.897339+00:00",
-        "seconds_until_next": 7133,
+        "last_run": "2026-09-04T04:55:32.917690+00:00",
+        "last_success": "2026-09-04T04:55:34.717539+00:00",
+        "next_run": "2026-09-04T06:55:34.717545+00:00",
+        "seconds_until_next": 6465,
         "consecutive_failures": 0,
         "mode": "canonical"
       },
@@ -95,10 +95,10 @@
         "health": "healthy",
         "last_status": "ok",
         "interval_minutes": 240.0,
-        "last_run": "2026-09-04T04:27:55.869094+00:00",
-        "last_success": "2026-09-04T04:28:06.115067+00:00",
-        "next_run": "2026-09-04T08:28:06.115073+00:00",
-        "seconds_until_next": 14341,
+        "last_run": "2026-09-04T04:55:32.922167+00:00",
+        "last_success": "2026-09-04T04:55:43.397738+00:00",
+        "next_run": "2026-09-04T08:55:43.397746+00:00",
+        "seconds_until_next": 13673,
         "consecutive_failures": 0,
         "mode": "indexed_fallback"
       },
@@ -107,10 +107,10 @@
         "health": "healthy",
         "last_status": "ok",
         "interval_minutes": 240.0,
-        "last_run": "2026-09-04T04:27:55.880336+00:00",
-        "last_success": "2026-09-04T04:28:04.426720+00:00",
-        "next_run": "2026-09-04T08:28:04.426725+00:00",
-        "seconds_until_next": 14339,
+        "last_run": "2026-09-04T04:55:32.929966+00:00",
+        "last_success": "2026-09-04T04:55:39.925188+00:00",
+        "next_run": "2026-09-04T08:55:39.925194+00:00",
+        "seconds_until_next": 13670,
         "consecutive_failures": 0,
         "mode": null
       },
@@ -119,10 +119,10 @@
         "health": "healthy",
         "last_status": null,
         "interval_minutes": 30.0,
-        "last_run": "2026-09-04T04:27:55.888878+00:00",
-        "last_success": "2026-09-04T04:27:56.039881+00:00",
-        "next_run": "2026-09-04T04:57:56.039892+00:00",
-        "seconds_until_next": 1731,
+        "last_run": "2026-09-04T04:55:32.934622+00:00",
+        "last_success": "2026-09-04T04:55:33.131708+00:00",
+        "next_run": "2026-09-04T05:25:33.131718+00:00",
+        "seconds_until_next": 1063,
         "consecutive_failures": 0,
         "mode": null
       }

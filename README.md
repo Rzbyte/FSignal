@@ -24,14 +24,25 @@ is recorded too, with a reason — see `/ledger`.
 
 FSignal successfully intercepts real Ghost Signals before they are listed in the official directory.
 
-![Slack Alert Evidence](docs/proof/slack_evidence_1.png)
-*A real-time Slack alert from FSignal catching an early founder announcement.*
+![A delivered EARLY alert](docs/proof/slack_evidence_3.png)
+*Delivered to a real workspace: who, from where, in which batch, and the founder's own
+words. `Source: X (indexed search)` names the path the signal actually came from — an
+indexed result is never dressed up as a native one.*
 
-![Slack Alert Details](docs/proof/slack_evidence_2.png)
-*FSignal details the pre-directory timing advantage and provides direct evidence links.*
+![The receipt and the buttons](docs/proof/slack_evidence_4.png)
+*The receipt: **6,200 YC records checked**, snapshot timestamped, and the match rules that
+found nothing. The two buttons open the founder's post and the directory search that backs
+the claim.*
 
-![YC Directory Evidence](docs/proof/yc_directory_proof.png)
-*Simultaneous search on the official YC Directory confirms the company is not yet listed, validating the Early Signal detection.*
+![The directory search that backs it](docs/proof/yc_directory_proof.png)
+*The same search, run against `ycombinator.com/companies` filtered to Fall 2026: **"Sorry,
+no matching companies found"**. The alert's claim, checked independently, in about ten
+seconds.*
+
+> Earlier captures of these alerts are in
+> [`docs/proof/archive/`](docs/proof/archive/), unedited, with a note on what each one
+> shows that has since been fixed. Deleting the *before* is how a fix stops being
+> checkable.
 
 ## How it works
 

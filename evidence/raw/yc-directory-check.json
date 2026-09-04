@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-09-04T04:29:14.347624+00:00",
+  "captured_at": "2026-09-04T05:07:59.300548+00:00",
   "captured_from": "https://www.ycombinator.com/companies (crawled directly)",
   "note": "Crawled independently of the deployment. For each alerted company: whether it is listed in the batch it claimed -- which is what the alert actually asserts -- the full roster of that batch so the absence is checkable by eye, and separately any same-name company in a different batch, which does not contradict the claim.",
   "body": {

@@ -138,7 +138,7 @@ filed as `possible` because their confidence fell below the alert threshold. All
 
 The claim the whole product rests on is proven in
 [`../docs/proof/`](../docs/proof/): a real EARLY alert in Slack
-(`slack_evidence_1.png`, `slack_evidence_2.png`) beside the YC directory
+(`slack_evidence_3.png`, `slack_evidence_4.png`) beside the YC directory
 search that returns nothing for that company in that batch
 (`yc_directory_proof.png`).
 

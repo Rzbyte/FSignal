@@ -316,7 +316,7 @@ async def main() -> int:
     # somebody to redo work that is done.
     shots = (
         ("01-slack-early.png", "the delivered EARLY alert in Slack",
-         ("docs/proof/slack_evidence_1.png", "docs/proof/slack_evidence_2.png")),
+         ("docs/proof/slack_evidence_3.png", "docs/proof/slack_evidence_4.png")),
         ("02-directory-absent.png", "ycombinator.com/companies searched for it, empty",
          ("docs/proof/yc_directory_proof.png",)),
         ("03-ledger.png", f"{base}/ledger", ()),
