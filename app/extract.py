@@ -92,11 +92,33 @@ _PROGRAM_HANDLES = frozenset(
 #: of the company's name, and it reached the alert as `1/ Adalat AI`.
 _THREAD_MARKER = re.compile(r"^\s*\(?\d{1,2}\s*[/)\.]\s*(?:\d{1,2}\s*[)\.]?)?\s*")
 
-#: A run of non-ASCII letters immediately followed by an ASCII one, which is a
-#: localised verb the index put in front of the name ("查看Adalat AI"), never the
-#: name itself. A company actually written in another script keeps its name,
-#: because nothing Latin follows for the lookahead to find.
-_LOCALE_VERB_PREFIX = re.compile(r"^[^\W\dA-Za-z_]+(?=[A-Za-z])", re.UNICODE)
+#: Index furniture in another script, wrapped around a Latin-script name: the
+#: localised verb in front ("查看Adalat AI", "ดู Adalat AI") and the possessive or
+#: particle behind it ("Adalat AI的动态", "Adalat AI을"). Both require a Latin
+#: letter on the inside, so a company genuinely written in another script keeps
+#: its whole name -- there is nothing Latin for the lookaround to anchor to.
+#: Named explicitly rather than as "not Latin", because Latin-Extended letters
+#: are ordinary in company names -- Æther and Ñu must survive, and a rule phrased
+#: as "non-ASCII" eats them. Ranges are whole-script and include combining marks,
+#: without which Thai breaks mid-word: the vowel sign in ดู is not a \w letter,
+#: so a class built from \w stops at it and the affix is never matched.
+_NON_LATIN_SCRIPTS = (
+    "Ѐ-ӿ"   # Cyrillic
+    "֐-׿"   # Hebrew
+    "؀-ۿ"   # Arabic
+    "ऀ-ॿ"   # Devanagari
+    "฀-๿"   # Thai
+    "ᄀ-ᇿ"   # Hangul Jamo
+    "　-ヿ"   # CJK punctuation, Hiragana, Katakana
+    "㐀-䶿"   # CJK Extension A
+    "一-鿿"   # CJK Unified Ideographs
+    "가-힯"   # Hangul Syllables
+    "＀-￯"   # Halfwidth and Fullwidth Forms
+)
+_LOCALE_AFFIX = (
+    re.compile(rf"^[{_NON_LATIN_SCRIPTS}]+\s*(?=[A-Za-z])"),
+    re.compile(rf"(?<=[A-Za-z])\s*[{_NON_LATIN_SCRIPTS}]+$"),
+)
 
 #: Longest plausible company name, in tokens.
 _MAX_NAME_TOKENS = 5
@@ -163,13 +185,14 @@ def clean_company_name(candidate: str) -> str:
     # A thread counter is not part of anybody's name. "1/ Adalat AI is now
     # backed by Y Combinator" reached the alert as the company `1/ Adalat AI`.
     name = _THREAD_MARKER.sub("", name)
-    # The provider serves whatever locale it ranked the result in, and the verb
-    # it prefixes is not part of the company. A live run returned the LinkedIn
-    # title `\u67e5\u770bAdalat AI` -- "view Adalat AI" -- and alerted on it as a company
-    # of that name, which is a second identity for a company already found and
-    # so a second alert for it. The X title regex already handles the same thing
-    # for its own locales; this is the equivalent for a bare title.
-    name = _LOCALE_VERB_PREFIX.sub("", name)
+    # The provider serves whatever locale it ranked the result in, and the words
+    # it wraps around the name are not part of the company. A live run returned
+    # the LinkedIn title `\u67e5\u770bAdalat AI` -- "view Adalat AI" -- and alerted on it
+    # as a company of that name, which is a second identity for a company already
+    # found and so a second alert for it. The X title regex already handles the
+    # same thing for its own locales; this is the equivalent for a bare title.
+    for affix in _LOCALE_AFFIX:
+        name = affix.sub("", name)
     return name.strip(_EDGES)
 
 
@@ -417,14 +440,18 @@ def _claim_text(low: str) -> str:
     return low
 
 
-_LINKEDIN_COMPANY_URL = re.compile(
-    r"linkedin\.com/company/([A-Za-z0-9\-_%.]+)", re.IGNORECASE
+#: LinkedIn's entity pages. Each is a page *for* one named thing and carries
+#: rails listing others, which is where a name unrelated to the page comes from.
+#: `/posts/`, `/pulse/` and `/in/` are deliberately absent: those carry somebody
+#: writing, and a person may legitimately write about a company that is not them.
+_LINKEDIN_ENTITY_URL = re.compile(
+    r"linkedin\.com/(?:company|school|showcase)/([A-Za-z0-9\-_%.]+)", re.IGNORECASE
 )
 
 
 def _linkedin_company_slug(url: str | None) -> str | None:
-    """The company a LinkedIn company-page URL is the page *for*."""
-    match = _LINKEDIN_COMPANY_URL.search(url or "")
+    """The entity a LinkedIn entity-page URL is the page *for*."""
+    match = _LINKEDIN_ENTITY_URL.search(url or "")
     return match.group(1) if match else None
 
 

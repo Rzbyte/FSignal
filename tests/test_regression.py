@@ -358,3 +358,48 @@ async def test_a_companys_own_page_still_qualifies():
     assert signal.company_name == "Adalat AI"
     assert signal.extraction.reason != "identity_contradicts_page"
     assert signal.extraction.is_usable
+
+
+@pytest.mark.parametrize(
+    "title, expected",
+    [
+        ("查看Adalat AI", "Adalat AI"),            # Chinese "view", no space
+        ("ดู Adalat AI", "Adalat AI"),             # Thai, and its vowel sign is not a \w letter
+        ("Смотреть Adalat AI", "Adalat AI"),       # Cyrillic
+        ("عرض Adalat AI", "Adalat AI"),            # Arabic
+        ("Adalat AI的动态", "Adalat AI"),           # Chinese possessive, trailing
+        ("Adalat AI을", "Adalat AI"),              # Korean particle, trailing
+        # Names that must survive: Latin-Extended is ordinary in company names,
+        # and a company written wholly in another script keeps all of it.
+        ("Æther", "Æther"),
+        ("Ñu Labs", "Ñu Labs"),
+        ("Zürich AI", "Zürich AI"),
+        ("字节跳动", "字节跳动"),
+    ],
+)
+def test_locale_furniture_is_stripped_but_real_names_are_not(title, expected):
+    from app.extract import clean_company_name
+
+    assert clean_company_name(title) == expected
+
+
+@pytest.mark.parametrize(
+    "url, rejected",
+    [
+        # Entity pages: one page for one named thing, with rails listing others.
+        ("https://cn.linkedin.com/company/mozilla-corporation", True),
+        ("https://www.linkedin.com/school/stanford-university", True),
+        ("https://www.linkedin.com/showcase/microsoft-azure", True),
+        # The page really is the company's, so the name agrees with it.
+        ("https://www.linkedin.com/company/adalat-ai", False),
+        # Somebody writing. A person may legitimately post about a company that
+        # is not them, so the page's own slug says nothing about the claim.
+        ("https://www.linkedin.com/in/some-person", False),
+        ("https://www.linkedin.com/posts/x-activity-123", False),
+    ],
+)
+def test_only_entity_pages_must_agree_with_their_own_slug(url, rejected):
+    from app.extract import extract
+
+    result = extract("Adalat AI (YC F26) is backed by Y Combinator", url)
+    assert (result.reason == "identity_contradicts_page") is rejected
