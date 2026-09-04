@@ -310,3 +310,24 @@ async def test_reconciliation_retires_a_ghost_the_current_rules_would_reject(tmp
     remaining = database.list_ghosts(50)
     assert len(remaining) == 1, "the rejected identity should no longer be a live finding"
     assert remaining[0]["external_id"] == "keep-1", "the genuine ghost must survive"
+
+
+def test_a_delivered_alert_is_never_sent_twice_by_a_later_flush(tmp_path):
+    """Flushing is called from several source tasks and after every scan.
+
+    Delivery is only idempotent because a sent row leaves the pending queue; if
+    it did not, the ordinary rhythm of the scheduler would redeliver every alert
+    on every pass.
+    """
+    database, recorder, engine = radar(tmp_path, "reflush.db")
+
+    asyncio.run(engine.ingest_social([signal("x", "once", ANNOUNCEMENT)]))
+    first = asyncio.run(engine.flush_alerts())
+    assert first["sent"] == 1
+
+    for _ in range(5):
+        again = asyncio.run(engine.flush_alerts())
+        assert again["sent"] == 0
+
+    assert len(recorder.ghosts) == 1, "the same alert was delivered more than once"
+    assert database.outbox_stats() == {"pending": 0, "sent": 1, "dead": 0}

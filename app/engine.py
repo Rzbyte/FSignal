@@ -7,12 +7,15 @@ keeps alerts idempotent, and allows transient Slack failures to retry safely.
 from __future__ import annotations
 
 import asyncio
+import logging
 from datetime import datetime, timedelta, timezone
 
 from .config import settings
 from .extract import extract
 from .intelligence import assess_signal
 from .matcher import company_key, match_official, resolve_official
+
+logger = logging.getLogger(__name__)
 
 #: After this many attempts an alert is retired rather than retried forever.
 MAX_ALERT_ATTEMPTS = 5
@@ -55,14 +58,34 @@ class RadarEngine:
         # Serialise concurrent flush calls from multiple source tasks.
         self._flush_lock = asyncio.Lock()
 
-    async def ingest_official(self, companies, alert_new: bool = False) -> int:
+    async def ingest_official(
+        self, companies, alert_new: bool = False, complete_snapshot: bool = False
+    ) -> int:
         """Persist an official snapshot and enqueue only incremental additions.
 
         The whole snapshot is written in one transaction: a full YC crawl carries
         thousands of rows, and a connection per row makes the baseline scan
         unusably slow.
+
+        `complete_snapshot` says the crawl covered the entire directory, which is
+        the only condition under which absence means anything. A recent-window
+        query or a fallback scrape sees a slice by design; treating what it did
+        not return as withdrawn would retire most of the corpus. The caller
+        establishes this from the collection mode, never from the row count.
         """
         upserts = self.db.upsert_companies(companies)
+
+        if complete_snapshot and companies:
+            # Absence is only evidence once the whole directory has been read.
+            retired = self.db.mark_absent_as_stale(
+                companies[0].source, [c.external_id for c in companies]
+            )
+            if retired:
+                logger.info(
+                    "%s: %d companies no longer listed, retired from matching",
+                    companies[0].source,
+                    retired,
+                )
         additions = [
             (company, official_id)
             for company, (official_id, is_new) in zip(companies, upserts)

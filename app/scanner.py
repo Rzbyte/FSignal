@@ -11,6 +11,12 @@ from .sources.official import SpeedrunSource, YCDirectorySource
 from .sources.social import LinkedInSource, XSource
 from .targeting import SocialTargets
 
+#: Collection modes that read a directory in full, so that what they did not
+#: return really is not listed. `hot` is YC's recent window and `fallback` is
+#: Speedrun's scrape: both see a slice on purpose, and pruning against either
+#: would retire almost everything.
+COMPLETE_SNAPSHOT_MODES = frozenset({"full", "canonical"})
+
 
 class Scanner:
     def __init__(self, db):
@@ -95,7 +101,13 @@ class Scanner:
                 # official companies discovered after that initial snapshot.
                 baseline = not self.db.has_official_source(source.name)
                 count = await self.engine.ingest_official(
-                    items, alert_new=not baseline
+                    items,
+                    alert_new=not baseline,
+                    # Only a mode that reads the whole directory licenses
+                    # treating absence as withdrawal. YC's recent window and
+                    # Speedrun's fallback scrape each see a slice by design.
+                    complete_snapshot=getattr(source, "last_mode", None)
+                    in COMPLETE_SNAPSHOT_MODES,
                 )
                 # Every EARLY verdict cites the corpus it was checked against, so
                 # record how large that corpus is and when it was taken.

@@ -229,17 +229,30 @@ python scripts/send_test_alert.py   # one real Slack message
 Then open `/health` (source health, snapshot sizes, ledger counts), `/ledger` (every
 candidate and its verdict), and `/signals/{id}/timeline` (one signal's full history).
 
-### Offline rehearsal
+### Offline replay — re-derive the numbers yourself
 
 ```bash
-python scripts/demo_seed.py
-python scripts/replay_corpus.py
-python scripts/demo_server.py
+python scripts/replay_corpus.py            # or --json for a machine-readable summary
 ```
 
-This replays the real captured corpus through the unmodified production pipeline — no
-hand-fed identities and no invented timestamps. It is a rehearsal, not proof of live
-delivery; for that, see `evidence/`.
+One command, no credentials, no network, no API spend. It resets its own database and
+replays the 139 committed candidates through the *unmodified production pipeline* —
+the same extraction, scoring, matching, dedup and alert code the deployment runs. Nothing
+is hand-fed and no timestamp is invented.
+
+It prints what the corpus produced and then runs the identical batch a second time, which
+must add nothing: that is the dedup claim demonstrated rather than asserted.
+
+```
+139 candidates evaluated  →  106 suppressed · 30 already listed · 3 alerted
+second pass: 0 new signals, 0 new alerts
+```
+
+`tests/test_offline_replay.py` runs it in CI with the socket layer removed underneath, so
+"offline" is enforced rather than promised. Add `python scripts/demo_server.py` afterwards
+to browse the result at `/ledger`.
+
+This is a rehearsal, not proof of live delivery; for that, see [`evidence/`](evidence/).
 
 ## Adding a source
 

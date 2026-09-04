@@ -32,6 +32,10 @@ CREATE TABLE IF NOT EXISTS official_companies(
     -- When the directory says it published this company, when it says so. Our
     -- own first_seen_at only records when we looked.
     listed_at TEXT,
+    -- Set when a completed full snapshot no longer contained this row, cleared
+    -- if it comes back. Stale rows stop being matched against, so a company the
+    -- directory has withdrawn cannot go on suppressing an EARLY signal forever.
+    stale_at TEXT,
     raw_json TEXT,
     UNIQUE(source, external_id)
 );
@@ -210,7 +214,13 @@ class Database:
             self._add_missing_columns(connection, "alert_outbox", {"dead_at": "TEXT"})
             self._add_missing_columns(connection, "source_runs", {"mode": "TEXT"})
             self._add_missing_columns(
-                connection, "official_companies", {"listed_at": "TEXT"}
+                connection,
+                "official_companies",
+                # When a completed full snapshot stopped containing this row.
+                # NULL means the directory still lists it. Rows are marked, never
+                # deleted: a confirmed signal points at one, and the timeline that
+                # proves a lead time has to keep resolving.
+                {"listed_at": "TEXT", "stale_at": "TEXT"},
             )
             self._add_missing_columns(
                 connection, "candidate_ledger", {"signal_id": "INTEGER"}
@@ -231,47 +241,16 @@ class Database:
                 connection.execute(f"ALTER TABLE {table} ADD COLUMN {column} {sql_type}")
 
     def upsert_company(self, company):
-        now = datetime.now(timezone.utc).isoformat()
-        with self.connect() as connection:
-            existed = connection.execute(
-                "SELECT id FROM official_companies WHERE source=? AND external_id=?",
-                (company.source, company.external_id),
-            ).fetchone()
-            connection.execute(
-                """
-                INSERT INTO official_companies(
-                    source, external_id, name, normalized_name, batch, domain,
-                    url, description, first_seen_at, last_seen_at, raw_json
-                ) VALUES(?,?,?,?,?,?,?,?,?,?,?)
-                ON CONFLICT(source,external_id) DO UPDATE SET
-                    name=excluded.name,
-                    normalized_name=excluded.normalized_name,
-                    batch=excluded.batch,
-                    domain=excluded.domain,
-                    url=excluded.url,
-                    description=excluded.description,
-                    last_seen_at=excluded.last_seen_at,
-                    raw_json=excluded.raw_json
-                """,
-                (
-                    company.source,
-                    company.external_id,
-                    company.name,
-                    normalize_name(company.name),
-                    company.batch,
-                    company.domain,
-                    company.url,
-                    company.description,
-                    now,
-                    now,
-                    json.dumps(company.raw),
-                ),
-            )
-            row = connection.execute(
-                "SELECT id FROM official_companies WHERE source=? AND external_id=?",
-                (company.source, company.external_id),
-            ).fetchone()
-            return row["id"], existed is None
+        """One company, by exactly the path a whole snapshot takes.
+
+        This used to carry its own INSERT, which drifted: the bulk path learned
+        to persist `listed_at` -- the directory's own publication time, and the
+        thing every lead-time figure is measured against -- and this one never
+        did. A row written here scored its lead time against our polling clock
+        instead. Two statements that must agree forever will not, so there is
+        now one.
+        """
+        return self.upsert_companies([company])[0]
 
     def upsert_companies(self, companies) -> list[tuple[int, bool]]:
         """Upsert a whole directory snapshot inside one transaction.
@@ -306,7 +285,11 @@ class Database:
                         description=excluded.description,
                         last_seen_at=excluded.last_seen_at,
                         listed_at=excluded.listed_at,
-                        raw_json=excluded.raw_json
+                        raw_json=excluded.raw_json,
+                        -- Present in this snapshot, so it is listed again. A
+                        -- company that was withdrawn and re-added must not stay
+                        -- invisible to matching.
+                        stale_at=NULL
                     """,
                     (
                         company.source,
@@ -334,14 +317,67 @@ class Database:
                     results.append((company_id, False))
         return results
 
+    #: A completed crawl that returned less of the directory than this fraction
+    #: of what we already hold is treated as incomplete, however cleanly it
+    #: finished. Pruning against it would retire thousands of live companies on
+    #: the strength of one bad response, and re-listing them is not something a
+    #: later scan can do for rows that were still correct.
+    PRUNE_MIN_RETAINED_FRACTION = 0.5
+
+    def mark_absent_as_stale(self, source: str, seen_external_ids) -> int:
+        """Retire rows this source no longer lists. Only for a *complete* snapshot.
+
+        Callers must have established that the crawl covered the whole directory
+        -- a full facet-sliced YC crawl, or Speedrun's canonical API. A recent
+        window or a fallback scrape sees a slice by design, and pruning against
+        one would retire everything it did not happen to look at.
+
+        Rows are marked, not deleted. A confirmed signal points at one, and the
+        timeline that proves a lead time has to keep resolving.
+        """
+        seen = set(seen_external_ids)
+        if not seen:
+            # A successful fetch that yielded nothing is a broken fetch that
+            # forgot to raise. Never let it empty the corpus.
+            return 0
+
+        with self.connect() as connection:
+            live = connection.execute(
+                "SELECT COUNT(*) FROM official_companies "
+                "WHERE source=? AND stale_at IS NULL",
+                (source,),
+            ).fetchone()[0]
+            if live and len(seen) < live * self.PRUNE_MIN_RETAINED_FRACTION:
+                return 0
+
+            now = datetime.now(timezone.utc).isoformat()
+            placeholders = ",".join("?" * len(seen))
+            cursor = connection.execute(
+                f"""
+                UPDATE official_companies SET stale_at=?
+                 WHERE source=? AND stale_at IS NULL
+                   AND external_id NOT IN ({placeholders})
+                """,
+                (now, source, *seen),
+            )
+            return cursor.rowcount
+
     def count_official(self, source: str | None = None) -> int:
+        """How many companies the directories currently list.
+
+        Excludes retired rows, because this number is the corpus every EARLY
+        verdict cites -- "6,200 records checked". Counting rows the directory has
+        withdrawn would overstate what was actually searched.
+        """
         with self.connect() as connection:
             if source is None:
                 return connection.execute(
-                    "SELECT COUNT(*) FROM official_companies"
+                    "SELECT COUNT(*) FROM official_companies WHERE stale_at IS NULL"
                 ).fetchone()[0]
             return connection.execute(
-                "SELECT COUNT(*) FROM official_companies WHERE source=?", (source,)
+                "SELECT COUNT(*) FROM official_companies "
+                "WHERE source=? AND stale_at IS NULL",
+                (source,),
             ).fetchone()[0]
 
     def record_snapshot(
@@ -401,6 +437,12 @@ class Database:
             ]
 
     def has_official_source(self, source: str) -> bool:
+        """Whether this source has ever produced a snapshot.
+
+        Counts retired rows too: this answers "have we ever seen this source",
+        which decides whether a scan is the baseline one. A directory that has
+        churned every row it ever had is still not new.
+        """
         with self.connect() as connection:
             return connection.execute(
                 "SELECT COUNT(*) FROM official_companies WHERE source=?", (source,)
@@ -464,8 +506,24 @@ class Database:
             return cursor.lastrowid, True
 
     def list_official(self) -> list[dict]:
+        """The corpus an EARLY verdict is adjudicated against.
+
+        Retired rows are excluded on purpose. A company the directory has
+        withdrawn would otherwise go on matching forever, and every match reads
+        downstream as "already listed, therefore not early" -- one stale row
+        silently suppressing a real signal for good.
+
+        `get_official` is deliberately not filtered: a confirmed signal points at
+        a row by id, and its timeline has to keep resolving whatever the
+        directory did afterwards.
+        """
         with self.connect() as connection:
-            return [dict(row) for row in connection.execute("SELECT * FROM official_companies")]
+            return [
+                dict(row)
+                for row in connection.execute(
+                    "SELECT * FROM official_companies WHERE stale_at IS NULL"
+                )
+            ]
 
     def list_ghosts(self, limit: int = 50) -> list[dict]:
         with self.connect() as connection:
