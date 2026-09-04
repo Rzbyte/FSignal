@@ -2,6 +2,11 @@
 
 ## `raw/` — captured, not typed
 
+Everything directly in `raw/` describes the running deployment and can be read against
+it. Captures that no longer do are in [`raw/archive/`](raw/archive/), unedited, with a
+note saying what each one superseded — history is kept, it just stops competing with the
+current state for the reader's attention.
+
 Written by `python scripts/capture_evidence.py`. Each file carries the URL it came from and
 the moment it was taken, so any claim below can be re-derived rather than trusted. See
 [`../docs/EVIDENCE.md`](../docs/EVIDENCE.md) for what each file establishes.
@@ -16,11 +21,13 @@ That second call is the one that matters. Pond retries, and an agent that re-exe
 a retry would double-count its own work — so the run store is not a nicety, it is the
 reason the integration is safe to health-check.
 
-## `live-run.json`
+## `raw/archive/live-run.json`
 
-A real production scan: the official snapshot sizes each verdict was checked against, the
-full suppression ledger, source health, and every EARLY signal with its persisted
-official-check receipt and timeline.
+A real production scan from 2026-09-03, kept for what it shows about the X source before
+the indexed fallback existed: `x: billing_blocked`, the state that made the fallback
+necessary. It is archived rather than current precisely because of that field — the
+running service reports `x: healthy` on `mode: indexed_fallback`, and two files answering
+the same question differently is worse than one file with a date on it.
 
 ## The claims, and how to check them yourself
 
@@ -28,8 +35,14 @@ official-check receipt and timeline.
 
 On 2026-09-03 the X source produced its first live EARLY alert, first from a local run and
 then — once the new build reached Railway — from the deployment itself. The artifacts in
-`raw/` are the deployment's: `health.json` shows `production_ready: true` with X reporting
-`mode: "indexed_fallback"`, and `alerts.sent: 2`.
+`raw/` are the deployment's: `health.json` shows `production_ready: true`, with X reporting
+`mode: "indexed_fallback"` because the account behind this deployment has no paid X plan.
+
+The alert counter in `health.json` moves, so read it there rather than here. It counts
+every message delivered, which includes corroboration replies for a company already
+alerted and one alert since suppressed as a false positive — the ledger records that
+verdict rather than hiding it. Open ghosts, which is the number of *companies* currently
+found and unlisted, is the figure the dashboard leads with.
 
 The founder account posted:
 
