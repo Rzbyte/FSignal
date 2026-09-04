@@ -284,7 +284,7 @@ a:hover {{ color: #93c5fd; text-decoration: underline; }}
 
     <div class="section-header">
         <h2><i class="ph ph-magnifying-glass"></i> Open Early Signals</h2>
-        <span class="action-link">Avg. lead time: {stats['average_early_lead_hours'] if stats['average_early_lead_hours'] is not None else '—'}h</span>
+        <span class="action-link" title="Lead time is calculated once a ghost signal is officially confirmed by the directory.">Avg. lead time: {f"{stats['average_early_lead_hours']}h" if stats['average_early_lead_hours'] is not None else 'Pending Confirmation'}</span>
     </div>
     <div class="table-container">
         <table>
