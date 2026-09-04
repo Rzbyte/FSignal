@@ -46,6 +46,18 @@ X / LinkedIn ──→ identity gate ──→ scoring ──→ official check 
                             company later appears officially → CONFIRMED + lead time
 ```
 
+### The four sources
+
+Each is a separate adapter on its own schedule, and each reports its own health and
+retrieval path at [`/health`](https://fsignal-production.up.railway.app/health).
+
+| Source | Implemented in | How it is read | Every |
+|---|---|---|---|
+| YC Directory | `app/sources/official.py` · `YCDirectorySource` | The public Algolia index the site's own JavaScript queries | 60 min |
+| Speedrun | `app/sources/official.py` · `SpeedrunSource` | a16z's first-party API, the one `speedrun.a16z.com` calls itself | 120 min |
+| X | `app/sources/social.py` · `XSource` | X recent search where a paid plan exists, otherwise publicly indexed X URLs — labelled either way | 240 min |
+| LinkedIn | `app/sources/social.py` · `LinkedInSource` | Publicly indexed post URLs | 240 min |
+
 **Official snapshot.** `ycombinator.com/companies` is a client-side Algolia application;
 FSignal uses the same public search key the page hands its own JavaScript. A single
 Algolia query caps at 1,000 hits, so a full crawl enumerates the `batch` facet and pulls
@@ -209,7 +221,18 @@ delivery; for that, see `evidence/`.
 
 A source needs a `name` and an async `collect()`. Nothing else changes — extraction,
 scoring, matching, persistence, dedup, Slack and Pond all sit downstream of that boundary.
-See `docs/ARCHITECTURE.md`.
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
+## Documentation
+
+| | |
+|---|---|
+| [`docs/INSTALL.md`](docs/INSTALL.md) | The click-by-click setup, for someone who has never used Python |
+| [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) | How the pipeline fits together, and where a new source plugs in |
+| [`docs/POND.md`](docs/POND.md) | The Pond Protocol V1 endpoints, envelope validation and idempotency |
+| [`docs/ROADMAP.md`](docs/ROADMAP.md) | What it would take to get to real time, including the tier that is impossible |
+| [`docs/EVIDENCE.md`](docs/EVIDENCE.md) | What each captured artifact establishes, and how to re-derive it |
+| [`evidence/`](evidence/) | The artifacts themselves, each carrying the URL and moment it came from |
 
 ## What this is built for
 
